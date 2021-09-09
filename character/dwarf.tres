@@ -1,7 +1,10 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://character/character_template.gd" type="Script" id=1]
 [ext_resource path="res://resources/names/dwarf_names.tres" type="Resource" id=2]
+[ext_resource path="res://character/traits/eyes/alleles/green_eyes.tres" type="Resource" id=3]
+[ext_resource path="res://character/traits/eyes/alleles/brown_eyes.tres" type="Resource" id=4]
+[ext_resource path="res://character/traits/eyes/alleles/blue_eyes.tres" type="Resource" id=5]
 
 [resource]
 script = ExtResource( 1 )
@@ -11,10 +14,7 @@ lifespan = [ 100, 150 ]
 adult_age = 16
 weight_range = [ 119, 226 ]
 height_range = [ 46, 56 ]
-eye_color = {
-"blue": 0,
-"brown": 1,
-"green": 0,
-"hazel": 1
-}
+eye_color_alleles = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ]
+hair_color_alleles = [  ]
+hair_type_alleles = [  ]
 names = ExtResource( 2 )

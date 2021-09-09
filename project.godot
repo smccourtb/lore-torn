@@ -14,13 +14,18 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://character/traits/eyes/alleles/allele.gd"
 }, {
+"base": "Character",
+"class": "Ancestor",
+"language": "GDScript",
+"path": "res://character/ancestor.gd"
+}, {
 "base": "Resource",
 "class": "Character",
 "language": "GDScript",
 "path": "res://character/character_generator.gd"
 }, {
 "base": "Resource",
-"class": "Character_Template",
+"class": "CharacterTemplate",
 "language": "GDScript",
 "path": "res://character/character_template.gd"
 }, {
@@ -35,7 +40,7 @@ _global_script_classes=[ {
 "path": "res://character/traits/gene_factory.gd"
 }, {
 "base": "Resource",
-"class": "RandomName",
+"class": "Name",
 "language": "GDScript",
 "path": "res://resources/names/name_generator.gd"
 }, {
@@ -46,11 +51,12 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Allele": "",
+"Ancestor": "",
 "Character": "",
-"Character_Template": "",
+"CharacterTemplate": "",
 "Gene": "",
 "GeneFactory": "",
-"RandomName": "",
+"Name": "",
 "Trait": ""
 }
 

@@ -1,20 +1,26 @@
 extends Resource
-class_name Character_Template
+class_name CharacterTemplate
 
 # This resource is used as the framework to build a character.
-# A semi-procedural character based on the given data here.
-# Build-a character
-# OR
-# Bare bones of what could be based on race
+# Bare bones of what a character could be based on race
 # This isnt actually building a character. This is the general base to start with
+
+# USED TO BUILD A CHARACTER WITH NO ANCESTORS
+
+# constants about the race 
 export var race: String
 export var genders: bool  # false: no gender // true: males & females
 export var lifespan: = []
 export var adult_age: int
 export var weight_range = []
 export var height_range = []
+
 ## PHYSICAL TRAITS ## 
-export var eye_color = {}
+# store all possible alleles in here?
+# then just have a bunch of these?
+export var eye_color_alleles: Array
+export var hair_color_alleles: Array
+export var hair_type_alleles: Array
 
 # Name Group
 export var names : Resource

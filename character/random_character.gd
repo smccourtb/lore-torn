@@ -10,7 +10,7 @@ var eye_genes = []
 
 func generate_random_npc() -> Character:
 	npc_choices.shuffle()
-	var character = Character.new(load(npc_choices[0]))
+	var character = Ancestor.new(load(npc_choices[0]))
 	name = character.name
 	return character
 
