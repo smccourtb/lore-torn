@@ -14,9 +14,11 @@ var race: String
 var gender: String
 var age: int
 var name: String
-var height: int
+var height: int # might rename to current height
 var weight: int
-var eye_color: Gene
+var eye_color_gene: Gene
+var height_gene: Gene
+var max_possible_height: int #inches
 
 func character_data() -> Array:
 	var a = {"race": self.race, 
@@ -30,27 +32,6 @@ func character_data() -> Array:
 	var b = get_property_list()
 	return [a,b]
 
-func determine_race():
-	pass
-	
-func determine_gender():
-	pass
-
-func determine_name():
-	pass
-
-func determine_age():
-	pass
-
-func determine_weight():
-	pass
-
-func determine_height():
-	pass
-	
-func determine_eye_color():
-	pass
-
 func get_description() -> String:
 	return ("""Here is a %s %s! %s goes by the name of %s. 
 	%s is %s'%s" tall, weighs %slbs, and %s is %s years old.
@@ -58,7 +39,7 @@ func get_description() -> String:
 		% [self.gender, self.race, determine_pronoun().subject.capitalize(), self.name, 
 		determine_pronoun().subject.capitalize(), floor(self.height / 12), self.height % 12, 
 		self.weight, determine_pronoun().subject, self.age, determine_pronoun().possesive.capitalize(),
-		self.eye_color.get_phenotype()])
+		self.eye_color_gene.get_phenotype()])
 
 func determine_pronoun():
 	if self.gender == "male":

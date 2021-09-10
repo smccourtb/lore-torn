@@ -16,8 +16,9 @@ func _init(parent_data: Dictionary):
 	self.name = determine_name()
 	self.age = determine_age()
 	self.weight = determine_weight()
+	self.height_gene = determine_height_gene()
 	self.height = determine_height()
-	self.eye_color = determine_eye_color()
+	self.eye_color_gene = determine_eye_color_gene()
 
 func determine_race():
 	# we just need to pull from one parent, doesn't matter which. cross breeding not implemented.
@@ -58,8 +59,8 @@ func determine_weight() -> int:
 func determine_height() -> int:
 	return 12
 	
-func determine_eye_color() -> Gene:
-	return punnet_square(mother_data.eye_color, father_data.eye_color)
+func determine_eye_color_gene() -> Gene:
+	return punnet_square(mother_data.eye_color_gene, father_data.eye_color_gene)
 
 func punnet_square(mother: Gene, father: Gene) -> Gene:
 	var A = mother.genotype[0]
@@ -78,3 +79,7 @@ func check_compatibility():
 	assert(father_data.gender == "male" && mother_data.gender == "female", "Parents are same sex, they cannot procreate.")
 #	check for birth age
 	assert(mother_data.age >= 16, "One or more of the parent(s) are too young to concieve")
+
+
+func determine_height_gene():
+	return punnet_square(mother_data.height_gene, father_data.height_gene)

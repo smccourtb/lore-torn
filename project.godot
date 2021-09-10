@@ -48,11 +48,6 @@ _global_script_classes=[ {
 "class": "Name",
 "language": "GDScript",
 "path": "res://resources/names/name_generator.gd"
-}, {
-"base": "Resource",
-"class": "Trait",
-"language": "GDScript",
-"path": "res://character/traits/trait.gd"
 } ]
 _global_script_class_icons={
 "Allele": "",
@@ -62,8 +57,7 @@ _global_script_class_icons={
 "Descendant": "",
 "Gene": "",
 "GeneFactory": "",
-"Name": "",
-"Trait": ""
+"Name": ""
 }
 
 [application]

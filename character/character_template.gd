@@ -25,6 +25,7 @@ export var min_height: int
 export var eye_color_alleles: Array
 export var hair_color_alleles: Array
 export var hair_type_alleles: Array
+export var height_alleles: Array
 
 # Name Group
 export var names : Resource
