@@ -13,7 +13,11 @@ export var genders: bool  # false: no gender // true: males & females
 export var lifespan: = []
 export var adult_age: int
 export var weight_range = []
+export var max_weight: int
+export var min_weight: int
 export var height_range = []
+export var max_height: int
+export var min_height: int
 
 ## PHYSICAL TRAITS ## 
 # store all possible alleles in here?

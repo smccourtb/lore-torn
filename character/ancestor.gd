@@ -47,8 +47,8 @@ func determine_age() -> int:
 func determine_weight() -> int:
 	return Util.randi_range(race_data.weight_range.min(), race_data.weight_range.max())
 
-func determine_height() -> int:
-	return Util.randi_range(race_data.height_range.min(), race_data.height_range.max())
+func determine_height() -> float:
+	return Util.randi_range(race_data.min_height, race_data.max_height)
 
 func determine_eye_color() -> Gene:
 	var eyco = GeneFactory.new(race_data.eye_color_alleles)

@@ -40,6 +40,7 @@ func determine_name() -> String:
 	else:
 		var names = [father_data.race_data.names.male_first_names + father_data.race_data.names.female_first_names]
 		self.name = Util.choose(names)
+#	check for last name
 	if father_data.name.split(" ").size() > 1:
 		var last_name = father_data.name.split(" ")[1]
 		full_name += " " + last_name
@@ -75,3 +76,5 @@ func check_compatibility():
 	assert(father_data.race == mother_data.race, "Parents are not compatible, they cannot procreate.")
 #	check for opposite sex
 	assert(father_data.gender == "male" && mother_data.gender == "female", "Parents are same sex, they cannot procreate.")
+#	check for birth age
+	assert(mother_data.age >= 16, "One or more of the parent(s) are too young to concieve")

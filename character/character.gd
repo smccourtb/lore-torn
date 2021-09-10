@@ -52,20 +52,22 @@ func determine_eye_color():
 	pass
 
 func get_description() -> String:
-	return ("""This is a %s %s that goes by the name of %s. 
-	They are %s' tall and weigh %s lbs. They are %s years old.
-	Their eyes are the color %s."""
-		% [self.gender, self.race, self.name, stepify(self.height/12, 0.1), 
-		self.weight, self.age, self.eye_color.get_phenotype()])
+	return ("""Here is a %s %s! %s goes by the name of %s. 
+	%s is %s'%s" tall, weighs %slbs, and %s is %s years old.
+	%s eyes are the color %s."""
+		% [self.gender, self.race, determine_pronoun().subject.capitalize(), self.name, 
+		determine_pronoun().subject.capitalize(), floor(self.height / 12), self.height % 12, 
+		self.weight, determine_pronoun().subject, self.age, determine_pronoun().possesive.capitalize(),
+		self.eye_color.get_phenotype()])
 
 func determine_pronoun():
-	if gender == "male":
+	if self.gender == "male":
 		return {"subject": "he", 
 				"possesive": "his",
 				"object": "him"}
-	elif gender == "female":
+	elif self.gender == "female":
 		return {"subject": "she", 
-				"possesive": "hers",
+				"possesive": "her",
 				"object": "her"}
 
 

@@ -16,10 +16,11 @@ func generate_ancestor(gender=null) -> Ancestor:
 
 func generate_descendant() -> Descendant:
 	var mother = generate_ancestor("female")
-	print(mother.get_description())
+	print("Mother: ", mother.get_description())
 	var father = generate_ancestor("male")
-	print(father.get_description())
+	print("Father: ", father.get_description())
 	var character = Descendant.new({"mother": mother,"father": father})
+	print("Child: ", character.get_description())
 	name = character.name
 	return character
 
@@ -27,4 +28,4 @@ func generate_descendant() -> Descendant:
 func _ready():
 	randomize()
 	character_data = generate_descendant()
-	print(character_data.get_description())
+	
