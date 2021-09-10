@@ -4,19 +4,21 @@ class_name Ancestor
 
 var race_data: Resource
 
-func _init(data: Resource):
+func _init(data: Resource, gender=null):
 	assert(data, "Need to provide race_data.")
 	race_data = data
 	self.race = determine_race()
-	self.gender = determine_gender()
+	self.gender = determine_gender(gender)
 	self.name = determine_name()
 	self.age = determine_age()
 	self.weight = determine_weight()
 	self.height = determine_height()
 	self.eye_color = determine_eye_color()
 	
-func determine_gender():
-	if race_data.genders:
+func determine_gender(gender=null):
+	if gender:
+		return gender
+	elif race_data.genders:
 		return Util.choose(['male', 'female'])
 
 func determine_race() -> String:

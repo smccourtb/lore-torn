@@ -8,17 +8,17 @@ var npc_choices: Array = [DWARF]
 # Eye gene test variables
 var eye_genes = []
 
-func generate_ancestor() -> Character:
+func generate_ancestor(gender=null) -> Ancestor:
 	npc_choices.shuffle()
-	var character = Ancestor.new(load(npc_choices[0]))
+	var character = Ancestor.new(load(npc_choices[0]), gender)
 	name = character.name
 	return character
 
-func generate_descendant() -> Character:
-	var mother = generate_ancestor()
+func generate_descendant() -> Descendant:
+	var mother = generate_ancestor("female")
 	print(mother.get_description())
 	
-	var father = generate_ancestor()
+	var father = generate_ancestor("male")
 	print(father.get_description())
 	var character = Descendant.new({"mother": mother,"father": father})
 	name = character.name

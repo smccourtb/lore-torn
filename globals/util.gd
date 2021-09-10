@@ -1,8 +1,7 @@
 tool
 extends Node
 
-func _ready():
-	print("HI THERE FROM UTILS")
+
 # Util.choose(["one", "two"])   returns one or two
 func choose(choices):
 	randomize()

@@ -20,6 +20,7 @@ func _init(parent_data: Dictionary):
 	self.eye_color = determine_eye_color()
 
 func determine_race():
+	# we just need to pull from one parent, doesn't matter which. cross breeding not implemented.
 	return father_data.race
 	
 func determine_gender() -> String:
@@ -30,7 +31,7 @@ func determine_gender() -> String:
 		return "male"
 	return "female"
 
-func determine_name():
+func determine_name() -> String:
 	# This seems a little flimsy. I'd like a better way to access race_data for the names
 	var full_name: String
 	if self.gender:
@@ -41,26 +42,26 @@ func determine_name():
 		self.name = Util.choose(names)
 	if father_data.name.split("").size() > 1:
 		var paternal_name = father_data.name.split("")
-		var last_name = paternal_name[1]
+		var last_name = paternal_name[2]
 		full_name += " " + last_name
 	return full_name
 
-func determine_age():
+func determine_age() -> int:
 	# my line of thinking is that they are just born right?
 	return 0
 
 # Wtth these 2 functions maybe it would be better left as a calculation based on age, race, 
 # and genes so it can be called and updated when needed as it will change over time
-func determine_weight():
+func determine_weight() -> int:
 	return 8
 
-func determine_height():
+func determine_height() -> int:
 	return 12
 	
-func determine_eye_color():
+func determine_eye_color() -> Gene:
 	return punnet_square(mother_data.eye_color, father_data.eye_color)
 
-func punnet_square(mother: Gene, father: Gene):
+func punnet_square(mother: Gene, father: Gene) -> Gene:
 	var A = mother.genotype[0]
 	var B = mother.genotype[1]
 	var X = father.genotype[0]
@@ -71,4 +72,7 @@ func punnet_square(mother: Gene, father: Gene):
 	return descendant_gene
 
 func check_compatibility():
+#	check for matching race
 	assert(father_data.race == mother_data.race, "Parents are not compatible, they cannot procreate.")
+#	check for opposite sex
+	assert(father_data.gender == "male" && mother_data.gender == "female", "Parents are same sex, they cannot procreate.")
