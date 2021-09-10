@@ -17,7 +17,6 @@ func generate_ancestor(gender=null) -> Ancestor:
 func generate_descendant() -> Descendant:
 	var mother = generate_ancestor("female")
 	print(mother.get_description())
-	
 	var father = generate_ancestor("male")
 	print(father.get_description())
 	var character = Descendant.new({"mother": mother,"father": father})

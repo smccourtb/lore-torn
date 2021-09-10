@@ -40,9 +40,8 @@ func determine_name() -> String:
 	else:
 		var names = [father_data.race_data.names.male_first_names + father_data.race_data.names.female_first_names]
 		self.name = Util.choose(names)
-	if father_data.name.split("").size() > 1:
-		var paternal_name = father_data.name.split("")
-		var last_name = paternal_name[2]
+	if father_data.name.split(" ").size() > 1:
+		var last_name = father_data.name.split(" ")[1]
 		full_name += " " + last_name
 	return full_name
 
