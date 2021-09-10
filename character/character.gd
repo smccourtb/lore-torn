@@ -7,7 +7,7 @@ class_name Character
 # then the output of thsoe functions get set to the group of variables below
 # to be accessed and read/modified.
 
-
+var race_data: Resource
 # These are the de facto variables to access. They ARE the character.
 
 var race: String
@@ -20,6 +20,7 @@ var eye_color_gene: Gene
 var height_gene: Gene
 var max_possible_height: int #inches
 
+	
 func character_data() -> Array:
 	var a = {"race": self.race, 
 			"age": self.age, 
@@ -51,6 +52,19 @@ func determine_pronoun():
 				"possesive": "her",
 				"object": "her"}
 
+func determine_max_possible_height():
+	var max_height: int
+	var count: int = 0
+	var race_height_diff = race_data.max_height - race_data.min_height
+	for i in self.height_gene.genotype:
+		count += i.dominant
+	if count > 1:
+		var min_height = race_data.max_height - round(race_height_diff * .25) 
+		return Util.choose([min_height, race_data.max_height])
+	elif count > 0:
+		var min_height = race_data.max_height - round(race_height_diff * .50)
+		return Util.choose([min_height, race_data.max_height])
+	return Util.choose([race_data.min_height, round(race_data.min_height + (race_data.min_height *.50))])
 
 
 

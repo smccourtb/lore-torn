@@ -10,6 +10,7 @@ func _init(parent_data: Dictionary):
 	assert(parent_data, "Need to provide parent_data.")
 	mother_data = parent_data.mother
 	father_data = parent_data.father
+	self.race_data = father_data.race_data
 	check_compatibility()
 	self.race = determine_race()
 	self.gender = determine_gender()
@@ -17,6 +18,8 @@ func _init(parent_data: Dictionary):
 	self.age = determine_age()
 	self.weight = determine_weight()
 	self.height_gene = determine_height_gene()
+	self.max_possible_height = determine_max_possible_height()
+	
 	self.height = determine_height()
 	self.eye_color_gene = determine_eye_color_gene()
 
@@ -57,7 +60,16 @@ func determine_weight() -> int:
 	return 8
 
 func determine_height() -> int:
-	return 12
+	if self.age < 16:
+	# FIXME : make this more of a curve instead of linear
+		var growth_modifier = self.max_possible_height / 16
+		var current_age: int = self.age
+		if current_age == 0:
+			current_age = 1
+		var current_height = 12 + (current_age * growth_modifier)
+		# TODO: add nutrition to this when implemented
+		return current_height
+	return self.max_possible_height
 	
 func determine_eye_color_gene() -> Gene:
 	return punnet_square(mother_data.eye_color_gene, father_data.eye_color_gene)
@@ -83,3 +95,19 @@ func check_compatibility():
 
 func determine_height_gene():
 	return punnet_square(mother_data.height_gene, father_data.height_gene)
+
+
+func determine_max_possible_height() -> int:
+	var max_height: int
+	var count: int = 0
+	var race_height_diff = self.race_data.max_height - self.race_data.min_height
+	for i in self.height_gene.genotype:
+		count += i.dominant
+	if count > 1:
+		var min_height = self.race_data.max_height - round(race_height_diff * .25) 
+		return Util.choose([min_height, self.race_data.max_height])
+	elif count > 0:
+		var min_height = self.race_data.max_height - round(race_height_diff * .50)
+		return Util.choose([min_height, self.race_data.max_height])
+	return Util.choose([self.race_data.min_height, round(self.race_data.min_height + (self.race_data.min_height *.50))])
+		
