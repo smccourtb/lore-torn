@@ -18,6 +18,17 @@ var height: int
 var weight: int
 var eye_color: Gene
 
+func character_data() -> Array:
+	var a = {"race": self.race, 
+			"age": self.age, 
+			"name": self.name,
+			"gender": self.gender, 
+			"height": self.height, 
+			"weight": self.weight,
+			"eye_color": self.eye_color
+			}
+	var b = get_property_list()
+	return [a,b]
 
 func determine_race():
 	pass
@@ -40,14 +51,23 @@ func determine_height():
 func determine_eye_color():
 	pass
 
+func get_description() -> String:
+	return ("""This is a %s %s that goes by the name of %s. 
+	They are %s' tall and weigh %s lbs. They are %s years old.
+	Their eyes are the color %s."""
+		% [self.gender, self.race, self.name, stepify(self.height/12, 0.1), 
+		self.weight, self.age, self.eye_color.get_phenotype()])
 
-func punnet_square(mother, father):
-	var A = mother.genotype[0]
-	var B = mother.genotype[1]
-	var X = father.genotype[0]
-	var Y = father.genotype[0]
-	var punnett = [[A,X],[A,Y],[B,X],[B,Y]]
-	return Util.choose(punnett)
+func determine_pronoun():
+	if gender == "male":
+		return {"subject": "he", 
+				"possesive": "his",
+				"object": "him"}
+	elif gender == "female":
+		return {"subject": "she", 
+				"possesive": "hers",
+				"object": "her"}
+
 
 
 

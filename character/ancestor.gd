@@ -4,9 +4,9 @@ class_name Ancestor
 
 var race_data: Resource
 
-func _init(data: Resource, descendant: Array = []):
+func _init(data: Resource):
+	assert(data, "Need to provide race_data.")
 	race_data = data
-	assert(race_data, "Need to provide race_data.")
 	self.race = determine_race()
 	self.gender = determine_gender()
 	self.name = determine_name()
@@ -52,3 +52,5 @@ func determine_eye_color() -> Gene:
 	var eyco = GeneFactory.new(race_data.eye_color_alleles)
 	var gene = eyco.generate_gene()
 	return gene
+
+

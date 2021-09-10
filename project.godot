@@ -22,12 +22,17 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Character",
 "language": "GDScript",
-"path": "res://character/character_generator.gd"
+"path": "res://character/character.gd"
 }, {
 "base": "Resource",
 "class": "CharacterTemplate",
 "language": "GDScript",
 "path": "res://character/character_template.gd"
+}, {
+"base": "Character",
+"class": "Descendant",
+"language": "GDScript",
+"path": "res://character/descendant.gd"
 }, {
 "base": "Resource",
 "class": "Gene",
@@ -54,6 +59,7 @@ _global_script_class_icons={
 "Ancestor": "",
 "Character": "",
 "CharacterTemplate": "",
+"Descendant": "",
 "Gene": "",
 "GeneFactory": "",
 "Name": "",
