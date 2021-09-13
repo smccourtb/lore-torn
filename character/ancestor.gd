@@ -52,7 +52,7 @@ func determine_weight() -> int:
 func determine_height() -> int:
 	if self.age < 16:
 	# FIXME : make this more of a curve instead of linear
-		var growth_modifier = self.max_possible_height / 16
+		var growth_modifier = float(self.max_possible_height) / 16
 		
 		var current_height = (self.age * growth_modifier)
 		# TODO: add nutrition to this when implemented
@@ -70,7 +70,6 @@ func determine_height_gene() -> Gene:
 	return gene
 
 func determine_max_possible_height() -> int:
-	var max_height: int
 	var count: int = 0
 	var race_height_diff = self.race_data.max_height - self.race_data.min_height
 	for i in self.height_gene.genotype:

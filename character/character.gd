@@ -21,24 +21,22 @@ var height_gene: Gene
 var max_possible_height: int #inches
 
 	
-func character_data() -> Array:
-	var a = {"race": self.race, 
+func character_data() -> Dictionary:
+	return {"race": self.race, 
 			"age": self.age, 
 			"name": self.name,
 			"gender": self.gender, 
 			"height": self.height, 
 			"weight": self.weight,
-			"eye_color": self.eye_color
+			"eye_color": self.eye_color_gene.get_phenotype()
 			}
-	var b = get_property_list()
-	return [a,b]
 
 func get_description() -> String:
 	return ("""Here is a %s %s! %s goes by the name of %s. 
-	%s is %s'%s" tall, weighs %slbs, and %s is %s years old.
+	%s is %s'%s tall, weighs %slbs, and %s is %s years old.
 	%s eyes are the color %s."""
 		% [self.gender, self.race, determine_pronoun().subject.capitalize(), self.name, 
-		determine_pronoun().subject.capitalize(), floor(self.height / 12), self.height % 12, 
+		determine_pronoun().subject.capitalize(), floor(float(self.height) / 12), self.height % 12, 
 		self.weight, determine_pronoun().subject, self.age, determine_pronoun().possesive.capitalize(),
 		self.eye_color_gene.get_phenotype()])
 
@@ -52,19 +50,6 @@ func determine_pronoun():
 				"possesive": "her",
 				"object": "her"}
 
-func determine_max_possible_height():
-	var max_height: int
-	var count: int = 0
-	var race_height_diff = race_data.max_height - race_data.min_height
-	for i in self.height_gene.genotype:
-		count += i.dominant
-	if count > 1:
-		var min_height = race_data.max_height - round(race_height_diff * .25) 
-		return Util.choose([min_height, race_data.max_height])
-	elif count > 0:
-		var min_height = race_data.max_height - round(race_height_diff * .50)
-		return Util.choose([min_height, race_data.max_height])
-	return Util.choose([race_data.min_height, round(race_data.min_height + (race_data.min_height *.50))])
 
 
 

@@ -2,7 +2,7 @@ extends Node2D
 
 var character_data
 var DWARF : = "res://character/dwarf.tres"
-#onready var eye_color = preload("res://character/traits/eye_color.tres")
+
 var npc_choices: Array = [DWARF]
 
 # Eye gene test variables
@@ -11,7 +11,7 @@ var eye_genes = []
 func generate_ancestor(gender=null) -> Ancestor:
 	npc_choices.shuffle()
 	var character = Ancestor.new(load(npc_choices[0]), gender)
-	name = character.name
+	# name = character.name
 	return character
 
 func generate_descendant() -> Descendant:
@@ -21,10 +21,11 @@ func generate_descendant() -> Descendant:
 	print("Father: ", father.get_description())
 	var character = Descendant.new({"mother": mother,"father": father})
 	print("Child: ", character.get_description())
-	name = character.name
+	# name = character.name
 	return character
 
 func _ready():
+	print("CharacterGenerator is ready")
 	randomize()
 	var a = OS.get_ticks_msec()
 #	for i in range(10000):
