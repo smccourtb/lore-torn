@@ -37,8 +37,8 @@ export var names : Resource
 # [X] How long do DWARVES live for (lifespan)
 # [X] possible names to choose from
 # [ ] How much do they weigh? Fat and skinny maybe separate
-# [ ] How tall can they get?
-# [ ] Color eyes
+# [X] How tall can they get?
+# [X] Color eyes
 # [ ] Color hair
 # [ ] Hair / Facial hair style
 # [ ] Stats on the world scale (ex. 1-10 world scale -> dwarves: 6, dragons: 8, crazy demon god: 10)

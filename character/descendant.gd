@@ -89,7 +89,7 @@ func check_compatibility():
 	assert(father_data.gender == "male" && mother_data.gender == "female", "Parents are same sex, they cannot procreate.")
 #	check for birth age
 	assert(mother_data.age >= 16, "One or more of the parent(s) are too young to concieve")
-
+	return true
 
 func determine_height_gene():
 	return punnet_square(mother_data.height_gene, father_data.height_gene)

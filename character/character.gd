@@ -20,7 +20,7 @@ var eye_color_gene: Gene
 var height_gene: Gene
 var max_possible_height: int #inches
 
-var personality: Dictionary setget ,get_personality
+var personality: Dictionary
 	
 func character_data() -> Dictionary:
 	return {"race": self.race, 
@@ -55,7 +55,7 @@ func get_personality():
 	var behavioural_traits = determine_behavioural_traits()
 	var likes = determine_likes()
 	var dislikes = determine_dislikes()
-	return {"behaviour":behavioural_traits,"likes":likes, "dislikes":dislikes}
+	return {"behaviour":behavioural_traits, "likes":likes, "dislikes":dislikes}
 
 func determine_likes() -> Array:
 	var possible_traits = ['lazy', 'dumb', 'honest', 'intelligent', 'cleanfreak']

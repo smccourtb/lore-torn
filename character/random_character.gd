@@ -5,6 +5,7 @@ var DWARF : = "res://character/dwarf.tres"
 
 var npc_choices: Array = [DWARF]
 var gen1 = []
+var gen2 = []
 # Eye gene test variables
 var eye_genes = []
 
@@ -36,7 +37,8 @@ func _ready():
 
 	
 func test_breeding():
-	for i in range(50):
+	# genereate 50 dwarfs
+	for _i in range(50):
 		var ancestor = generate_ancestor()
 		gen1.append(ancestor)
 	
@@ -47,7 +49,14 @@ func test_breeding():
 	var y = b.determine_compatibility(a.personality)
 	print("CHARACTER1: ", x)
 	print("CHARACTER2: ", y)
-		
+	if x >= 3 && y >= 3:
+		print('Compatibility found!')
+		print('Checking physical compatibility..')
+		var potential_child = Descendant.new({"mother": a,"father": b})
+		if potential_child.check_compatibility():
+			print("All compatibility checks passed")
+			print("Generating descendant")
+			gen2.append(potential_child)
 
 # Generate a bunch of ancestors and put them in an array
 # Assuming they are in the same room and talking, check compatibility of two random dwarfs.
