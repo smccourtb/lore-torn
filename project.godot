@@ -48,6 +48,16 @@ _global_script_classes=[ {
 "class": "Name",
 "language": "GDScript",
 "path": "res://resources/names/name_generator.gd"
+}, {
+"base": "Resource",
+"class": "Personality",
+"language": "GDScript",
+"path": "res://personality.gd"
+}, {
+"base": "Resource",
+"class": "Time",
+"language": "GDScript",
+"path": "res://globals/time.gd"
 } ]
 _global_script_class_icons={
 "Allele": "",
@@ -57,12 +67,15 @@ _global_script_class_icons={
 "Descendant": "",
 "Gene": "",
 "GeneFactory": "",
-"Name": ""
+"Name": "",
+"Personality": "",
+"Time": ""
 }
 
 [application]
 
 config/name="lore-torn"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
