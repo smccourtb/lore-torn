@@ -2,9 +2,7 @@ extends Character
 class_name Ancestor
 
 
-#var race_data: Resource
-
-func _init(data: Resource, gender=null):
+func _init(data: Resource, gender=null) -> void:
 	assert(data, "Need to provide race_data.")
 	self.race_data = data
 	self.race = determine_race()
@@ -16,7 +14,7 @@ func _init(data: Resource, gender=null):
 	self.max_possible_height = determine_max_possible_height()
 	self.height = determine_height()
 	self.eye_color_gene = determine_eye_color_gene()
-	self.personality["traits"] = .determine_traits()
+	self.personality = .determine_personality()
 
 func determine_gender(gender=null):
 	if gender:

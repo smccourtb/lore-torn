@@ -39,3 +39,11 @@ func titlefy(text) -> String:
 
 func filenameify(text) -> String:
 	return text.replace(' ', '_').to_lower()
+
+	# [series(0,39),series(40,59),series(60,99)]
+func weighted_random(max_num, numDice):
+	var num = 0;
+	for _i in range(numDice):
+		# randomly picks a number from 1-100
+		num += randf() * (max_num/numDice);
+	return round(num)

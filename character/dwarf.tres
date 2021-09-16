@@ -25,3 +25,5 @@ hair_color_alleles = [  ]
 hair_type_alleles = [  ]
 height_alleles = [ ExtResource( 7 ), ExtResource( 6 ) ]
 names = ExtResource( 2 )
+vanity = [ 0, 50, 100 ]
+modesty = [ 0, 50, 100 ]

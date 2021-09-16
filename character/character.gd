@@ -1,14 +1,8 @@
 extends Resource
 class_name Character
 
-# These variables are either filled in prior to setup using the editor,
-# or set using the init function from another script. The variables themselves
-# are used for the various functions in this script to build the character and 
-# then the output of thsoe functions get set to the group of variables below
-# to be accessed and read/modified.
-
+# Need to provide race_data (character_template.gd)
 var race_data: Resource
-# These are the de facto variables to access. They ARE the character.
 
 var race: String
 var gender: String
@@ -19,8 +13,8 @@ var weight: int
 var eye_color_gene: Gene
 var height_gene: Gene
 var max_possible_height: int #inches
-
 var personality: Dictionary
+var mood_level: Dictionary
 	
 func character_data() -> Dictionary:
 	return {"race": self.race, 
@@ -53,15 +47,22 @@ func determine_pronoun():
 
 func determine_personality():
 	var traits = determine_personality_traits()
-	self.personality["traits"] = traits
+	return {"traits": traits}
 
-func determine_personality_traits():
+func determine_personality_traits() -> Dictionary:
 	var traits: = {}
 	var traits_list: Array = ['vanity']
 	for i in traits_list:
 		var x = load("res://" + i + ".tres")
 		var t = Trait.new(x)
 		# TODO: Change to weighted value pick
-		var value = Util.randi_range(1,100)
+		var value = Util.weighted_random(100, 5)
 		traits[t.get_trait_name()] = {"value": value, 'description': t.get_description(value)}
 	return traits
+
+func determine_personal_beliefs():
+	pass
+
+func determine_personal_goal():
+	pass
+
