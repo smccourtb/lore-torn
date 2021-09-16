@@ -46,23 +46,7 @@ func determine_pronoun():
 				"object": "her"}
 
 func determine_personality():
-	var traits = determine_personality_traits()
-	return {"traits": traits}
-
-func determine_personality_traits() -> Dictionary:
-	var traits: = {}
-	var traits_list: Array = ['vanity', 'humor']
-	for i in traits_list:
-		var x = load("res://" + i + ".tres")
-		var t = Trait.new(x)
-		# TODO: Change to weighted value pick
-		var value = Util.weighted_random(100, 5)
-		traits[t.get_trait_name()] = {"value": value, 'description': t.get_description(value)}
-	return traits
-
-func determine_personal_beliefs():
-	pass
-
-func determine_personal_goal():
-	pass
+	var traits = Personality.new()
+	print(traits.traits)
+	return {"traits": traits.traits}
 
