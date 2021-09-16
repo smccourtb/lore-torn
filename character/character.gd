@@ -108,4 +108,12 @@ func determine_compatibility(other_pers):
 # 		rarity_index = index
 # 	return possible_rarities[rarity_index]
 
-
+func determine_traits():
+	var traits: = {}
+	var traits_list: Array = ['vanity']
+	for i in traits_list:
+		var x = load("res://" + i + ".tres")
+		var t = Trait.new(x)
+		var value = Util.randi_range(1,100)
+		traits[t.get_trait_name()] = {"value": value, 'description': t.get_description(value)}
+	return traits

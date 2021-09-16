@@ -26,6 +26,8 @@ func generate_descendant() -> Descendant:
 	return character
 
 func _ready():
+	character_data = generate_ancestor()
+	print(character_data.personality)
 # 	print("CharacterGenerator is ready")
 # 	randomize()
 # 	var a = OS.get_ticks_msec()
@@ -33,7 +35,7 @@ func _ready():
 # 	character_data = generate_descendant()
 # 	var b = OS.get_ticks_msec()
 #	print("Generated 30,000 characters in " + str((b - a)/1000.00) + " seconds")
-	test_breeding()
+	# test_breeding()
 
 	
 func test_breeding():
