@@ -50,14 +50,19 @@ _global_script_classes=[ {
 "path": "res://resources/names/name_generator.gd"
 }, {
 "base": "Resource",
-"class": "Personality",
-"language": "GDScript",
-"path": "res://personality.gd"
-}, {
-"base": "Resource",
 "class": "Time",
 "language": "GDScript",
 "path": "res://globals/time.gd"
+}, {
+"base": "Resource",
+"class": "Trait",
+"language": "GDScript",
+"path": "res://trait.gd"
+}, {
+"base": "Resource",
+"class": "TraitTemplate",
+"language": "GDScript",
+"path": "res://trait_template.gd"
 } ]
 _global_script_class_icons={
 "Allele": "",
@@ -68,8 +73,9 @@ _global_script_class_icons={
 "Gene": "",
 "GeneFactory": "",
 "Name": "",
-"Personality": "",
-"Time": ""
+"Time": "",
+"Trait": "",
+"TraitTemplate": ""
 }
 
 [application]

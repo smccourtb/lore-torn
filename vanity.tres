@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://trait_template.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "vanity"
+description = PoolStringArray( "could not care less about [his/her] appearance, talents or other personal vanities.", "takes no pleasure in [his/her] talents and appearance.", "is not inherently proud of [his/her] talents and accomplishments.", "", "is pleased by [his/her] own appearance and talents.", "is greatly pleased by [his/her] own looks and accomplishments.", "is completely wrapped up in [his/her] own appearance, abilities and other personal matters." )

@@ -30,23 +30,6 @@ export var height_alleles: Array
 # Name Group
 export var names : Resource
 
-
-
-# I want to build DWARVES. -> Load the dwarf.tres file (this one) into character_generator.
-# Need to include things like:
-# [X] How long do DWARVES live for (lifespan)
-# [X] possible names to choose from
-# [ ] How much do they weigh? Fat and skinny maybe separate
-# [X] How tall can they get?
-# [X] Color eyes
-# [ ] Color hair
-# [ ] Hair / Facial hair style
-# [ ] Stats on the world scale (ex. 1-10 world scale -> dwarves: 6, dragons: 8, crazy demon god: 10)
-#	where would that be placed?
-# [ ] Skin Color
-# [ ] Flammability?
-# [ ] Hunger Rate
-# [ ] Thirst Rate
-# [ ] Ability to fly
-# [ ] Can swim or breathe water?
-# [ ] Can it hold items or weapons (opposable thumbs?) --maybe tied/influenced with intelligence
+# Personality Traits
+export var vanity: Array = [0,50,100] # min, average, max
+export var modesty: Array = [0,50,100]

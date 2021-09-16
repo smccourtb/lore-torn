@@ -91,6 +91,21 @@ func determine_compatibility(other_pers):
 		if i in personality.behaviour:
 			compatibility += 2
 	return compatibility
-		
+
+# func determine_trait_level() -> Resource:
+# 	# Randomly generates and returns a Rarity Resource
+# 	if !possible_rarities:
+# 		print("You need to add possible rarities!")
+# 	var rarity_index : = 0
+# 	var rarer_chance : = 1.0
+# 	var roll : = randf()
+# 	for index in possible_rarities.size():
+# 		if roll > possible_rarities[index].chance:
+# 			continue
+# 		if possible_rarities[index].chance > rarer_chance:
+# 			continue
+# 		rarer_chance = possible_rarities[index].chance
+# 		rarity_index = index
+# 	return possible_rarities[rarity_index]
 
 
