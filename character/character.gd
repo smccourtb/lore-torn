@@ -51,7 +51,7 @@ func determine_personality():
 
 func determine_personality_traits() -> Dictionary:
 	var traits: = {}
-	var traits_list: Array = ['vanity']
+	var traits_list: Array = ['vanity', 'humor']
 	for i in traits_list:
 		var x = load("res://" + i + ".tres")
 		var t = Trait.new(x)
