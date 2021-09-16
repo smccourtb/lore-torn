@@ -2,7 +2,7 @@ extends Resource
 class_name Trait
 
 var trait_name: String
-var trait_descriptions: String
+var trait_descriptions: PoolStringArray
 
 func _init(t) -> void:
 	trait_name = t.name
@@ -10,6 +10,7 @@ func _init(t) -> void:
 	
 
 func get_description(trait_value) -> String:
+	assert(trait_descriptions, "Variable trait_descriptions has not been set.")
 	if trait_value >= 91:
 		return trait_descriptions[6]
 	elif trait_value >= 76:
@@ -24,3 +25,7 @@ func get_description(trait_value) -> String:
 		return trait_descriptions[1]
 	else:
 		return trait_descriptions[0]
+
+func get_trait_name() -> String:
+	assert(trait_name, "Variable trait_name has not been set.")
+	return trait_name

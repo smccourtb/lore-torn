@@ -82,7 +82,7 @@ func punnet_square(mother: Gene, father: Gene) -> Gene:
 	var descendant_gene = Gene.new(result[0], result[1])
 	return descendant_gene
 
-func check_compatibility():
+func check_compatibility() -> bool:
 #	check for matching race
 	assert(father_data.race == mother_data.race, "Parents are not compatible, they cannot procreate.")
 #	check for opposite sex
@@ -108,8 +108,4 @@ func determine_max_possible_height() -> int:
 		return Util.choose([min_height, self.race_data.max_height])
 	return Util.choose([self.race_data.min_height, round(self.race_data.min_height + (self.race_data.min_height *.50))])
 		
-func determine_traits():
-	var traits: Array = ['vanity']
-	for i in traits:
-		var x = load("res://" + i + ".tres")
-		var t = Trait.new(x)
+
