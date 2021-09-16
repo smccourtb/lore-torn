@@ -51,49 +51,11 @@ func determine_pronoun():
 				"possesive": "her",
 				"object": "her"}
 
-func get_personality():
-	var behavioural_traits = determine_behavioural_traits()
-	var likes = determine_likes()
-	var dislikes = determine_dislikes()
-	return {"behaviour":behavioural_traits, "likes":likes, "dislikes":dislikes}
+func determine_personality():
+	var traits = determine_personality_traits()
+	self.personality["traits"] = traits
 
-func determine_likes() -> Array:
-	var possible_traits = ['lazy', 'dumb', 'honest', 'intelligent', 'cleanfreak']
-	var likes = []
-	for _i in range(3):
-		likes.append(Util.choose(possible_traits))
-	return likes
-
-func determine_dislikes():
-	var possible_traits = ['lazy', 'dumb', 'honest', 'intelligent', 'cleanfreak']
-	var dislikes = []
-	for _i in range(3):
-		dislikes.append(Util.choose(possible_traits))
-	return dislikes
-
-func determine_behavioural_traits() -> Array:
-	var possible_traits = ['lazy', 'dumb', 'honest', 'intelligent', 'cleanfreak']
-	var traits = []
-	for _i in range(3):
-		traits.append(Util.choose(possible_traits))
-	return traits
-
-func determine_compatibility(other_pers):
-	# TODO: Add a family check
-	
-	var behaviour = other_pers.behaviour
-	var compatibility = 0
-	for i in behaviour:
-		if i in personality.likes:
-			compatibility += 1
-		if i in personality.dislikes:
-			compatibility -= 1
-		if i in personality.behaviour:
-			compatibility += 2
-	return compatibility
-
-
-func determine_traits():
+func determine_personality_traits():
 	var traits: = {}
 	var traits_list: Array = ['vanity']
 	for i in traits_list:
