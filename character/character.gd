@@ -80,7 +80,7 @@ func determine_behavioural_traits() -> Array:
 
 func determine_compatibility(other_pers):
 	# TODO: Add a family check
-
+	
 	var behaviour = other_pers.behaviour
 	var compatibility = 0
 	for i in behaviour:
@@ -92,21 +92,6 @@ func determine_compatibility(other_pers):
 			compatibility += 2
 	return compatibility
 
-# func determine_trait_level() -> Resource:
-# 	# Randomly generates and returns a Rarity Resource
-# 	if !possible_rarities:
-# 		print("You need to add possible rarities!")
-# 	var rarity_index : = 0
-# 	var rarer_chance : = 1.0
-# 	var roll : = randf()
-# 	for index in possible_rarities.size():
-# 		if roll > possible_rarities[index].chance:
-# 			continue
-# 		if possible_rarities[index].chance > rarer_chance:
-# 			continue
-# 		rarer_chance = possible_rarities[index].chance
-# 		rarity_index = index
-# 	return possible_rarities[rarity_index]
 
 func determine_traits():
 	var traits: = {}
@@ -114,6 +99,7 @@ func determine_traits():
 	for i in traits_list:
 		var x = load("res://" + i + ".tres")
 		var t = Trait.new(x)
+		# TODO: Change to weighted value pick
 		var value = Util.randi_range(1,100)
 		traits[t.get_trait_name()] = {"value": value, 'description': t.get_description(value)}
 	return traits

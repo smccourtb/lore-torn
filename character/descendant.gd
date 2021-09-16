@@ -9,7 +9,6 @@ func _init(parent_data: Dictionary):
 	mother_data = parent_data.mother
 	father_data = parent_data.father
 	self.race_data = father_data.race_data
-	check_compatibility()
 	self.race = determine_race()
 	self.gender = determine_gender()
 	self.name = determine_name()
@@ -83,14 +82,7 @@ func punnet_square(mother: Gene, father: Gene) -> Gene:
 	var descendant_gene = Gene.new(result[0], result[1])
 	return descendant_gene
 
-func check_compatibility() -> bool:
-#	check for matching race
-	assert(father_data.race == mother_data.race, "Parents are not compatible, they cannot procreate.")
-#	check for opposite sex
-	assert(father_data.gender == "male" && mother_data.gender == "female", "Parents are same sex, they cannot procreate.")
-#	check for birth age
-	assert(mother_data.age >= 16, "One or more of the parent(s) are too young to concieve")
-	return true
+
 
 func determine_height_gene():
 	return punnet_square(mother_data.height_gene, father_data.height_gene)
