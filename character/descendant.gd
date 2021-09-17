@@ -20,6 +20,7 @@ func _init(parent_data: Dictionary):
 	self.height = determine_height()
 	self.eye_color_gene = determine_eye_color_gene()
 	self.personality = Personality.new()
+	print(.get_description())
 
 func determine_race():
 	# we just need to pull from one parent, doesn't matter which. cross breeding not implemented.

@@ -27,13 +27,16 @@ func character_data() -> Dictionary:
 			}
 
 func get_description() -> String:
+	#TODO: add a check if there is a description OR just add a neutral description to facets.
 	return ("""Here is a %s %s! %s goes by the name of %s. 
 	%s is %s'%s tall, weighs %slbs, and %s is %s years old.
-	%s eyes are the color %s."""
+	%s eyes are the color %s. %s %s and %s %s. %s wants to %s. %s %s."""
 		% [self.gender, self.race, determine_pronoun().subject.capitalize(), self.name, 
 		determine_pronoun().subject.capitalize(), floor(float(self.height) / 12), self.height % 12, 
 		self.weight, determine_pronoun().subject, self.age, determine_pronoun().possesive.capitalize(),
-		self.eye_color_gene.get_phenotype()])
+		self.eye_color_gene.get_phenotype(), determine_pronoun().subject.capitalize(), self.personality.facets.humor.description,
+		determine_pronoun().subject.capitalize(), self.personality.facets.vanity.description, determine_pronoun().subject.capitalize(), 
+		self.personality.goals["Goals"], determine_pronoun().subject.capitalize(), self.personality.beliefs.family.description])
 
 func determine_pronoun():
 	if self.gender == "male":
@@ -45,8 +48,8 @@ func determine_pronoun():
 				"possesive": "her",
 				"object": "her"}
 
-func determine_personality():
-	var traits = Personality.new()
-	return {"facets": traits.facets, "beliefs": traits.beliefs}
+func tell_a_joke():
+	if personality.facets.humor.value > 50:
+		print('IT IS AND THIS WORKS')
 
 
