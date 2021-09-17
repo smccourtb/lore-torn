@@ -1,5 +1,5 @@
 extends PersonalityTrait
-class_name Belief
+class_name Facet
 
 
 func _init(t) -> void:

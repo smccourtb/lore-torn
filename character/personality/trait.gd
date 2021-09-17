@@ -1,12 +1,9 @@
 extends Resource
-class_name Trait
+class_name PersonalityTrait
 
 var trait_name: String
 var trait_descriptions: PoolStringArray
 
-func _init(t) -> void:
-	trait_name = t.name
-	trait_descriptions = t.description
 
 func get_description(trait_value) -> String:
 	assert(trait_descriptions, "Variable trait_descriptions has not been set.")

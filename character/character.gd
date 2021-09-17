@@ -47,6 +47,5 @@ func determine_pronoun():
 
 func determine_personality():
 	var traits = Personality.new()
-	print(traits.traits)
-	return {"traits": traits.traits}
+	return {"facets": traits.facets}
 
