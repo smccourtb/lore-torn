@@ -22,6 +22,7 @@ func get_description(trait_value) -> String:
 	else:
 		return trait_descriptions[0]
 
+
 func get_trait_name() -> String:
 	assert(trait_name, "Variable trait_name has not been set.")
 	return trait_name

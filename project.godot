@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://character/traits/gene_factory.gd"
 }, {
+"base": "PersonalityTrait",
+"class": "Goal",
+"language": "GDScript",
+"path": "res://character/personality/goals/goal.gd"
+}, {
 "base": "Resource",
 "class": "Name",
 "language": "GDScript",
@@ -89,6 +94,7 @@ _global_script_class_icons={
 "Facet": "",
 "Gene": "",
 "GeneFactory": "",
+"Goal": "",
 "Name": "",
 "Personality": "",
 "PersonalityTrait": "",

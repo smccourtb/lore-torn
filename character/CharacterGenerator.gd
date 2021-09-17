@@ -8,7 +8,9 @@ var npc_choices: Array = [DWARF]
 
 func _ready():
 	character_data = generate_descendant()
-	print(character_data.personality)
+	print("Facets: ", character_data.personality.facets)
+	print("Beliefs: ", character_data.personality.beliefs)
+	print("Goals: ", character_data.personality.goals)
 
 
 func generate_ancestor(gender=null) -> Ancestor:
@@ -33,8 +35,8 @@ func generate_new_tribe():
 
 
 func check_compatibility(mother_data, father_data) -> bool:
-	#	check for matching race
 	# TODO: add birthing age to race_data template and replace the 16 with that variable.
+	#	check for matching race
 		assert(father_data.race == mother_data.race, "Parents are not compatible, they cannot procreate.")
 	#	check for opposite sex
 		assert(father_data.gender == "male" && mother_data.gender == "female", "Parents are same sex, they cannot procreate.")

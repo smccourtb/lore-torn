@@ -13,7 +13,7 @@ var weight: int
 var eye_color_gene: Gene
 var height_gene: Gene
 var max_possible_height: int #inches
-var personality: Dictionary
+var personality: Resource
 var mood_level: Dictionary
 	
 func character_data() -> Dictionary:
@@ -48,4 +48,5 @@ func determine_pronoun():
 func determine_personality():
 	var traits = Personality.new()
 	return {"facets": traits.facets, "beliefs": traits.beliefs}
+
 

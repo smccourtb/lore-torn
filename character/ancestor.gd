@@ -14,7 +14,7 @@ func _init(data: Resource, gender=null) -> void:
 	self.max_possible_height = determine_max_possible_height()
 	self.height = determine_height()
 	self.eye_color_gene = determine_eye_color_gene()
-	self.personality = .determine_personality()
+	self.personality = Personality.new()
 
 func determine_gender(gender=null):
 	if gender:
