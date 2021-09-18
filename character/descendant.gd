@@ -19,8 +19,6 @@ func _init(parent_data: Dictionary):
 	self.max_possible_height = determine_max_possible_height()
 	self.height = determine_height()
 	self.eye_color_gene = determine_eye_color_gene()
-	.signals()
-	.have_conversation()
 
 
 func determine_race():

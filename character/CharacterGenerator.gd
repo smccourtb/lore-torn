@@ -1,16 +1,9 @@
-extends Node2D
+extends Resource
 
 var character_data
 var DWARF : = "res://character/dwarf.tres"
 
 var npc_choices: Array = [DWARF]
-
-
-func _ready():
-	character_data = generate_descendant()
-	# print("Facets: ", character_data.personality.facets)
-	# print("Beliefs: ", character_data.personality.beliefs)
-	# print("Goals: ", character_data.personality.goals)
 
 
 func generate_ancestor(gender=null) -> Ancestor:

@@ -58,12 +58,4 @@ func tell_a_joke():
 		print('IT IS AND THIS WORKS')
 
 func have_conversation():
-	emit_signal('converse', self)
-
-func _on_Converse(engager):
-	print('hey there')
-	if engager == self:
-		print("hi there!")
-
-func signals():
-	SignalBus.connect("converse", self, "_on_Converse")
+	pass
