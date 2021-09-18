@@ -62,7 +62,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Name",
 "language": "GDScript",
-"path": "res://resources/names/name_generator.gd"
+"path": "res://resource/names/name_generator.gd"
 }, {
 "base": "Resource",
 "class": "Personality",
