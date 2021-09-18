@@ -27,7 +27,8 @@ func generate_descendant() -> Descendant:
 	if check_compatibility(mother, father):
 		child = Descendant.new({"mother": mother,"father": father})
 	else:
-		generate_descendant()
+		print('First descendant generation failed. Attempting another..')
+		child = generate_descendant()
 	return child
 
 func generate_new_tribe():

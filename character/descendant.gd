@@ -5,6 +5,7 @@ var mother_data
 var father_data
 
 func _init(parent_data: Dictionary):
+	print("Descendant called")
 	assert(parent_data, "Need to provide parent_data.")
 	mother_data = parent_data.mother
 	father_data = parent_data.father
@@ -16,11 +17,11 @@ func _init(parent_data: Dictionary):
 	self.weight = determine_weight()
 	self.height_gene = determine_height_gene()
 	self.max_possible_height = determine_max_possible_height()
-	
 	self.height = determine_height()
 	self.eye_color_gene = determine_eye_color_gene()
-	self.personality = Personality.new()
-	print(.get_description())
+	.signals()
+	.have_conversation()
+
 
 func determine_race():
 	# we just need to pull from one parent, doesn't matter which. cross breeding not implemented.
@@ -30,7 +31,7 @@ func determine_gender() -> String:
 	var mother = ["X", "X"]
 	var father = ["X", "Y"]
 	var result = Util.choose(mother) + Util.choose(father)
-	if result == "XY":
+	if result == "XY" || result == "YX":
 		return "male"
 	return "female"
 

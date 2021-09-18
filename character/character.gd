@@ -15,7 +15,12 @@ var height_gene: Gene
 var max_possible_height: int #inches
 var personality: Resource
 var mood_level: Dictionary
+
+func _init() -> void:
+	print("Character called")
 	
+	
+
 func character_data() -> Dictionary:
 	return {"race": self.race, 
 			"age": self.age, 
@@ -52,4 +57,13 @@ func tell_a_joke():
 	if personality.facets.humor.value > 50:
 		print('IT IS AND THIS WORKS')
 
+func have_conversation():
+	emit_signal('converse', self)
 
+func _on_Converse(engager):
+	print('hey there')
+	if engager == self:
+		print("hi there!")
+
+func signals():
+	SignalBus.connect("converse", self, "_on_Converse")
