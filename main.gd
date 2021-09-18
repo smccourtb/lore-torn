@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var character_generator = preload("res://character/CharacterGenerator.gd").new()
-
+onready var grid = preload("res://resource/grid/cell_grid.tres")
 
 func _ready() -> void:
 	for _i in range(2):
