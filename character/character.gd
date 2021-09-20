@@ -5,6 +5,7 @@ class_name Character
 var race_data: Resource
 
 var position: Vector2
+var relationships: = []
 var race: String
 var gender: String
 var age: int
@@ -60,8 +61,10 @@ func tell_a_joke():
 
 func have_conversation():
 	var closest = find_closest()
-	if closest:
-		print(true)
+	if !closest:
+		return
+	var compatibility = check_personality_compatibility(closest)
+	print(compatibility)
 
 func find_closest():
 	var closest: float = INF
@@ -71,3 +74,16 @@ func find_closest():
 			closest = self.position.distance_squared_to(i.position)
 			ref = i
 	return ref
+
+func check_personality_compatibility(converser):
+	var common_ground: = []
+
+	# we need to populate the dictionaries by finding the extreme trait values
+	
+	for i in personality.facets:
+		for j in converser.personality.facets:
+			var dif = personality.facets[i].value - converser.personality.facets[i].value 
+			if abs(dif) < 10:
+				common_ground.append(i)
+	return Util.choose(common_ground)
+				
