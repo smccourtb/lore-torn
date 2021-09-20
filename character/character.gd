@@ -4,6 +4,7 @@ class_name Character
 # Need to provide race_data (character_template.gd)
 var race_data: Resource
 
+var position: Vector2
 var race: String
 var gender: String
 var age: int
@@ -58,4 +59,15 @@ func tell_a_joke():
 		print('IT IS AND THIS WORKS')
 
 func have_conversation():
-	pass
+	var closest = find_closest()
+	if closest:
+		print(true)
+
+func find_closest():
+	var closest: float = INF
+	var ref: Resource
+	for i in Global.population:
+		if self.position.distance_squared_to(i.position) < closest:
+			closest = self.position.distance_squared_to(i.position)
+			ref = i
+	return ref
