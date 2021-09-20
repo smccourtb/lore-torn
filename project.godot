@@ -124,6 +124,7 @@ config/icon="res://icon.png"
 
 Util="*res://globals/util.gd"
 SignalBus="*res://globals/signal_bus.gd"
+Global="*res://globals/global.gd"
 
 [debug]
 
