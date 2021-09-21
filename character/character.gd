@@ -3,9 +3,9 @@ class_name Character
 
 # Need to provide race_data (character_template.gd)
 var race_data: Resource
-
+var id: int
 var position: Vector2
-var relationships: = []
+var relationships: = {}
 var race: String
 var gender: String
 var age: int
@@ -20,8 +20,9 @@ var mood_level: Dictionary
 
 func _init() -> void:
 	print("Character called")
+	self.id = get_instance_id()
 	
-	
+
 
 func character_data() -> Dictionary:
 	return {"race": self.race, 
@@ -63,6 +64,7 @@ func have_conversation():
 	var closest = find_closest()
 	if !closest:
 		return
+	# Make sure they like each other
 	var compatibility = check_personality_compatibility(closest)
 	print(compatibility)
 
@@ -76,14 +78,39 @@ func find_closest():
 	return ref
 
 func check_personality_compatibility(converser):
-	var common_ground: = []
 
-	# we need to populate the dictionaries by finding the extreme trait values
 	
+
+	# TODO: Maybe this should be run whenever someone gets added to the population array and every month or 3 months or year (in game time)
+	# This will be greatly expanded as things develop
+	# OPTION A
+	# var common_ground: = []
+	# for i in personality.facets:
+	# 	for j in converser.personality.facets:
+	# 		var dif = personality.facets[i].value - converser.personality.facets[i].value 
+	# 		if abs(dif) < 10:
+	# 			common_ground.append(i)
+	# if common_ground.size() > 0:
+	# 	return Util.choose(common_ground)
+	# return null
+	# OPTION B
+	var total: float = 0
 	for i in personality.facets:
-		for j in converser.personality.facets:
-			var dif = personality.facets[i].value - converser.personality.facets[i].value 
-			if abs(dif) < 10:
-				common_ground.append(i)
-	return Util.choose(common_ground)
-				
+		var dif = personality.facets[i].value - converser.personality.facets[i].value
+		total += abs(dif)
+	var conversed_count: int = 1
+	if relationships.has(converser.id):
+		conversed_count += 1
+
+	relationships[converser.id] = {"points": total, 'conversed': conversed_count}
+
+	# Loop through all  facets and beliefs
+	# get difference between the two
+	# sum as you go
+	# save character id or name and the sum. the lower the score the more they are compatible
+	# beliefs could be worth 2 points instead of one as you choose your beliefs not your facets
+	# goals could be worth 3
+	# need to have a certain threshold to get married or be in a relationship
+	# levels and number of times conversed should be variables to decide when relationship changes occur (ie. acquantance -> friend)
+	# Relationship object should look like {id or name: [personality compatibility number, times talked, relationship level] } 
+	

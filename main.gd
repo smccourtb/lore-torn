@@ -9,9 +9,8 @@ func _ready() -> void:
 		var node = load("res://character/Character.tscn").instance()
 		var x = character_generator.generate_ancestor()
 		x.have_conversation()
+		print(x.relationships)
 		x.position = grid.calculate_grid_coordinates(Vector2(0,0))
-		
 		Global.population.push_back(x)
-		print(Global.population[-1].position)
 		add_child(node)
 		node.data = x
