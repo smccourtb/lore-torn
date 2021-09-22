@@ -1,6 +1,11 @@
 extends Resource
 class_name Personality
-
+# I will be restructing this following the OCEAN Model.
+# Openness = PersonalityTrait.new()
+# Concientiousness = PersonalityTrait.new()
+# Extraversion = PersonalityTrait.new()
+# Agreeableness = PersonalityTrait.new()
+# Nueroticism = PersonalityTrait.new()
 var facets: Dictionary
 var beliefs: Dictionary
 var goals: Dictionary

@@ -101,6 +101,7 @@ func check_personality_compatibility(converser):
 	var conversed_count: int = 1
 	if relationships.has(converser.id):
 		conversed_count += 1
+	print('total: ', total)
 
 	relationships[converser.id] = {"points": total, 'conversed': conversed_count}
 
