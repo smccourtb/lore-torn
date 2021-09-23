@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://character/personality/facets/facet.gd"
 }, {
 "base": "Resource",
+"class": "FacetTemplate",
+"language": "GDScript",
+"path": "res://character/personality/facet_template.gd"
+}, {
+"base": "Resource",
 "class": "Gene",
 "language": "GDScript",
 "path": "res://character/traits/gene.gd"
@@ -88,11 +93,6 @@ _global_script_classes=[ {
 "class": "Time",
 "language": "GDScript",
 "path": "res://globals/time.gd"
-}, {
-"base": "Resource",
-"class": "TraitTemplate",
-"language": "GDScript",
-"path": "res://character/personality/facet_template.gd"
 } ]
 _global_script_class_icons={
 "Allele": "",
@@ -103,6 +103,7 @@ _global_script_class_icons={
 "Cursor": "",
 "Descendant": "",
 "Facet": "",
+"FacetTemplate": "",
 "Gene": "",
 "GeneFactory": "",
 "Goal": "",
@@ -110,8 +111,7 @@ _global_script_class_icons={
 "Name": "",
 "Personality": "",
 "PersonalityTrait": "",
-"Time": "",
-"TraitTemplate": ""
+"Time": ""
 }
 
 [application]
