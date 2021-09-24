@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource( 1 )
 name = "self consciousness"
-possible_descriptions = PoolStringArray( "g", "f", "e", "d", "c", "b", "a" )
+possible_descriptions = PoolStringArray( "is gripped by a crippling shyness", "is bashful", "tends to consider what others think of [him/her]", "", "is not particularly interested in what others think of [him/her]", "is generally unhindered by the thoughts of others concerning [his/her] actions", "is shameless, absolutely unfazed by the thoughts of others" )

@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource( 1 )
 name = "hostility"
-possible_descriptions = PoolStringArray( "g", "f", "e", "d", "c", "b", "a" )
+possible_descriptions = PoolStringArray( "revels in chaos and discord, and [he/she] encourages it whenever possible", "finds a chaotic mess preferable to the boredom of harmonious living", "doesn\'t mind a little tumult and discord in day-to-day living", "", "prefers that everyone live as harmoniously as possible", "feels best when everyone gets along without any strife or contention", "would be deeply satisfied if everyone could live as one in complete harmony" )

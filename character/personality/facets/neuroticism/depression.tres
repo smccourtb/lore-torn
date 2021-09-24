@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource( 1 )
 name = "depression"
-possible_descriptions = PoolStringArray( "g", "f", "e", "d", "c", "b", "a" )
+possible_descriptions = PoolStringArray( "is frequently depressed", " is often sad and dejected", "often feels discouraged", "", "rarely feels discouraged", "almost never feels discouraged", "never feels discouraged" )
