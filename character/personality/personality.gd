@@ -12,8 +12,9 @@ var beliefs: Dictionary
 var goals: Dictionary
 
 func _init() -> void:
-	var x = load("res://character/personality/openness.tres")
-	x.generate()
+	var x = load("res://character/personality/neuroticism.tres")
+	var y = PersonalityTrait.new(x)
+	y.get_total_value()
 	# facets = determine_traits()
 	# beliefs = determine_beliefs()
 	# goals = determine_goals()

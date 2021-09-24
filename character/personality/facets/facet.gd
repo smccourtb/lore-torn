@@ -7,13 +7,14 @@ export var possible_descriptions: PoolStringArray
 var current_value: int
 var current_description: String
 
-func _init(resource):
+func _init(resource: FacetTemplate):
+	print('RESOURCE IN FACET: ', resource)
 	name = resource.name
 	possible_descriptions = resource.descriptions
 	current_value = Util.weighted_random(100, 5)
-	current_description = determine_description(current_value)
+	current_description = set_description(current_value)
 
-func determine_description(var value: int):
+func set_description(var value: int):
 	assert(possible_descriptions, "Variable descriptions has not been set.")
 	if value >= 91:
 		return possible_descriptions[6]
@@ -38,7 +39,7 @@ func get_current_value() -> int:
 
 func set_current_value(value) -> void:
 	current_value = value
-	current_description = determine_description(current_value)
+	current_description = set_description(current_value)
 
 func get_current_description() -> String:
 	return current_description

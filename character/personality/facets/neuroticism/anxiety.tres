@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://character/personality/facets/facet.gd" type="Script" id=1]
+[ext_resource path="res://character/personality/facet_template.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
 name = "anxiety"
-possible_descriptions = PoolStringArray( "has an incredibly calm demeanor", "has a very calm demeanor", "has a calm demeanor", "", "is often nervous", "is always tense and jittery", "is a nervous wreck" )
+descriptions = PoolStringArray( "is a nervous wreck", "is always tense and jittery", "is often nervous", "", "has a calm demeanor", "has a very calm demeanor", "has an incredibly calm demeanor" )

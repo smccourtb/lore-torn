@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://character/personality/facets/facet.gd" type="Script" id=1]
+[ext_resource path="res://character/personality/facet_template.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
 name = "depression"
-possible_descriptions = PoolStringArray( "is frequently depressed", " is often sad and dejected", "often feels discouraged", "", "rarely feels discouraged", "almost never feels discouraged", "never feels discouraged" )
+descriptions = PoolStringArray( "is frequently depressed", "is often sad and dejected", "often feels discouraged", "", "rarely feels discouraged", "almost never feels discouraged", "never feels discouraged" )
