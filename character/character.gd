@@ -19,7 +19,6 @@ var personality: Resource
 var mood_level: Dictionary
 
 func _init() -> void:
-	print("Character called")
 	self.id = get_instance_id()
 	
 

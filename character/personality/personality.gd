@@ -1,7 +1,7 @@
 extends Resource
 class_name Personality
 # I will be restructing this following the OCEAN Model.
-# Openness = PersonalityTrait.new()
+var openness = PersonalityTrait.new(load("res://character/personality/neuroticism.tres"))
 # Concientiousness = PersonalityTrait.new()
 # Extraversion = PersonalityTrait.new()
 # Agreeableness = PersonalityTrait.new()
@@ -12,9 +12,8 @@ var beliefs: Dictionary
 var goals: Dictionary
 
 func _init() -> void:
-	var x = load("res://character/personality/neuroticism.tres")
-	var y = PersonalityTrait.new(x)
-	y.get_total_value()
+	print(str(openness.get_total_value()) + "/600")
+	print(openness.facets.anxiety.get_current_value())
 	# facets = determine_traits()
 	# beliefs = determine_beliefs()
 	# goals = determine_goals()

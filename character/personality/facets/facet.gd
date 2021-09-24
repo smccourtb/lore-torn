@@ -8,10 +8,9 @@ var current_value: int
 var current_description: String
 
 func _init(resource: FacetTemplate):
-	print('RESOURCE IN FACET: ', resource)
-	name = resource.name
+	name = resource.name 	
 	possible_descriptions = resource.descriptions
-	current_value = Util.weighted_random(100, 5)
+	current_value = Util.weighted_random(100, 3)
 	current_description = set_description(current_value)
 
 func set_description(var value: int):
