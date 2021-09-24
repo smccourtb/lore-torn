@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=8 format=2]
+
+[ext_resource path="res://character/personality/personality_trait_template.gd" type="Script" id=1]
+[ext_resource path="res://character/personality/facets/conscientiousness/achievement_striving.tres" type="Resource" id=2]
+[ext_resource path="res://character/personality/facets/conscientiousness/competence.tres" type="Resource" id=3]
+[ext_resource path="res://character/personality/facets/conscientiousness/deliberation.tres" type="Resource" id=4]
+[ext_resource path="res://character/personality/facets/conscientiousness/order.tres" type="Resource" id=5]
+[ext_resource path="res://character/personality/facets/conscientiousness/dutifulness.tres" type="Resource" id=6]
+[ext_resource path="res://character/personality/facets/conscientiousness/self_discipline.tres" type="Resource" id=7]
+
+[resource]
+script = ExtResource( 1 )
+facets = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ) ]

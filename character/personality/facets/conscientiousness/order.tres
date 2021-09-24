@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://character/personality/facets/facet.gd" type="Script" id=1]
+[ext_resource path="res://character/personality/facet_template.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
 name = "order"
-possible_descriptions = PoolStringArray( "g", "f", "e", "d", "c", "b", "a" )
+descriptions = PoolStringArray( "", "", "", "", "", "", "" )
