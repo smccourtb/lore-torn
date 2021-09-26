@@ -1,76 +1,81 @@
 extends Character
 class_name Descendant
 
-var mother_data
-var father_data
+
+var parent_data: Dictionary
 
 func _init(parent_data: Dictionary):
-	print("Descendant called")
 	assert(parent_data, "Need to provide parent_data.")
-	mother_data = parent_data.mother
-	father_data = parent_data.father
-	self.race_data = father_data.race_data
-	self.race = determine_race()
-	self.gender = determine_gender()
-	self.name = determine_name()
-	self.age = determine_age()
-	self.weight = determine_weight()
-	self.height_gene = determine_height_gene()
-	self.max_possible_height = determine_max_possible_height()
-	self.height = determine_height()
-	self.eye_color_gene = determine_eye_color_gene()
-
-
-func determine_race():
-	# we just need to pull from one parent, doesn't matter which. cross breeding not implemented.
-	return father_data.race
+	set_parent_data(parent_data)
+	.set_race_data(get_parent_data("father").race_data)
+	determine_gender()
+	determine_name()
+	determine_age()
+	determine_weight()
+	determine_height()
+	self.genes['height'] = determine_height_gene()
+	self.genes['eyecolor'] = determine_eye_color_gene()
 	
-func determine_gender() -> String:
+func set_parent_data(new_parent_data: Dictionary) -> void:
+	self.parent_data = new_parent_data
+
+func get_parent_data(parent: String = ""):
+	# Takes 2 inputs: "mother" or "father"
+	if !parent:
+		return self.parent_data
+	return self.parent_data[parent]
+
+func determine_race() -> void:
+	# we just need to pull from one parent, doesn't matter which. cross breeding not implemented.
+	.set_race(get_parent_data("father").race)
+	
+func determine_gender() -> void:
 	var mother = ["X", "X"]
 	var father = ["X", "Y"]
 	var result = Util.choose(mother) + Util.choose(father)
 	if result == "XY" || result == "YX":
-		return "male"
-	return "female"
+		.set_gender("male")
+	.set_gender("female")
 
-func determine_name() -> String:
+func determine_name() -> void:
 	# This seems a little flimsy. I'd like a better way to access race_data for the names
 	var full_name: String
 	if self.gender:
-		var gendered_first_name = father_data.race_data.names.get(self.gender + '_first_names')
+		var gendered_first_name = get_parent_data("father").race_data.names.get(self.gender + '_first_names')
 		full_name = Util.choose(gendered_first_name)
 	else:
-		var names = [father_data.race_data.names.male_first_names + father_data.race_data.names.female_first_names]
+		var names = [get_parent_data("father").race_data.names.male_first_names + get_parent_data("father").race_data.names.female_first_names]
 		self.name = Util.choose(names)
 #	check for last name
-	if father_data.name.split(" ").size() > 1:
-		var last_name = father_data.name.split(" ")[1]
+	if get_parent_data("father").name.split(" ").size() > 1:
+		var last_name = get_parent_data("father").name.split(" ")[1]
 		full_name += " " + last_name
-	return full_name
+	.set_name(full_name)
 
-func determine_age() -> int:
+func determine_age() -> void:
 	# my line of thinking is that they are just born right?
-	return 0
+	.set_age(0)
 
 # Wtth these 2 functions maybe it would be better left as a calculation based on age, race, 
 # and genes so it can be called and updated when needed as it will change over time
-func determine_weight() -> int:
-	return 8
+func determine_weight() -> void:
+	.set_weight(8)
 
 func determine_height() -> int:
+	var max_possible_height = .determine_max_possible_height()
 	if self.age < 16:
 	# FIXME : make this more of a curve instead of linear
-		var growth_modifier = float(self.max_possible_height) / 16
+		var growth_modifier = float(max_possible_height) / 16
 		var current_age: int = self.age
 		if current_age == 0:
 			current_age = 1
 		var current_height = 12 + (current_age * growth_modifier)
 		# TODO: add nutrition to this when implemented
-		return current_height
-	return self.max_possible_height
+		.set_height(current_height)
+	return .get_height()
 	
 func determine_eye_color_gene() -> Gene:
-	return punnet_square(mother_data.eye_color_gene, father_data.eye_color_gene)
+	return punnet_square(get_parent_data("mother").eye_color_gene, get_parent_data("father").eye_color_gene)
 
 func punnet_square(mother: Gene, father: Gene) -> Gene:
 	var A = mother.genotype[0]
@@ -85,20 +90,6 @@ func punnet_square(mother: Gene, father: Gene) -> Gene:
 
 
 func determine_height_gene():
-	return punnet_square(mother_data.height_gene, father_data.height_gene)
+	return punnet_square(get_parent_data("mother").height_gene, get_parent_data("father").height_gene)
 
-
-func determine_max_possible_height() -> int:
-	var count: int = 0
-	var race_height_diff = self.race_data.max_height - self.race_data.min_height
-	for i in self.height_gene.genotype:
-		count += i.dominant
-	if count > 1:
-		var min_height = self.race_data.max_height - round(race_height_diff * .25) 
-		return Util.choose([min_height, self.race_data.max_height])
-	elif count > 0:
-		var min_height = self.race_data.max_height - round(race_height_diff * .50)
-		return Util.choose([min_height, self.race_data.max_height])
-	return Util.choose([self.race_data.min_height, round(self.race_data.min_height + (self.race_data.min_height *.50))])
-		
 

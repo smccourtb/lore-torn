@@ -10,17 +10,71 @@ var race: String
 var gender: String
 var age: int
 var name: String
-var height: int # might rename to current height
+var height: int
 var weight: int
-var eye_color_gene: Gene
-var height_gene: Gene
-var max_possible_height: int #inches
+var genes: Dictionary = {}
 var personality: Resource
 var mood_level: Dictionary
-
+var birthday: String
+# THINGS TO ADD
+# memories
 func _init() -> void:
 	self.id = get_instance_id()
 	
+func set_race_data(new_race_data: Resource) -> void:
+	self.race_data = new_race_data
+
+func get_race_data() -> Resource:
+	return self.race_data
+	
+func set_race(new_race:Resource) -> void:
+	# Most likely never to be used.. but you never know.
+	# Maybe it should be a string as a parameter and then load it in here.
+	# TODO: trigger a recalculation of everything
+	self.race_data = new_race
+
+func get_race() -> String:
+	return self.race
+
+func set_age(new_age:int) -> void:
+	self.age = new_age
+
+func get_age() -> int:
+	return self.age
+
+func get_id() -> int:
+	return self.id
+	
+func get_gender() -> String:
+	return self.gender
+
+func set_gender(new_gender: String) -> void:
+	# I'd imagine this will trigger a recalc somewhere. Should be rarely used if ever
+	self.gender = new_gender
+	
+func get_position() -> Vector2:
+	return self.position
+
+func set_position(new_pos: Vector2) -> void:
+	self.position = new_pos
+
+func get_name() -> String:
+	return self.name
+
+func set_name(new_name: String) -> void:
+	self.name = new_name
+
+func get_height() -> int:
+	return self.height
+
+func set_height(new_height: int) -> void:
+	self.height = new_height
+
+func get_weight() -> int:
+	return self.weight
+
+func set_weight(new_weight: int) -> void:
+	self.weight - new_weight
 
 
 func character_data() -> Dictionary:
@@ -64,10 +118,10 @@ func have_conversation():
 	if !closest:
 		return
 	# Make sure they like each other
-	var compatibility = check_personality_compatibility(closest)
-	print(compatibility)
+	check_personality_compatibility(closest)
 
 func find_closest():
+	# TODO: add parameter for what to search for
 	var closest: float = INF
 	var ref: Resource
 	for i in Global.population:
@@ -77,22 +131,12 @@ func find_closest():
 	return ref
 
 func check_personality_compatibility(converser):
-
-	
-
-	# TODO: Maybe this should be run whenever someone gets added to the population array and every month or 3 months or year (in game time)
-	# This will be greatly expanded as things develop
-	# OPTION A
-	# var common_ground: = []
-	# for i in personality.facets:
-	# 	for j in converser.personality.facets:
-	# 		var dif = personality.facets[i].value - converser.personality.facets[i].value 
-	# 		if abs(dif) < 10:
-	# 			common_ground.append(i)
-	# if common_ground.size() > 0:
-	# 	return Util.choose(common_ground)
-	# return null
-	# OPTION B
+	# sum difference between all facets, sets/updates conversation count,
+	# stores data in realtionship dict
+	# TODO: move into personalty class
+	# TODO: break up into separate functions
+	# TODO: Add check if converser can communicate
+	# TODO: Add check if they can speak the same language
 	var total: float = 0
 	for i in personality.facets:
 		var dif = personality.facets[i].value - converser.personality.facets[i].value
@@ -100,17 +144,22 @@ func check_personality_compatibility(converser):
 	var conversed_count: int = 1
 	if relationships.has(converser.id):
 		conversed_count += 1
-	print('total: ', total)
 
 	relationships[converser.id] = {"points": total, 'conversed': conversed_count}
 
-	# Loop through all  facets and beliefs
-	# get difference between the two
-	# sum as you go
-	# save character id or name and the sum. the lower the score the more they are compatible
-	# beliefs could be worth 2 points instead of one as you choose your beliefs not your facets
-	# goals could be worth 3
-	# need to have a certain threshold to get married or be in a relationship
-	# levels and number of times conversed should be variables to decide when relationship changes occur (ie. acquantance -> friend)
-	# Relationship object should look like {id or name: [personality compatibility number, times talked, relationship level] } 
-	
+func determine_max_possible_height() -> int:
+	var count: int = 0
+	var race_height_diff = self.race_data.max_height - self.race_data.min_height
+	for i in self.genes.height.genotype:
+		count += i.dominant
+	if count > 1:
+		var min_height = self.race_data.max_height - round(race_height_diff * .25) 
+		return Util.choose([min_height, self.race_data.max_height])
+	elif count > 0:
+		var min_height = self.race_data.max_height - round(race_height_diff * .50)
+		return Util.choose([min_height, self.race_data.max_height])
+	return Util.choose([self.race_data.min_height, round(self.race_data.min_height + (self.race_data.min_height *.50))])
+		
+
+func determine_genes():
+	pass

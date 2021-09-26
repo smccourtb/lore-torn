@@ -6,9 +6,8 @@ onready var time = Time.new({'day':0, 'hour':0, 'minute':0, 'month':0, 'year':0}
 
 func _ready() -> void:
 	for _i in range(1):
-		var node = load("res://character/Character.tscn").instance()
 		var x = character_generator.generate_ancestor()
-		print(x.personality.get_total_score())
+		Global.population.append(x)
 
 func _process(delta: float) -> void:
 	# time.advance(delta) # Start the clock

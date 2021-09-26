@@ -5,15 +5,13 @@ const openness = "openness"
 const concientiousness = "conscientiousness"
 const extraversion = "extroversion"
 const agreeableness = "agreeableness"
-const nueroticism = "neuroticism"
+const neuroticism = "neuroticism"
 
-const TRAIT_STRINGS = [openness, concientiousness, extraversion, agreeableness, nueroticism]
+const TRAIT_STRINGS = [openness, concientiousness, extraversion, agreeableness, neuroticism]
 var traits: Dictionary
 
 func _init() -> void:
 	generate_personality()
-	# print(str(nueroticism.get_total_value()) + "/600")
-	# print(traits.neuroticism.facets.anxiety.get_current_value())
 
 func generate_personality():
 	for i in TRAIT_STRINGS:

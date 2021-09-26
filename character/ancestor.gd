@@ -10,10 +10,10 @@ func _init(data: Resource, gender=null) -> void:
 	self.name = determine_name()
 	self.age = determine_age()
 	self.weight = determine_weight()
-	self.height_gene = determine_height_gene()
-	self.max_possible_height = determine_max_possible_height()
+	self.genes['height'] = determine_height_gene()
+	self.genes['eyecolor'] = determine_eye_color_gene()
 	self.height = determine_height()
-	self.eye_color_gene = determine_eye_color_gene()
+	
 	self.personality = Personality.new()
 
 func determine_gender(gender=null):
@@ -49,14 +49,15 @@ func determine_weight() -> int:
 	return Util.randi_range(self.race_data.weight_range.min(), self.race_data.weight_range.max())
 
 func determine_height() -> int:
+	var max_possible_height = .determine_max_possible_height()
 	if self.age < 16:
 	# FIXME : make this more of a curve instead of linear
-		var growth_modifier = float(self.max_possible_height) / 16
+		var growth_modifier = float(max_possible_height) / 16
 		
 		var current_height = (self.age * growth_modifier)
 		# TODO: add nutrition to this when implemented
-		return current_height
-	return self.max_possible_height
+		.set_height(current_height)
+	return .get_height()
 
 func determine_eye_color_gene() -> Gene:
 	var eyco = GeneFactory.new(self.race_data.eye_color_alleles)
@@ -67,19 +68,3 @@ func determine_height_gene() -> Gene:
 	var heig = GeneFactory.new(self.race_data.height_alleles)
 	var gene = heig.generate_gene()
 	return gene
-
-func determine_max_possible_height() -> int:
-	var count: int = 0
-	var race_height_diff = self.race_data.max_height - self.race_data.min_height
-	for i in self.height_gene.genotype:
-		count += i.dominant
-	if count > 1:
-		var min_height = self.race_data.max_height - round(race_height_diff * .25) 
-		return Util.choose([min_height, self.race_data.max_height])
-	elif count > 0:
-		var min_height = self.race_data.max_height - round(race_height_diff * .50)
-		return Util.choose([min_height, self.race_data.max_height])
-	return Util.choose([self.race_data.min_height, round(self.race_data.min_height + (self.race_data.min_height *.50))])
-		
-
-
