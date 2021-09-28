@@ -15,17 +15,21 @@ var weight: int
 var genes: Dictionary = {}
 var personality: Resource
 var mood_level: Dictionary
-var birthday: String
+var birthday: int
 # THINGS TO ADD
 # memories
+
 func _init() -> void:
 	self.id = get_instance_id()
-	
+
 func set_race_data(new_race_data: Resource) -> void:
 	self.race_data = new_race_data
 
 func get_race_data() -> Resource:
 	return self.race_data
+
+func get_id() -> int:
+	return self.id
 	
 func set_race(new_race:Resource) -> void:
 	# Most likely never to be used.. but you never know.
@@ -42,9 +46,6 @@ func set_age(new_age:int) -> void:
 func get_age() -> int:
 	return self.age
 
-func get_id() -> int:
-	return self.id
-	
 func get_gender() -> String:
 	return self.gender
 
@@ -74,9 +75,16 @@ func get_weight() -> int:
 	return self.weight
 
 func set_weight(new_weight: int) -> void:
-	self.weight - new_weight
+	self.weight = new_weight
 
+func set_birthday():
+	# stored in minutes
+	self.birthday = Global.time.value
 
+func get_birthday() -> int:
+	# TODO: convert age into years and subtract from time
+	return self.birthday
+	
 func character_data() -> Dictionary:
 	return {"race": self.race, 
 			"age": self.age, 
@@ -163,3 +171,6 @@ func determine_max_possible_height() -> int:
 
 func determine_genes():
 	pass
+
+func determine_personality() -> void:
+	self.personality = Personality.new()

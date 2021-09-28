@@ -4,8 +4,9 @@ class_name Ancestor
 
 func _init(data: Resource, gender=null) -> void:
 	assert(data, "Need to provide race_data.")
-	self.race_data = data
-	self.race = determine_race()
+	set_race_data(data)
+	determine_race()
+	.set_gender(determine_gender())
 	self.gender = determine_gender(gender)
 	self.name = determine_name()
 	self.age = determine_age()
@@ -13,10 +14,12 @@ func _init(data: Resource, gender=null) -> void:
 	self.genes['height'] = determine_height_gene()
 	self.genes['eyecolor'] = determine_eye_color_gene()
 	self.height = determine_height()
-	
-	self.personality = Personality.new()
+	.determine_personality()
 
 func determine_gender(gender=null):
+	# Not in love with this implementation
+	# What about 1 gender or more than 2
+	# TODO: change race data genders from a bool value to list of strings ("male", "female")
 	if gender:
 		return gender
 	elif self.race_data.genders:
@@ -68,3 +71,5 @@ func determine_height_gene() -> Gene:
 	var heig = GeneFactory.new(self.race_data.height_alleles)
 	var gene = heig.generate_gene()
 	return gene
+
+

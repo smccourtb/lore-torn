@@ -1,20 +1,27 @@
 extends Character
 class_name Descendant
 
+# TODO: add parents to relationship dictionary
+# TODO: check population for anyone in family tree
+# TODO: Create family tree function (linked list?)
 
 var parent_data: Dictionary
 
-func _init(parent_data: Dictionary):
-	assert(parent_data, "Need to provide parent_data.")
-	set_parent_data(parent_data)
+func _init(data: Dictionary):
+	print("D called")
+	assert(data, "Need to provide parent_data.")
+	
+	set_parent_data(data)
 	.set_race_data(get_parent_data("father").race_data)
+	self.genes['height'] = determine_height_gene()
+	self.genes['eyecolor'] = determine_eye_color_gene()
 	determine_gender()
 	determine_name()
 	determine_age()
 	determine_weight()
 	determine_height()
-	self.genes['height'] = determine_height_gene()
-	self.genes['eyecolor'] = determine_eye_color_gene()
+	.determine_personality()
+	
 	
 func set_parent_data(new_parent_data: Dictionary) -> void:
 	self.parent_data = new_parent_data
@@ -38,7 +45,6 @@ func determine_gender() -> void:
 	.set_gender("female")
 
 func determine_name() -> void:
-	# This seems a little flimsy. I'd like a better way to access race_data for the names
 	var full_name: String
 	if self.gender:
 		var gendered_first_name = get_parent_data("father").race_data.names.get(self.gender + '_first_names')
@@ -75,13 +81,13 @@ func determine_height() -> int:
 	return .get_height()
 	
 func determine_eye_color_gene() -> Gene:
-	return punnet_square(get_parent_data("mother").eye_color_gene, get_parent_data("father").eye_color_gene)
+	return punnet_square(get_parent_data("mother").genes.eyecolor, get_parent_data("father").genes.eyecolor)
 
 func punnet_square(mother: Gene, father: Gene) -> Gene:
 	var A = mother.genotype[0]
 	var B = mother.genotype[1]
 	var X = father.genotype[0]
-	var Y = father.genotype[0]
+	var Y = father.genotype[1]
 	var punnett = [[A,X],[A,Y],[B,X],[B,Y]]
 	var result = Util.choose(punnett)
 	var descendant_gene = Gene.new(result[0], result[1])
@@ -90,6 +96,6 @@ func punnet_square(mother: Gene, father: Gene) -> Gene:
 
 
 func determine_height_gene():
-	return punnet_square(get_parent_data("mother").height_gene, get_parent_data("father").height_gene)
+	return punnet_square(get_parent_data("mother").genes.height, get_parent_data("father").genes.height)
 
 

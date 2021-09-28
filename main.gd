@@ -6,7 +6,7 @@ onready var time = Time.new({'day':0, 'hour':0, 'minute':0, 'month':0, 'year':0}
 
 func _ready() -> void:
 	for _i in range(1):
-		var x = character_generator.generate_ancestor()
+		var x = character_generator.generate_descendant()
 		Global.population.append(x)
 
 func _process(delta: float) -> void:
