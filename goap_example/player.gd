@@ -17,63 +17,8 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	life -= delta
-	if life <= 0:
-		set_physics_process(false)
-		$Model.anim("Die")
-		return
-	$UI/ProgressBar.value = life
-	motion.y += -9.8*delta
-	move_and_slide(motion, Vector3(0, 1, 0))
-	var direction = Vector2(0, 0)
-	if target == null:
-		direction.y += run_speed*Input.get_joy_axis(0, 0)
-		direction.x -= run_speed*Input.get_joy_axis(0, 1)
-		if Input.is_action_pressed("ui_up"):
-			direction.x += run_speed
-		if Input.is_action_pressed("ui_down"):
-			direction.x -= run_speed
-		if Input.is_action_pressed("ui_left"):
-			direction.y -= run_speed
-		if Input.is_action_pressed("ui_right"):
-			direction.y += run_speed
-		var camera = get_node("../Camera")
-		if camera != null:
-			direction = direction.rotated(-0.5*PI - camera.rotation.y)
-	else:
-		var remaining = Vector2(target.x, target.z) - Vector2(translation.x, translation.z)
-		if remaining.length() < 0.8:
-			target = null
-			emit_signal("run_end", true)
-			return
-		else:
-			direction = run_speed*(remaining).normalized()
-	if direction.length() > run_speed:
-		direction /= direction.length()
-		direction *= run_speed
-	var h_motion_influence = delta
-	if is_on_floor():
-		h_motion_influence *= 10
-		motion.y = 0
-		if Input.is_action_just_pressed("jump"):
-			motion.y = 10
-	var h_motion = Vector2(motion.x, motion.z)
-	h_motion.x = lerp(h_motion.x, direction.x, h_motion_influence)
-	h_motion.y = lerp(h_motion.y, direction.y, h_motion_influence)
-	if (previous_position-translation).length()/delta > 1:
-		$Model.anim("Run")
-		rotation.y = 0.5*PI - h_motion.angle()
-		blocked_time = 0.0
-	else:
-		$Model.anim("Idle")
-		if (previous_position-translation).length()/delta < 0.1:
-			blocked_time += delta
-			if blocked_time > 3.0:
-				target = null
-				emit_signal("run_end", false)
-	previous_position = translation
-	motion.x = h_motion.x
-	motion.z = h_motion.y
+	# no help
+	pass
 
 func run_to(p):
 	blocked_time = 0.0
@@ -99,18 +44,6 @@ func count_visible_objects(object_type):
 				count += 1
 	return count
 
-func _input(event):
-	if event is InputEventKey and event.is_pressed():
-		if event.get_scancode() == KEY_SPACE:
-			var obj = get_nearest_object()
-			if obj.distance < 1.0 and obj.object.has_method("action"):
-				obj.object.action(self)
-			else:
-				do_grow_tree()
-		elif event.get_scancode() == KEY_E:
-			eat_fruit()
-		elif event.get_scancode() == KEY_G:
-			goap()
 
 func holds(object_type):
 	if held != null and held.get_object_type() == object_type:
@@ -196,15 +129,7 @@ func eat_fruit():
 	return false
 
 func do_grow_tree():
-	if held == null or held.get_object_type() != "fruit":
-		return false
-	held.free()
-	held = null
-	update_held_icon()
-	var tree = preload("res://goap_example/tree/tree.tscn").instance()
-	tree.translation = translation + 2.0*Vector3(sin(rotation.y), 0.0, cos(rotation.y))
-	get_parent().add_child(tree)
-	return true
+	pass
 
 func grow_tree():
 	# Check we have a fruit

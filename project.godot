@@ -20,7 +20,7 @@ _global_script_classes=[ {
 "path": "res://addons/goap/action.gd"
 }, {
 "base": "Resource",
-"class": "Action_Planner",
+"class": "ActionPlanner",
 "language": "GDScript",
 "path": "res://addons/goap/action_planner.gd"
 }, {
@@ -132,7 +132,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AStarNode": "",
 "Action": "",
-"Action_Planner": "",
+"ActionPlanner": "",
 "Allele": "",
 "Ancestor": "",
 "Belief": "",

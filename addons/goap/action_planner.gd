@@ -1,13 +1,11 @@
 extends Resource
-class_name Action_Planner
+class_name ActionPlanner
 
 var state_atoms = []
 var actions = []
 
 
-
-
-func _ready():
+func _init():
 	parse_actions()
 
 func state_index(n):
@@ -18,6 +16,7 @@ func state_index(n):
 	return rv
 
 func parse_state(string):
+	print(string)
 	var value = 0
 	var mask = 0
 	var regex = RegEx.new()
@@ -32,6 +31,7 @@ func parse_state(string):
 		mask |= rv
 		if v:
 			value |= rv
+	print("V: ", value, "M: ", mask)
 	return State.new(value, mask)
 
 func clear_actions():
@@ -93,19 +93,19 @@ func state_to_string(s):
 	return rv
 
 func astar(nodes, ends, goal, index):
-	#print("Starting from node "+str(index))
+	print("Starting from node "+ str(index))
 	var node = nodes[index]
 	for a in actions:
 		if node.state.check(a.preconditions):
 			var next_state = node.state.apply(a.effect)
 			var cost = node.cost + a.cost
 			var found = false
-			#print("  "+a.name+"("+state_to_string(a.preconditions)+", "+state_to_string(a.effect)+") -> "+state_to_string(next_state))
+			print("  "+a.name+"("+state_to_string(a.preconditions)+", "+state_to_string(a.effect)+") -> "+state_to_string(next_state))
 			for n in range(nodes.size()):
 				if nodes[n].state.equals(next_state):
 					found = true
 					if nodes[n].cost > cost:
-						#print("Found better cost for node "+str(n))
+						print("Found better cost for node "+str(n))
 						nodes[n].last_action = a.name
 						nodes[n].previous = index
 						fix_nodes_cost(nodes, [ n ], nodes[n].cost - cost)
