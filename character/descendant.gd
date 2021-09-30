@@ -8,7 +8,6 @@ class_name Descendant
 var parent_data: Dictionary
 
 func _init(data: Dictionary):
-	print("D called")
 	assert(data, "Need to provide parent_data.")
 	
 	set_parent_data(data)

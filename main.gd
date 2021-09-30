@@ -10,5 +10,5 @@ func _ready() -> void:
 		Global.population.append(x)
 
 func _process(delta: float) -> void:
-	# time.advance(delta) # Start the clock
-	pass
+	time.advance(delta) # Start the clock
+	print(time.get_time_as_dictionary())
