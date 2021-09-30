@@ -4,17 +4,15 @@ class_name Ancestor
 
 func _init(data: Resource, gender=null) -> void:
 	assert(data, "Need to provide race_data.")
-	set_race_data(data)
-	determine_race()
-	.set_gender(determine_gender())
-	self.gender = determine_gender(gender)
-	self.name = determine_name()
-	self.age = determine_age()
-	self.weight = determine_weight()
-	self.genes['height'] = determine_height_gene()
-	self.genes['eyecolor'] = determine_eye_color_gene()
-	self.height = determine_height()
-#	.determine_personality()
+	.set_race_data(data)
+	.set_race(determine_race())
+	.set_gender(determine_gender(gender))
+	.set_name(determine_name())
+	.set_age(determine_age())
+	determine_genes()
+	.set_weight(determine_weight())
+	.set_height(determine_height())	
+	
 
 func determine_gender(gender=null):
 	# Not in love with this implementation
@@ -71,5 +69,10 @@ func determine_height_gene() -> Gene:
 	var heig = GeneFactory.new(self.race_data.height_alleles)
 	var gene = heig.generate_gene()
 	return gene
+
+func determine_genes() -> void:
+	self.genes['eyecolor'] = determine_eye_color_gene()
+	self.genes['height'] = determine_height_gene()
+	
 
 

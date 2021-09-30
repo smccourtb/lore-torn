@@ -12,6 +12,7 @@ func _init(data: Dictionary):
 	
 	set_parent_data(data)
 	.set_race_data(get_parent_data("father").race_data)
+	.set_race(determine_race())
 	self.genes['height'] = determine_height_gene()
 	self.genes['eyecolor'] = determine_eye_color_gene()
 	determine_gender()
@@ -19,7 +20,6 @@ func _init(data: Dictionary):
 	determine_age()
 	determine_weight()
 	determine_height()
-#	.determine_personality()
 	
 	
 func set_parent_data(new_parent_data: Dictionary) -> void:
@@ -31,9 +31,9 @@ func get_parent_data(parent: String = ""):
 		return self.parent_data
 	return self.parent_data[parent]
 
-func determine_race() -> void:
+func determine_race() -> String:
 	# we just need to pull from one parent, doesn't matter which. cross breeding not implemented.
-	.set_race(get_parent_data("father").race)
+	return get_parent_data("father").race
 	
 func determine_gender() -> void:
 	var mother = ["X", "X"]

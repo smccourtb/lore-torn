@@ -15,7 +15,6 @@ var weight: int
 var genes: Dictionary = {}
 var personality: Resource
 var mood_level: Dictionary
-var birthday: int
 # THINGS TO ADD
 # memories
 
@@ -32,11 +31,8 @@ func get_race_data() -> Resource:
 func get_id() -> int:
 	return self.id
 	
-func set_race(new_race:Resource) -> void:
-	# Most likely never to be used.. but you never know.
-	# Maybe it should be a string as a parameter and then load it in here.
-	# TODO: trigger a recalculation of everything
-	self.race_data = new_race
+func set_race(new_race: String) -> void:
+	self.race = new_race
 
 func get_race() -> String:
 	return self.race
