@@ -58,7 +58,7 @@ func determine_height() -> int:
 		var current_height = (self.age * growth_modifier)
 		# TODO: add nutrition to this when implemented
 		.set_height(current_height)
-	return .get_height()
+	return max_possible_height
 
 func determine_eye_color_gene() -> Gene:
 	var eyco = GeneFactory.new(self.race_data.eye_color_alleles)
