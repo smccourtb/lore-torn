@@ -1,54 +1,11 @@
-extends Node
+extends Resource
+class_name Action_Planner
 
 var state_atoms = []
 var actions = []
 
-class State:
-	var value
-	var mask
-	
-	func _init(v, m):
-		value = v
-		mask = m
-	
-	func equals(state):
-		return value == state.value and mask == state.mask
-	
-	func check(condition):
-		return (condition.mask & mask) == condition.mask and (value & condition.mask) == condition.value
-	
-	func apply(effect):
-		return get_script().new((value & mask & (~effect.mask)) | (effect.value & effect.mask), mask | effect.mask)
-	
-	func tostring():
-		return "("+str(value)+", "+str(mask)+")"
 
-class Action:
-	var name
-	var preconditions
-	var effect
-	var cost
-	
-	func _init(n, p, e, c):
-		name = n
-		preconditions = p
-		effect = e
-		cost = c
 
-	func tostring():
-		return name +"("+preconditions.tostring()+", "+effect.tostring()+", "+str(cost)+")"
-
-class AStarNode:
-	var state
-	var previous
-	var last_action
-	var cost
-	
-	func _init(s, p, la, c):
-		state = s
-		previous = p
-		last_action = la
-		cost = c
 
 func _ready():
 	parse_actions()
@@ -87,8 +44,8 @@ func add_action(function, preconditions, effect, cost):
 
 func parse_actions():
 	clear_actions()
-	for a in get_children():
-		add_action(a.action if (a.action != null) else a.name, a.preconditions, a.effect, a.cost)
+#	for a in get_children():
+#		add_action(a.action if (a.action != null) else a.name, a.preconditions, a.effect, a.cost)
 
 func plan(s, g):
 	#print("Plan from '"+s+"' to '"+g+"'")
