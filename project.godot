@@ -10,21 +10,6 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
-"class": "AStarNode",
-"language": "GDScript",
-"path": "res://astar_node.gd"
-}, {
-"base": "Resource",
-"class": "Action",
-"language": "GDScript",
-"path": "res://addons/goap/action.gd"
-}, {
-"base": "Resource",
-"class": "ActionPlanner",
-"language": "GDScript",
-"path": "res://addons/goap/action_planner.gd"
-}, {
-"base": "Resource",
 "class": "Allele",
 "language": "GDScript",
 "path": "res://character/traits/eyes/alleles/allele.gd"
@@ -77,7 +62,17 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "GAOP",
 "language": "GDScript",
-"path": "res://gaop.gd"
+"path": "res://gaop/gaop.gd"
+}, {
+"base": "Node",
+"class": "GOAPAction",
+"language": "GDScript",
+"path": "res://gaop/goap_action.gd"
+}, {
+"base": "Node",
+"class": "GOAPActionPlanner",
+"language": "GDScript",
+"path": "res://gaop/goap_action_planner.gd"
 }, {
 "base": "Resource",
 "class": "Gene",
@@ -120,19 +115,11 @@ _global_script_classes=[ {
 "path": "res://character/personality/personality_trait_template.gd"
 }, {
 "base": "Resource",
-"class": "State",
-"language": "GDScript",
-"path": "res://state.gd"
-}, {
-"base": "Resource",
 "class": "Time",
 "language": "GDScript",
 "path": "res://globals/time.gd"
 } ]
 _global_script_class_icons={
-"AStarNode": "",
-"Action": "",
-"ActionPlanner": "",
 "Allele": "",
 "Ancestor": "",
 "Belief": "",
@@ -144,6 +131,8 @@ _global_script_class_icons={
 "Facet": "",
 "FacetTemplate": "",
 "GAOP": "",
+"GOAPAction": "",
+"GOAPActionPlanner": "",
 "Gene": "",
 "GeneFactory": "",
 "Goal": "",
@@ -152,7 +141,6 @@ _global_script_class_icons={
 "Personality": "",
 "PersonalityTrait": "",
 "PersonaltyTraitTemplate": "",
-"State": "",
 "Time": ""
 }
 

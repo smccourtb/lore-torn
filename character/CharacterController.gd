@@ -13,7 +13,6 @@ var previous_position = Vector3(0, 0, 0)
 var blocked_time = 0.0
 var target = null
 var life = 100.0
-var gaop: GAOP
 var held = null # This represents one handed item being equipped.
 
 signal run_end
@@ -21,7 +20,7 @@ signal action_end
 
 
 # MY OWN TEMP VARS TO REPLACE THE NODE CALLS ( $NodeName )
-
+onready var timer = get_parent().get_node("Timer")
 onready var detect = get_node("Area2D")
 
 # TEMP VARIABLES END 
@@ -32,13 +31,23 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed():
 		if event.get_scancode() == KEY_G:
-			#This triggers the AI to start doing its thang
-			if !gaop:
-				gaop = GAOP.new(self, get_parent().get_node('Timer'))
+#			#This triggers the AI to start doing its thang
+			goap()
 				
 func run_to(p):
 	blocked_time = 0.0
 	target = p
+
+func find_nearest_object(object_type = null):
+	var nearest_distance = 100
+	var nearest_object = null
+	for o in detect.get_overlapping_bodies():
+		if o.is_inside_tree() and o.translation.y < 0.5:
+			var distance = (global_transform.origin - o.global_transform.origin).length()
+			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
+				nearest_distance = distance
+				nearest_object = o
+	return { object=nearest_object, distance=nearest_distance }
 
 func get_nearest_object(object_type = null):
 	# FINDS nearest object or CHECK for specified object
@@ -124,3 +133,66 @@ func cut_tree():
 func wait():
 	# The wait action triggers an error so the plan is recalculated 
 	return false
+
+func get_goap_current_state():
+	var state = ""
+	for o in ["axe", "wood", "fruit"]:
+		if holds(o):
+			state += "has_"+o+" sees_"+o+" "
+		else:
+			state += "!has_"+o+" "
+			if find_nearest_object(o).object != null:
+				state += "sees_"+o+" "
+	for o in ["tree", "box"]:
+		if find_nearest_object(o).object == null:
+			state += "!"
+		state += "sees_"
+		state += o
+		state += " "
+	state += " hungry" if (life < 75) else " !hungry"
+	return state
+
+func get_goap_current_goal():
+	var goal
+	# the goal is to plant trees then gather wood when there are enough trees
+	if count_visible_objects("tree") < 10:
+		goal = "sees_growing_tree"
+	else:
+		goal = "wood_stored"
+	# in any case, avoid starvation
+	goal += " !hungry"
+	return goal
+
+func goap():
+	var start_time = OS.get_unix_time()
+	var count = 0
+	var action_planner = get_node("ActionPlanner")
+	if action_planner == null:
+		return
+	while true:
+		count += 1
+		print("%d: Planning (%d)..." % [ OS.get_unix_time() - start_time, count ])
+		var plan : Array = action_planner.plan(get_goap_current_state(), get_goap_current_goal())
+		# execute plan
+		for a in plan:
+			var error = false
+			# Actions are implemented as methods
+			# - immediate actions return a boolean status
+			# - non immediate actions (that call yield) return a GDScriptFunctionState
+			if has_method(a):
+				print("Calling action function "+a)
+				var status = call(a)
+				while status is GDScriptFunctionState:
+					status = yield(status, "completed")
+				if typeof(status) != TYPE_BOOL:
+					print("Return value of "+a+" is not a boolean")
+					status = false
+				error = !status
+			else:
+				print("Cannot perform action "+a)
+				error = true
+			if error: break
+			timer.start()
+			yield(timer, "timeout")
+		timer.start()
+		yield(timer, "timeout")
