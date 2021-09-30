@@ -19,7 +19,7 @@ func _init(data: Dictionary):
 	determine_age()
 	determine_weight()
 	determine_height()
-	.determine_personality()
+#	.determine_personality()
 	
 	
 func set_parent_data(new_parent_data: Dictionary) -> void:
@@ -91,8 +91,6 @@ func punnet_square(mother: Gene, father: Gene) -> Gene:
 	var result = Util.choose(punnett)
 	var descendant_gene = Gene.new(result[0], result[1])
 	return descendant_gene
-
-
 
 func determine_height_gene():
 	return punnet_square(get_parent_data("mother").genes.height, get_parent_data("father").genes.height)

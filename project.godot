@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://character/character.gd"
 }, {
 "base": "Resource",
+"class": "CharacterGenerator",
+"language": "GDScript",
+"path": "res://character/CharacterGenerator.gd"
+}, {
+"base": "Resource",
 "class": "CharacterTemplate",
 "language": "GDScript",
 "path": "res://character/character_template.gd"
@@ -104,6 +109,7 @@ _global_script_class_icons={
 "Ancestor": "",
 "Belief": "",
 "Character": "",
+"CharacterGenerator": "",
 "CharacterTemplate": "",
 "Cursor": "",
 "Descendant": "",

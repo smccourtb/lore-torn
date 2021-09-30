@@ -28,11 +28,9 @@ const TIME_MULTIPLIERS = {
 	"month" : 60 * 24 * 28,
 	"year" : 60 * 24 * 28 * 4,
 }
-# time_scale = (minutes) / 60 (minutes in an hour)
-#var time_scale = 20 / 60.0 # 1 irl min == 20 in-game min
-#var time_scale = (480*3) / 60.0 # 1 irl min == 1 in-game day
-var time_scale = 120 / 60.0 # 1 irl min == 75 in-game min <- shouldn't this be 120 minutes?
 
+var time_scale = TIME_MULTIPLIERS["month"] / 60.0 # 1 irl min == TIME_MULTIPLIERS["segment of time"]
+#var time_scale = TIME_MULTIPLIERS["hour"] / 60.0 # 1 irl sec == TIME_MULTIPLIERS["segment of time"]
 var value = 0 # stores the actual time, represents minutes in game
 var tick = 0 # time delta, will roll over into minutes
 

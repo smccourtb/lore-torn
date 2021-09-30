@@ -21,6 +21,7 @@ var birthday: int
 
 func _init() -> void:
 	self.id = get_instance_id()
+	set_personality()
 
 func set_race_data(new_race_data: Resource) -> void:
 	self.race_data = new_race_data
@@ -156,21 +157,28 @@ func check_personality_compatibility(converser):
 	relationships[converser.id] = {"points": total, 'conversed': conversed_count}
 
 func determine_max_possible_height() -> int:
+	var max_height = self.race_data.max_height
 	var count: int = 0
-	var race_height_diff = self.race_data.max_height - self.race_data.min_height
+	var race_height_diff = max_height - self.race_data.min_height
 	for i in self.genes.height.genotype:
 		count += i.dominant
 	if count > 1:
-		var min_height = self.race_data.max_height - round(race_height_diff * .25) 
-		return Util.choose([min_height, self.race_data.max_height])
+		var min_height = max_height - round(race_height_diff * .25) 
+		return Util.choose([min_height, max_height])
 	elif count > 0:
-		var min_height = self.race_data.max_height - round(race_height_diff * .50)
-		return Util.choose([min_height, self.race_data.max_height])
-	return Util.choose([self.race_data.min_height, round(self.race_data.min_height + (self.race_data.min_height *.50))])
+		var min_height = max_height - round(race_height_diff * .50)
+		return Util.choose([min_height, max_height])
+	return Util.choose([self.race_data.min_height, round(self.race_data.min_height + (max_height *.50))])
 		
 
 func determine_genes():
 	pass
 
-func determine_personality() -> void:
-	self.personality = Personality.new()
+func set_personality() -> void:
+	self.personality = determine_personality()
+
+func get_personalty() -> Resource:
+	return self.personality
+	
+func determine_personality() -> Personality:
+	return Personality.new()

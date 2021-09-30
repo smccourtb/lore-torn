@@ -14,7 +14,7 @@ func _init(data: Resource, gender=null) -> void:
 	self.genes['height'] = determine_height_gene()
 	self.genes['eyecolor'] = determine_eye_color_gene()
 	self.height = determine_height()
-	.determine_personality()
+#	.determine_personality()
 
 func determine_gender(gender=null):
 	# Not in love with this implementation

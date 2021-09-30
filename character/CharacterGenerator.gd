@@ -1,6 +1,6 @@
 extends Resource
+class_name CharacterGenerator
 
-var character_data
 var DWARF : = "res://character/dwarf.tres"
 
 var npc_choices: Array = [DWARF]
