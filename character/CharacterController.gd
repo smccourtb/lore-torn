@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 
 # contains all information of character
 var data: Character
@@ -8,8 +8,8 @@ onready var time = get_parent().time
 
 export(float) var run_speed = 10.0
 
-var motion = Vector3(0, 0, 0)
-var previous_position = Vector3(0, 0, 0)
+var motion = Vector2(0, 0)
+var previous_position = Vector2(0, 0)
 var blocked_time = 0.0
 var target = null
 var life = 100.0
@@ -33,7 +33,8 @@ func _input(event: InputEvent) -> void:
 		if event.get_scancode() == KEY_G:
 #			#This triggers the AI to start doing its thang
 			goap()
-				
+
+	
 func run_to(p):
 	blocked_time = 0.0
 	target = p
@@ -42,7 +43,9 @@ func find_nearest_object(object_type = null):
 	var nearest_distance = 100
 	var nearest_object = null
 	for o in detect.get_overlapping_bodies():
-		if o.is_inside_tree() and o.translation.y < 0.5:
+		print("OOOOO: ", o)
+		if o.is_inside_tree():
+			
 			var distance = (global_transform.origin - o.global_transform.origin).length()
 			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
 				nearest_distance = distance
@@ -54,6 +57,7 @@ func get_nearest_object(object_type = null):
 	var nearest_distance = 100
 	var nearest_object = null
 	for o in detect.get_overlapping_bodies():
+		print("Ozzzzzzz: ", o)
 		if o.is_inside_tree():
 			var distance = (global_transform.origin - o.global_transform.origin).length()
 			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
@@ -65,6 +69,8 @@ func count_visible_objects(object_type):
 	# TODO: Just look up global list for objects and populate it on start up
 	var count = 0
 	for o in detect.get_overlapping_bodies():
+		print("Occcccccc: ", o)
+		
 		if o.is_inside_tree():
 			var distance = (global_transform.origin - o.global_transform.origin).length()
 			if o != self and o.get_script() != null and o.get_object_type() == object_type:
@@ -76,8 +82,10 @@ func holds(object_type):
 #		return true
 #	return false
 	return true
+	
 func pickup_object(object_type):
 	var nearest = get_nearest_object(object_type)
+	print("IM IN HERE AND HERES NEAREST OBJECT: ", nearest)
 	if nearest.object == null or nearest.distance > 1.0:
 		return false
 	pickup(nearest.object)
@@ -167,7 +175,6 @@ func goap():
 	var count = 0
 	var action_planner = get_node("ActionPlanner")
 	if action_planner == null:
-		print("NO ACTION PLAYER")
 		return
 	while true:
 		count += 1

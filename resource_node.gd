@@ -1,26 +1,29 @@
 class_name ResourceNode
 extends Resource
 
+var node_data: Resource
+# static texture representation when added to scene tree
 var texture: AtlasTexture
+# tree, rock, plant
 var type: String
+# if tree: oak, willow, birch, etc | if rock: stone, tin, gold  etc.
 var subtype: String
-var can_cut = true
 
-func _init(resource_data: Resource) -> void:
+func _init() -> void:
 	print("STill BEINg CalLLEd")
-	type = resource_data.type
-	subtype = resource_data.subtype
-	texture = resource_data.texture
+	
 	
 
-func get_object_type():
-	if can_cut:
-		return type
-	else:
-		return "tree_not_ready"
-		
+func get_type() -> String:
+	return type
 
-
+func set_type() -> void:
+	pass
+	
+func set_node_data(data: Resource) -> void:
+	self.node_data = data
+	
+	
 #func setup_node(var _bloom):
 #	hits = node_resource.hits
 #

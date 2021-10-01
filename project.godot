@@ -59,20 +59,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://character/personality/facet_template.gd"
 }, {
-"base": "Resource",
-"class": "GAOP",
-"language": "GDScript",
-"path": "res://gaop/gaop.gd"
-}, {
 "base": "Node",
 "class": "GOAPAction",
 "language": "GDScript",
-"path": "res://gaop/goap_action.gd"
+"path": "res://addons/goap/goap_action.gd"
 }, {
 "base": "Node",
 "class": "GOAPActionPlanner",
 "language": "GDScript",
-"path": "res://gaop/goap_action_planner.gd"
+"path": "res://addons/goap/goap_action_planner.gd"
 }, {
 "base": "Resource",
 "class": "Gene",
@@ -133,6 +128,11 @@ _global_script_classes=[ {
 "class": "Time",
 "language": "GDScript",
 "path": "res://globals/time.gd"
+}, {
+"base": "ResourceNode",
+"class": "TreeNode",
+"language": "GDScript",
+"path": "res://tree.gd"
 } ]
 _global_script_class_icons={
 "Allele": "",
@@ -145,7 +145,6 @@ _global_script_class_icons={
 "Descendant": "",
 "Facet": "",
 "FacetTemplate": "",
-"GAOP": "",
 "GOAPAction": "",
 "GOAPActionPlanner": "",
 "Gene": "",
@@ -159,7 +158,8 @@ _global_script_class_icons={
 "ResourceGenerator": "",
 "ResourceNode": "",
 "ResourceNodeTemplate": "",
-"Time": ""
+"Time": "",
+"TreeNode": ""
 }
 
 [application]
@@ -190,7 +190,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg", "res://addons/goap/plugin.cfg" )
 
 [importer_defaults]
 

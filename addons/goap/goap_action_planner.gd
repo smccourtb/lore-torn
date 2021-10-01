@@ -2,7 +2,7 @@ tool
 extends Node
 class_name GOAPActionPlanner
 
-var state_atoms = []
+var state_atoms = [] # hold individual world describers [has_axe, sees_tree]
 var actions = []
 
 class State:
@@ -109,8 +109,8 @@ func parse_actions(sort_atoms : bool = false, keep_atoms = false): # O(n**2)
 		state_atoms = []
 	actions = []
 	
-	# Could change this to pick from a list and just pass the whole resource
-	for a in get_children(): # for a in <list of action templates>
+	# Could change this to pick from a list and just pass the whole resource SM
+	for a in get_children(): # for a in <list of action templates> SM
 		add_action(a.name, a.preconditions, a.effect, a.cost)
 	if !keep_atoms and sort_atoms:
 		state_atoms.sort()

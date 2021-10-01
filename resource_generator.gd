@@ -10,7 +10,7 @@ func _init():
 	pass
 
 func generate_tree(type: String):
-	var tree = ResourceNode.new(load(trees[type]))
+	var tree = TreeNode.new(load(trees[type]))
 	return tree
 	
 func generate_rock(type: String):

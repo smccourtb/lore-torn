@@ -1,14 +1,18 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/characters/dwarf/dwarf.png" type="Texture" id=1]
 [ext_resource path="res://character/CharacterController.gd" type="Script" id=2]
-[ext_resource path="res://gaop/goap_action.gd" type="Script" id=3]
-[ext_resource path="res://gaop/goap_action_planner.gd" type="Script" id=4]
+[ext_resource path="res://addons/goap/goap_action.gd" type="Script" id=3]
+[ext_resource path="res://addons/goap/goap_action_planner.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 49.0692, 44.8251 )
 
-[node name="Character" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 3.58041
+height = 1.55687
+
+[node name="Character" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -25,5 +29,8 @@ script = ExtResource( 4 )
 [node name="cut_tree" type="Node" parent="ActionPlanner"]
 script = ExtResource( 3 )
 action = "cut_tree"
-preconditions = "has_axe sees_tree"
-effect = "sees_wood sees_fruit"
+preconditions = "sees_tree"
+effect = "sees_wood"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
