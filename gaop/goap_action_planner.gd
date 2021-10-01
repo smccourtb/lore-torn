@@ -51,7 +51,7 @@ class Action:
 		return name +"("+preconditions.tostring(atoms)+", "+effect.tostring(atoms)+", "+str(cost)+")"
 
 class AStarNode:
-	var state: State
+	var state: State #!hungry sees_tree has_axe <- but just one
 	var previous: int
 	var last_action
 	var cost: float
@@ -73,15 +73,21 @@ func state_index(n: String):
 	return rv
 
 func parse_state(string: String) -> State:
+	# Takes a string (world bools and goals and outputs a State node
+	# i ASSUME this is converting a string into some sort of ID
+	# USES BITWISE BLACK MAGIC
 	var value = 0
 	var mask = 0
 	var regex = RegEx.new()
 	regex.compile("!?[\\w\\d_]+")
+	# Splits the string up using regex (ex. 'has_axe' or 'sees_tree') and puts it into var n 
 	for m in regex.search_all(string):
 		var n = m.get_string()
 		var v = true
+		# Check for a NOT
 		if n[0] == "!":
 			v = false
+		# This is voodoo to me. I have no idea whats happening
 			n = n.right(1)
 		var rv = 1 << state_index(n)
 		mask |= rv
@@ -117,7 +123,7 @@ func plan(state, goal) -> Array:
 
 func plan_from_states(state : State, goal : State) -> Array:
 	var nodes = []
-	var ends = []
+	var ends = []			   #state #previous #last action #cost
 	nodes.append(AStarNode.new(state, 0, null, 0))
 	astar(nodes, ends, goal, 0)
 	var best_cost = 100000
@@ -150,7 +156,7 @@ func state_to_string(s):
 	return s.tostring(state_atoms)
 
 func astar(nodes, ends, goal, index):
-	#print("Starting from node "+str(index))
+	print("Starting from node "+str(index))
 	var node = nodes[index]
 	for a in actions:
 		#print(a.tostring(state_atoms))
@@ -158,7 +164,7 @@ func astar(nodes, ends, goal, index):
 			var next_state = node.state.apply(a.effect)
 			var cost = node.cost + a.cost
 			var found = false
-			#print("  "+a.name+"("+state_to_string(a.preconditions)+", "+state_to_string(a.effect)+") -> "+state_to_string(next_state))
+#			print("  "+a.name+"("+state_to_string(a.preconditions)+", "+state_to_string(a.effect)+") -> "+state_to_string(next_state))
 			for n in range(nodes.size()):
 				if nodes[n].state.equals(next_state):
 					found = true

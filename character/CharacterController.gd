@@ -71,12 +71,11 @@ func count_visible_objects(object_type):
 				count += 1
 	return count
 
-
 func holds(object_type):
-	if held != null and held.get_object_type() == object_type:
-		return true
-	return false
-
+#	if held != null and held.get_object_type() == object_type:
+#		return true
+#	return false
+	return true
 func pickup_object(object_type):
 	var nearest = get_nearest_object(object_type)
 	if nearest.object == null or nearest.distance > 1.0:
@@ -136,16 +135,16 @@ func wait():
 
 func get_goap_current_state():
 	var state = ""
-	for o in ["axe", "wood", "fruit"]:
+	for o in ["axe"]:  # , "wood", "fruit"
 		if holds(o):
 			state += "has_"+o+" sees_"+o+" "
 		else:
 			state += "!has_"+o+" "
 			if find_nearest_object(o).object != null:
 				state += "sees_"+o+" "
-	for o in ["tree", "box"]:
-		if find_nearest_object(o).object == null:
-			state += "!"
+	for o in ["tree"]:  # , "box"
+#		if find_nearest_object(o).object == null:
+#			state += "!"
 		state += "sees_"
 		state += o
 		state += " "
@@ -155,10 +154,10 @@ func get_goap_current_state():
 func get_goap_current_goal():
 	var goal
 	# the goal is to plant trees then gather wood when there are enough trees
-	if count_visible_objects("tree") < 10:
-		goal = "sees_growing_tree"
-	else:
-		goal = "wood_stored"
+	#if count_visible_objects("tree") < 10:
+	goal = "cut_tree"
+#	else:
+#		goal = "wood_stored"
 	# in any case, avoid starvation
 	goal += " !hungry"
 	return goal
@@ -168,11 +167,13 @@ func goap():
 	var count = 0
 	var action_planner = get_node("ActionPlanner")
 	if action_planner == null:
+		print("NO ACTION PLAYER")
 		return
 	while true:
 		count += 1
 		print("%d: Planning (%d)..." % [ OS.get_unix_time() - start_time, count ])
 		var plan : Array = action_planner.plan(get_goap_current_state(), get_goap_current_goal())
+		print('PLAN: ', plan)
 		# execute plan
 		for a in plan:
 			var error = false
