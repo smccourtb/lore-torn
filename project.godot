@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "CharacterGenerator",
 "language": "GDScript",
-"path": "res://character/CharacterGenerator.gd"
+"path": "res://character/character_generator.gd"
 }, {
 "base": "Resource",
 "class": "CharacterTemplate",
@@ -114,10 +114,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://character/personality/personality_trait_template.gd"
 }, {
-"base": "StaticBody2D",
+"base": "Resource",
+"class": "ResourceGenerator",
+"language": "GDScript",
+"path": "res://resource_generator.gd"
+}, {
+"base": "Resource",
 "class": "ResourceNode",
 "language": "GDScript",
 "path": "res://resource_node.gd"
+}, {
+"base": "Resource",
+"class": "ResourceNodeTemplate",
+"language": "GDScript",
+"path": "res://resource/nodes/resource_node_template.gd"
 }, {
 "base": "Resource",
 "class": "Time",
@@ -146,7 +156,9 @@ _global_script_class_icons={
 "Personality": "",
 "PersonalityTrait": "",
 "PersonaltyTraitTemplate": "",
+"ResourceGenerator": "",
 "ResourceNode": "",
+"ResourceNodeTemplate": "",
 "Time": ""
 }
 
@@ -179,6 +191,29 @@ window/stretch/aspect="keep"
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg" )
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
 
 [input]
 
