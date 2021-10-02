@@ -18,7 +18,7 @@ func _ready() -> void:
 	var count = 0
 	pathfinder.create_navigation_path(world_map)
 	
-	for _i in range(1):
+	for _i in range(2):
 		# Generates character DATA
 		var x = character_generator.generate_ancestor()
 		Global.population.append(x)

@@ -14,5 +14,6 @@ func get_object_type():
 
 func action(character):
 	print('THIS TREE HAS BEEN CUT')
+	Global.resource_nodes.erase(self)
 	queue_free()
 	return true

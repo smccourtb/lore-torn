@@ -1,6 +1,6 @@
 extends KinematicBody2D
 export var arrival_distance: int # How far away to begin circling?
-export var pursuit_deadzone: float = rand_range(12.0, 48.0) 
+#export var pursuit_deadzone: float = rand_range(12.0, 48.0) 
 # contains all information of character
 var data: Character
 #onready var time = get_parent().time
@@ -51,10 +51,10 @@ func set_path_line(points: Array):
 func _physics_process(_delta):
 	if target_position:
 		path = pathfinding.get_new_path(position, target_position)
-#		set_path_line(path)
-		if path.size() > 1:
-			var desired_velocity = movement.get_pursue_velocity(target_position,0,0)
-			velocity = velocity.linear_interpolate(desired_velocity, 0.1)
+		set_path_line(path)
+#		if path.size() > 1:
+		var desired_velocity = movement.get_pursue_velocity(target_position,0,0)
+		velocity = velocity.linear_interpolate(desired_velocity, 0.1)
 #			emit_signal("run_end", false)
 		if position.distance_to(target_position) < 15:
 			
@@ -81,9 +81,9 @@ func find_nearest_object(object_type = null):
 	var nearest_distance = 10000000
 	var nearest_object = null
 	# TODO: look to global list of OBJECT_TYPE
-	for o in detect.get_overlapping_bodies():
-		if o.is_inside_tree():
-			var distance = position.distance_to(o.position)
+	for o in Global.resource_nodes:
+		var distance = position.distance_to(o.position)
+		if !(o is KinematicBody2D):
 			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
 				nearest_distance = distance
 				nearest_object = o
@@ -149,9 +149,11 @@ func pickup_wood():
 func use_nearest_object(object_type: String):
 	var object = find_nearest_object(object_type).object
 	if object == null:
+		print( "FALSE TERRITORY")
 		return false
 	run_to(object.position)
 	if !yield(self, "run_end"):
+		print("WELLWELLWELL")
 		return false
 	return object.action(self)
 
@@ -165,27 +167,31 @@ func get_goap_current_state():
 	# Check assigned jobs for what to do
 	for i in data.assigned_jobs:
 		state += "assigned_"+i+" "
-	for o in ["axe"]:  # , "wood", "fruit"
-		if holds(o):
-			state += "has_"+o+" sees_"+o+" "
-		else:
-			state += "!has_"+o+" "
-			if find_nearest_object(o).object != null:
-				state += "sees_"+o+" "
+		if Global.jobs.find(i) == -1:
+			state += "!assigned_"+i+" "
+#	for o in ["axe"]:  # , "wood", "fruit"
+#		if holds(o):
+#			state += "has_"+o+" sees_"+o+" "
+#		else:
+#			state += "!has_"+o+" "
+#			if find_nearest_object(o).object != null:
+#				state += "sees_"+o+" "
 	for o in ["tree"]:  # , "box"
 		if find_nearest_object(o).object == null:
+			print("YES ITS NULL")
 			state += "!"
 		state += "sees_"
 		state += o
 		state += " "
-	state += " hungry" if (life < 75) else " !hungry"
+	state += " !hungry" #if (life < 75) else " !hungry"
+	print(state)
 	return state
 
 func get_goap_current_goal():
 	var goal
 	# the goal is to plant trees then gather wood when there are enough trees
 	#if count_visible_objects("tree") < 10:
-	goal = "!sees_tree"
+	goal = "!assigned_chop"
 #	else:
 #		goal = "wood_stored"
 	# in any case, avoid starvation
@@ -213,6 +219,7 @@ func goap():
 			if has_method(a):
 				print("Calling action function "+a)
 				var status = call(a)
+				print("STATUS: ", status)
 				while status is GDScriptFunctionState:
 					status = yield(status, "completed")
 				if typeof(status) != TYPE_BOOL:
