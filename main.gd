@@ -45,6 +45,14 @@ func _input(event: InputEvent) -> void:
 		if event.get_scancode() == KEY_J:
 			var job_menu = job_assigner.instance()
 			$CanvasLayer.add_child(job_menu)
+		
+		# TODO: change to its own menu where you can pick what type of zone you want to generate 
+		if event.get_scancode() == KEY_H:
+			var zone_selector = load("res://ZoneGenerator.tscn").instance()
+			add_child(zone_selector)
+			zone_selector.type = "harvest"
 		if event.get_scancode() == KEY_P:
 			var zone_selector = load("res://ZoneGenerator.tscn").instance()
 			add_child(zone_selector)
+			zone_selector.type = "stockpile"
+			

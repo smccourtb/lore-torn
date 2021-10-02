@@ -27,8 +27,14 @@ var pathfinding: PathFinding
 
 
 func _ready() -> void:
-	pass
-	
+	SignalBus.connect("resource_removed", self, "_on_ResouceRemoved")
+
+func _on_ResouceRemoved(ref, target):
+	if target_position:
+		if target_position.is_equal_approx(ref.position):
+			print("YYEEEEEEEEEEEEEESSSSSSSSSSSSSSS")
+			use_nearest_object(target)
+		
 func get_neighbors() -> Array:
 	return detect.get_overlapping_bodies()
 
@@ -48,12 +54,14 @@ func _physics_process(_delta):
 #		if path.size() > 1:
 		var desired_velocity = movement.get_pursue_velocity(target_position,0,0)
 		velocity = velocity.linear_interpolate(desired_velocity, 0.1)
-#			emit_signal("run_end", false)
+		
 		if position.distance_to(target_position) < 15:
 			
 			velocity = Vector2.ZERO
-			target_position = null
+#			target_position = null
 			emit_signal("run_end", true)
+		else:
+			emit_signal("run_end", false)
 	velocity = move_and_slide(velocity)
 	
 func _input(event: InputEvent) -> void:
@@ -118,23 +126,23 @@ func store_held(object_type):
 
 # Actions for GOAP
 
-func pickup_nearest_object(object_type):
-	if holds(object_type):
-		return false
-	var object = find_nearest_object(object_type).object
-	if object == null:
-		return false
-	run_to(object.position)
-	
-	if !yield(self, "run_end"):
-		return false
-	return pickup_object(object_type)
+#func pickup_nearest_object(object_type):
+#	if holds(object_type):
+#		return false
+#	var object = find_nearest_object(object_type).object
+#	if object == null:
+#		return false
+#	run_to(object.position)
+#
+#	if !yield(self, "run_end"):
+#		return false
+#	return pickup_object(object_type)
 
-func pickup_axe():
-	return pickup_nearest_object("axe")
-
-func pickup_wood():
-	return pickup_nearest_object("wood")
+#func pickup_axe():
+#	return pickup_nearest_object("axe")
+#
+#func pickup_wood():
+#	return pickup_nearest_object("wood")
 
 func use_nearest_object(object_type: String):
 	var object = find_nearest_object(object_type).object
@@ -142,6 +150,7 @@ func use_nearest_object(object_type: String):
 		return false
 	run_to(object.position)
 	if !yield(self, "run_end"):
+		print("NAHUOAPJFOEAJFIEJFSEIFJESJ:EFJEFLFSEJFLKFJEKLFJESFJESLF:ES")
 		return false
 	return object.action(self)
 

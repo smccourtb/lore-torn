@@ -5,7 +5,8 @@ var selected = []  # Array of selected units.
 var drag_start = Vector2.ZERO  # Location where drag began.
 var select_rect = RectangleShape2D.new()  # Collision shape for drag box.
 onready var world_map = get_parent().get_node('TileMap')
-
+# TODO: add type to specify which type of zone to be genrated (ex. harvest resources, set stockpile, etc)
+var type: String
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
@@ -16,13 +17,14 @@ func _unhandled_input(event):
 				dragging = true
 				drag_start = get_global_mouse_position()
 				print('raw: ', drag_start)
-				print('drag start cvonerted: ', world_map.world_to_map(drag_start))
-				print('convereted and convereted back: ', world_map.map_to_world(world_map.world_to_map(drag_start)))
+				print('drag start converted: ', world_map.world_to_map(drag_start))
+				print('converted and converted back: ', world_map.map_to_world(world_map.world_to_map(drag_start)))
 		elif dragging:
 			# Button released while dragging.
 
 			dragging = false
-			update()
+			if type == 'harvest':
+				update()
 			var drag_end = get_global_mouse_position()
 			print('drag end: ', world_map.world_to_map(drag_end))
 			select_rect.extents = (drag_end - drag_start) / 2
@@ -33,9 +35,11 @@ func _unhandled_input(event):
 			selected = space.intersect_shape(query)
 #			get_parent().blackboard.data.chop_wood = true
 			for item in selected:
-				if !(item is KinematicBody2D):
+				print(item)
+				if !(item.collider is KinematicBody2D): #<- would confirm its a character
 					item.collider.set_selected(true)
-			queue_free()
+			if type == 'harvest':
+				queue_free()
 
 
 	if event is InputEventMouseMotion and dragging:

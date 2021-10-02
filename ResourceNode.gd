@@ -16,6 +16,7 @@ func get_object_type():
 func action(character):
 	print('THIS TREE HAS BEEN CUT')
 	Global.resource_nodes.erase(self)
+	SignalBus.emit_signal("resource_removed", self, get_object_type())
 	# TODO: add signal that alerts this node has been removed
 	# then connect to character controller to acquire new target
 	character.data.energy_level -= 1 # just testing #TODO: decrease by (size of tree, strength, skill)
@@ -26,5 +27,6 @@ func set_selected(boo: bool):
 	selected = boo
 	var selector = load("res://Selector.tscn").instance()
 	add_child(selector)
-	Global.resource_nodes.append(self)
+	if Global.resource_nodes.find(self) == -1:
+		Global.resource_nodes.append(self)
 #	get_parent().resource_node_positions.append(global_position)

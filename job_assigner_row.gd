@@ -7,7 +7,7 @@ var character_name: String
 var column_size: int
 var ref: Character
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	$HBoxContainer/Label.text = character_name
 	$HBoxContainer/Label.rect_min_size = Vector2(column_size, 0)
@@ -16,11 +16,7 @@ func _ready() -> void:
 		checkbox.pressed = check_assigned(Global.jobs[i], ref)
 		$HBoxContainer.add_child(checkbox)
 		checkbox.connect("pressed", self, "_on_Pressed", [i, checkbox, ref])
-		
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
 func _on_Pressed(yo, boop, beep):
 	print(character_name)
 	print(boop.pressed)
