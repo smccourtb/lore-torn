@@ -51,15 +51,17 @@ func set_path_line(points: Array):
 func _physics_process(_delta):
 	if target_position:
 		path = pathfinding.get_new_path(position, target_position)
-		set_path_line(path)
-		var desired_velocity = movement.get_pursue_velocity(target_position,0,0)
-		velocity = velocity.linear_interpolate(desired_velocity, 0.1)
+#		set_path_line(path)
+		if path.size() > 1:
+			var desired_velocity = movement.get_pursue_velocity(target_position,0,0)
+			velocity = velocity.linear_interpolate(desired_velocity, 0.1)
+#			emit_signal("run_end", false)
 		if position.distance_to(target_position) < 15:
-			emit_signal("run_end", true)
+			
 			velocity = Vector2.ZERO
 			target_position = null
+			emit_signal("run_end", true)
 	velocity = move_and_slide(velocity)
-		
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed():
@@ -71,7 +73,6 @@ func _input(event: InputEvent) -> void:
 func run_to(p):
 	blocked_time = 0.0
 	target = p
-	print("GOOOOO")
 	target_position = p
 	target_direction = target_position - position
 	
@@ -79,8 +80,8 @@ func run_to(p):
 func find_nearest_object(object_type = null):
 	var nearest_distance = 10000000
 	var nearest_object = null
+	# TODO: look to global list of OBJECT_TYPE
 	for o in detect.get_overlapping_bodies():
-		print("OOOOO: ", o)
 		if o.is_inside_tree():
 			var distance = position.distance_to(o.position)
 			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
@@ -135,6 +136,7 @@ func pickup_nearest_object(object_type):
 	run_to(object.position)
 	
 	if !yield(self, "run_end"):
+		print("FDSFDFHDIFHSIHFEIUE4")
 		return false
 	return pickup_object(object_type)
 
@@ -143,34 +145,26 @@ func pickup_axe():
 
 func pickup_wood():
 	return pickup_nearest_object("wood")
-	
 
-
-func use_nearest_object(object_type):
+func use_nearest_object(object_type: String):
 	var object = find_nearest_object(object_type).object
 	if object == null:
-		print('NOW IN FALSE TERRITORY')
 		return false
 	run_to(object.position)
-	print("THIS IS WHY IM RUNNING TO A TREE")
 	if !yield(self, "run_end"):
 		return false
 	return object.action(self)
-		
-	run_to(object.position) # object.position
-	if !yield(self, "run_end"):
-		emit_signal("action_end", false)
-	emit_signal("action_end", object.action(self))
 
 func cut_tree():
 	return use_nearest_object("tree")
 
-func wait():
-	# The wait action triggers an error so the plan is recalculated 
-	return false
 
 func get_goap_current_state():
+	print("GETTING CURRENT STATE")
 	var state = ""
+	# Check assigned jobs for what to do
+	for i in data.assigned_jobs:
+		state += "assigned_"+i+" "
 	for o in ["axe"]:  # , "wood", "fruit"
 		if holds(o):
 			state += "has_"+o+" sees_"+o+" "
@@ -179,8 +173,8 @@ func get_goap_current_state():
 			if find_nearest_object(o).object != null:
 				state += "sees_"+o+" "
 	for o in ["tree"]:  # , "box"
-#		if find_nearest_object(o).object == null:
-#			state += "!"
+		if find_nearest_object(o).object == null:
+			state += "!"
 		state += "sees_"
 		state += o
 		state += " "
@@ -191,7 +185,7 @@ func get_goap_current_goal():
 	var goal
 	# the goal is to plant trees then gather wood when there are enough trees
 	#if count_visible_objects("tree") < 10:
-	goal = "sees_wood"
+	goal = "!sees_tree"
 #	else:
 #		goal = "wood_stored"
 	# in any case, avoid starvation

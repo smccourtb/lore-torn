@@ -10,9 +10,7 @@ var type: String
 var subtype: String
 
 func _init() -> void:
-	print("STill BEINg CalLLEd")
-	
-	
+	pass
 
 func get_type() -> String:
 	return type

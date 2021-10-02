@@ -29,8 +29,8 @@ script = ExtResource( 4 )
 [node name="cut_tree" type="Node" parent="ActionPlanner"]
 script = ExtResource( 3 )
 action = "cut_tree"
-preconditions = "sees_tree"
-effect = "sees_wood"
+preconditions = "sees_tree assigned_chop"
+effect = "!sees_tree"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )

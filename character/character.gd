@@ -15,6 +15,7 @@ var weight: int
 var genes: Dictionary = {}
 var personality: Resource
 var mood_level: Dictionary
+var assigned_jobs: = []
 # THINGS TO ADD
 # memories
 
@@ -81,7 +82,20 @@ func set_birthday():
 func get_birthday() -> int:
 	# TODO: convert age into years and subtract from time
 	return self.birthday
-	
+
+func get_assigned_jobs():
+	pass
+
+func assign_new_job(new_job: String) -> void:
+	assigned_jobs.append(new_job)
+
+func remove_assigned_job(job: String) -> void:
+	for i in assigned_jobs:
+		if job == i:
+			assigned_jobs.erase(i)
+		print("THE JOB YOU WANT TO REMOVE IS INDEED ASSIGNED BUT I HAVE NOT BEEN SET UP TO REMOVE IT YET")
+
+
 func character_data() -> Dictionary:
 	return {"race": self.race, 
 			"age": self.age, 
