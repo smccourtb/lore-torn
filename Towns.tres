@@ -1,0 +1,1144 @@
+[gd_resource type="TileSet" load_steps=26 format=2]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 2.06159, 7.849, 2.87291, 3.19744, 8, 3.03518, 8, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 0, 3.03518, 8, 3.03518, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 0, 3.03518, 4.83008, 2.98109, 6.50681, 6.17228, 6.50681, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+points = PoolVector2Array( 8, 0, 8, 8, 2.06159, 8, 1.95341, 6.66407, 1.95341, 2.9861, 2.92699, 1.79616, 2.65656, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 4.93826, 0, 5.04643, 5.85275, 5.20869, 8, 0, 8, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 8, 0, 7.90308, 5.91184, 5.03642, 5.80366, 2.60247, 4.12694, 2.38612, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( 5.96593, 0.124439, 5.91183, 4.39738, 3.09927, 6.02002, 0.989838, 6.12819, 0, 5.91184, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 0, 0, 8, 0, 7.854, 6.02002, 0, 5.91184 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 1.95341, 0.0753517, 8, 0, 8, 8, 0, 8, 0, 1.58982, 1.79115, 1.58982 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 5.90683, 1.93091, 7.90808, 2.79631, 8, 8, 0, 8, 0, 0, 5.96092, 0.0378342 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+points = PoolVector2Array( 2.12569, 0, 8, 0, 8, 4.85165, 6.72315, 6.14976, 5.69549, 7.7724, 0, 8, 0, 1.71455, 1.90933, 1.71455 )
+
+[sub_resource type="ConvexPolygonShape2D" id=13]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 2.0075, 7.99375, 2.11568, 6.10068, 0.979836, 4.85666, 0, 4.80257 )
+
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 5.07301, 6.9345, 5.1271, 6.88042, 6.80382, 6.01501, 6.96608, 5.96092, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=15]
+points = PoolVector2Array( 0, 0, 5.91183, 0, 6.0741, 1.88182, 7.10177, 2.96358, 8, 3.07175, 8, 8, 1.96342, 8, 1.96342, 5.93842, 0.989838, 4.69439, 0, 4.58622 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 3.45879, 21.7964, 12.7678, 21.5721, 12.8251, 27.8615, 3.03517, 27.9697 )
+
+[sub_resource type="ConvexPolygonShape2D" id=17]
+points = PoolVector2Array( 4.05797, 21.1234, 13.367, 20.8991, 12.8892, 27.9156, 3.20744, 27.9156 )
+
+[sub_resource type="ConvexPolygonShape2D" id=18]
+points = PoolVector2Array( 13.854, 19.2168, 13.3319, 25.2112, 12.791, 28.0238, 3.21745, 28.0779, 4.54498, 19.4411 )
+
+[sub_resource type="ConvexPolygonShape2D" id=19]
+points = PoolVector2Array( 3.187, 19.9697, 2.48385, 14.5068, 12.8687, 14.1282, 12.9228, 19.9697 )
+
+[sub_resource type="ConvexPolygonShape2D" id=20]
+points = PoolVector2Array( 3.14292, 11.6992, 3.03474, 6.02002, 13.9064, 5.91184, 13.1492, 11.8615 )
+
+[sub_resource type="ConvexPolygonShape2D" id=21]
+points = PoolVector2Array( 3.15067, 12.0779, 2.1771, 5.85775, 12.6701, 6.02002, 12.7783, 12.1319 )
+
+[sub_resource type="ConvexPolygonShape2D" id=22]
+points = PoolVector2Array( 3.26885, 6.0741, 12.7342, 6.18228, 12.8965, 12.0779, 3.16068, 11.9156 )
+
+[sub_resource type="ConvexPolygonShape2D" id=23]
+points = PoolVector2Array( 8, 80, 16, 80, 16, 88, 8, 88 )
+
+[sub_resource type="ConvexPolygonShape2D" id=24]
+points = PoolVector2Array( 56, 80, 56, 80, 64, 80, 64, 88, 56, 88 )
+
+[sub_resource type="GDScript" id=25]
+script/source = "tool
+extends TileSet
+
+const GROUND = -1
+const CLIFFSTOP = 12
+const CLIFFSBASE = 11
+const SWAMPWATER = 27
+const FORGOTTENPLAINSWATER = 14
+const SWAMPWATERLINK = 25
+const SWAMP_GRASS = 32
+const FORGOTTENPLAINS_SILENTSWAMPMURKY_LINK = 35
+const FORGOTTENPLAINS_GRASS = 10
+const SILENTSWAMP_MUDGRASSLINK = 29
+const SILENTSWAMP_MUD2DARKMUDLINK = 30
+const SILENTSWAMP_GRASS2DARKGRASS = 28
+const MURKYSWAMP_MUD2WATER = 26
+const MURKYWATER_DARKGRASS = 34
+const MURKYSWAMP_TALLGRASS = 31
+const tiles = {
+	'ForgottenPlains_Dirt' : 9,
+	'ForgottenPlains_Grass' : 10,
+	'ForgottenPlains_Cliffs' : 11,
+	'ForgottenPlains_Clifftop' : 12,
+	'ForgottenPlains_WaterTile' : 14,
+	'SilentSwamp_ForgottenPlains_Grass_Link' : 21,
+	'IcyWilderness_Snow' : 22,
+	'DesolateDesert_Sand0' : 23,
+	'SilentSwampMurky_Grass2Mud_Link_WATER' : 24,
+	'SilentSwampMurky_Grass2Water_Link' : 25,
+	'SilentSwampMurky_Mud2Water_Link' : 26,
+	'SilentSwampMurky_Water' : 27,
+	'SilentSwampMurky_Grass2DarkGrass_Link' : 28,
+	'SilentSwampMurky_Grass2Mud_Link' : 29,
+	'SilentSwampMurky_Mud2DarkMud_Link' : 30,
+	'SilentSwampMurky_TallGrass' : 31,
+	'SilentSwampMurky_Grass' : 32,
+	'SilentSwampMurky_TallDarkGrass' : 33,
+	'SilentSwampMurky_DarkGrass' : 34,
+	'SilentSwampMurky_ForgottenPlainsGrass_Link' : 35
+}
+# PUT WHAT YOU WANT 'B' TO LINK TO 'A' IN THE BRACKETS'
+# EX I WANT SWAMP WATER TO LINK CONSIDER SWAMP WATER LINK WHEN AUTOTILING
+var binds = {
+		 #A              #B
+	SWAMPWATERLINK:[SWAMPWATER, MURKYSWAMP_MUD2WATER],
+	FORGOTTENPLAINS_SILENTSWAMPMURKY_LINK:[SWAMP_GRASS, SILENTSWAMP_MUDGRASSLINK,SILENTSWAMP_GRASS2DARKGRASS, MURKYSWAMP_TALLGRASS],
+	SWAMPWATER:[FORGOTTENPLAINSWATER],
+	FORGOTTENPLAINSWATER:[SWAMPWATER],
+	SILENTSWAMP_MUDGRASSLINK:[SILENTSWAMP_MUD2DARKMUDLINK,MURKYSWAMP_TALLGRASS],
+	MURKYSWAMP_MUD2WATER:[SWAMPWATERLINK,SWAMPWATER],
+	SILENTSWAMP_MUDGRASSLINK:[MURKYSWAMP_MUD2WATER, SILENTSWAMP_MUD2DARKMUDLINK],
+	SILENTSWAMP_GRASS2DARKGRASS:[MURKYWATER_DARKGRASS],
+	SWAMP_GRASS:[SILENTSWAMP_GRASS2DARKGRASS]
+}
+
+func _is_tile_bound(drawn_id, neighbor_id):
+	if drawn_id in binds:
+
+		return neighbor_id in binds[drawn_id]
+	return false
+"
+
+[resource]
+0/name = "Dirt"
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 16, 8, 8, 8 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "Cobblestone_Dirt_Link"
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 40, 24, 24, 40 )
+1/tile_mode = 1
+1/autotile/bitmask_mode = 0
+1/autotile/bitmask_flags = [ Vector2( 0, 0 ), 256, Vector2( 0, 1 ), 260, Vector2( 0, 2 ), 4, Vector2( 0, 3 ), 324, Vector2( 0, 4 ), 261, Vector2( 1, 0 ), 320, Vector2( 1, 1 ), 325, Vector2( 1, 2 ), 5, Vector2( 1, 3 ), 321, Vector2( 1, 4 ), 69, Vector2( 2, 0 ), 64, Vector2( 2, 1 ), 65, Vector2( 2, 2 ), 1, Vector2( 2, 3 ), 68, Vector2( 2, 4 ), 257 ]
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 8, 8 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "Grass_Dirt_Link"
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 8, 24, 24, 40 )
+2/tile_mode = 1
+2/autotile/bitmask_mode = 1
+2/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 500, Vector2( 0, 4 ), 311, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 473, Vector2( 1, 4 ), 95, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 254, Vector2( 2, 4 ), 443 ]
+2/autotile/icon_coordinate = Vector2( 0, 0 )
+2/autotile/tile_size = Vector2( 8, 8 )
+2/autotile/spacing = 0
+2/autotile/occluder_map = [  ]
+2/autotile/navpoly_map = [  ]
+2/autotile/priority_map = [  ]
+2/autotile/z_index_map = [  ]
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+3/name = "Cobblestone"
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 40, 8, 24, 8 )
+3/tile_mode = 2
+3/autotile/icon_coordinate = Vector2( 0, 0 )
+3/autotile/tile_size = Vector2( 8, 8 )
+3/autotile/spacing = 0
+3/autotile/occluder_map = [  ]
+3/autotile/navpoly_map = [  ]
+3/autotile/priority_map = [  ]
+3/autotile/z_index_map = [  ]
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape_one_way = false
+3/shape_one_way_margin = 0.0
+3/shapes = [  ]
+3/z_index = 0
+4/name = "Concrete"
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 8, 72, 24, 64 )
+4/tile_mode = 2
+4/autotile/icon_coordinate = Vector2( 0, 0 )
+4/autotile/tile_size = Vector2( 8, 8 )
+4/autotile/spacing = 0
+4/autotile/occluder_map = [  ]
+4/autotile/navpoly_map = [  ]
+4/autotile/priority_map = [  ]
+4/autotile/z_index_map = [  ]
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape_one_way = false
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
+4/z_index = 0
+5/name = "Concrete2"
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 8, 72, 40, 16 )
+5/tile_mode = 2
+5/autotile/icon_coordinate = Vector2( 0, 0 )
+5/autotile/tile_size = Vector2( 8, 8 )
+5/autotile/spacing = 0
+5/autotile/occluder_map = [  ]
+5/autotile/navpoly_map = [  ]
+5/autotile/priority_map = [  ]
+5/autotile/z_index_map = [  ]
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
+6/name = "Minifantasy_TownsAllTiles.png 6"
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 200, 192, 72, 88 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape = SubResource( 23 )
+6/shape_one_way = false
+6/shape_one_way_margin = 1.0
+6/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 23 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 24 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+6/z_index = 0
+9/name = "ForgottenPlains_Dirt"
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 56, 8, 24, 56 )
+9/tile_mode = 1
+9/autotile/bitmask_mode = 1
+9/autotile/bitmask_flags = [ Vector2( 0, 0 ), 511, Vector2( 0, 2 ), 432, Vector2( 0, 3 ), 438, Vector2( 0, 4 ), 54, Vector2( 0, 5 ), 510, Vector2( 0, 6 ), 447, Vector2( 1, 0 ), 511, Vector2( 1, 2 ), 504, Vector2( 1, 3 ), 511, Vector2( 1, 4 ), 63, Vector2( 1, 5 ), 507, Vector2( 1, 6 ), 255, Vector2( 2, 0 ), 511, Vector2( 2, 2 ), 216, Vector2( 2, 3 ), 219, Vector2( 2, 4 ), 27, Vector2( 2, 5 ), 254, Vector2( 2, 6 ), 443 ]
+9/autotile/icon_coordinate = Vector2( 0, 0 )
+9/autotile/tile_size = Vector2( 8, 8 )
+9/autotile/spacing = 0
+9/autotile/occluder_map = [  ]
+9/autotile/navpoly_map = [  ]
+9/autotile/priority_map = [  ]
+9/autotile/z_index_map = [  ]
+9/occluder_offset = Vector2( 0, 0 )
+9/navigation_offset = Vector2( 0, 0 )
+9/shape_offset = Vector2( 0, 0 )
+9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+9/shape_one_way = false
+9/shape_one_way_margin = 0.0
+9/shapes = [  ]
+9/z_index = 0
+10/name = "ForgottenPlains_Grass"
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 16, 8, 24, 56 )
+10/tile_mode = 1
+10/autotile/bitmask_mode = 1
+10/autotile/bitmask_flags = [ Vector2( 0, 0 ), 511, Vector2( 0, 1 ), 511, Vector2( 0, 2 ), 438, Vector2( 0, 3 ), 438, Vector2( 0, 4 ), 438, Vector2( 0, 5 ), 510, Vector2( 0, 6 ), 447, Vector2( 1, 0 ), 511, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 504, Vector2( 1, 3 ), 511, Vector2( 1, 4 ), 63, Vector2( 1, 5 ), 507, Vector2( 1, 6 ), 255, Vector2( 2, 0 ), 511, Vector2( 2, 1 ), 511, Vector2( 2, 2 ), 219, Vector2( 2, 3 ), 219, Vector2( 2, 4 ), 219, Vector2( 2, 5 ), 254, Vector2( 2, 6 ), 443 ]
+10/autotile/icon_coordinate = Vector2( 0, 0 )
+10/autotile/tile_size = Vector2( 8, 8 )
+10/autotile/spacing = 0
+10/autotile/occluder_map = [  ]
+10/autotile/navpoly_map = [  ]
+10/autotile/priority_map = [ Vector3( 0, 0, 3 ), Vector3( 0, 1, 3 ), Vector3( 1, 3, 3 ), Vector3( 2, 0, 3 ), Vector3( 2, 1, 40 ) ]
+10/autotile/z_index_map = [  ]
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shape_offset = Vector2( 0, 0 )
+10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+10/shape_one_way = false
+10/shape_one_way_margin = 0.0
+10/shapes = [  ]
+10/z_index = 0
+11/name = "ForgottenPlains_Cliffs"
+11/tex_offset = Vector2( 0, 0 )
+11/modulate = Color( 1, 1, 1, 1 )
+11/region = Rect2( 96, 72, 24, 48 )
+11/tile_mode = 1
+11/autotile/bitmask_mode = 2
+11/autotile/bitmask_flags = [ Vector2( 0, 0 ), 49, Vector2( 0, 1 ), 274, Vector2( 0, 2 ), 273, Vector2( 0, 3 ), 17, Vector2( 0, 4 ), 48, Vector2( 0, 5 ), 272, Vector2( 1, 0 ), 56, Vector2( 1, 1 ), 48, Vector2( 1, 2 ), 24, Vector2( 2, 0 ), 28, Vector2( 2, 1 ), 82, Vector2( 2, 2 ), 84, Vector2( 2, 3 ), 20, Vector2( 2, 4 ), 24, Vector2( 2, 5 ), 80 ]
+11/autotile/icon_coordinate = Vector2( 1, 1 )
+11/autotile/tile_size = Vector2( 8, 8 )
+11/autotile/spacing = 0
+11/autotile/occluder_map = [  ]
+11/autotile/navpoly_map = [  ]
+11/autotile/priority_map = [  ]
+11/autotile/z_index_map = [  ]
+11/occluder_offset = Vector2( 0, 0 )
+11/navigation_offset = Vector2( 0, 0 )
+11/shape_offset = Vector2( 0, 0 )
+11/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+11/shape_one_way = false
+11/shape_one_way_margin = 0.0
+11/shapes = [  ]
+11/z_index = 0
+12/name = "ForgottenPlains_Clifftops"
+12/tex_offset = Vector2( 0, 0 )
+12/modulate = Color( 1, 1, 1, 1 )
+12/region = Rect2( 56, 72, 24, 40 )
+12/tile_mode = 1
+12/autotile/bitmask_mode = 1
+12/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 254, Vector2( 2, 4 ), 443 ]
+12/autotile/icon_coordinate = Vector2( 0, 0 )
+12/autotile/tile_size = Vector2( 8, 8 )
+12/autotile/spacing = 0
+12/autotile/occluder_map = [  ]
+12/autotile/navpoly_map = [  ]
+12/autotile/priority_map = [  ]
+12/autotile/z_index_map = [  ]
+12/occluder_offset = Vector2( 0, 0 )
+12/navigation_offset = Vector2( 0, 0 )
+12/shape_offset = Vector2( 0, 0 )
+12/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+12/shape_one_way = false
+12/shape_one_way_margin = 0.0
+12/shapes = [  ]
+12/z_index = 0
+13/name = "ForgottenPlains_Water1"
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 192, 8, 24, 56 )
+13/tile_mode = 1
+13/autotile/bitmask_mode = 2
+13/autotile/bitmask_flags = [ Vector2( 0, 2 ), 432, Vector2( 0, 3 ), 438, Vector2( 0, 4 ), 54, Vector2( 0, 5 ), 502, Vector2( 0, 6 ), 447, Vector2( 1, 0 ), 511, Vector2( 1, 2 ), 504, Vector2( 1, 3 ), 511, Vector2( 1, 4 ), 63, Vector2( 1, 5 ), 475, Vector2( 1, 6 ), 255, Vector2( 2, 2 ), 216, Vector2( 2, 3 ), 219, Vector2( 2, 4 ), 27, Vector2( 2, 5 ), 246, Vector2( 2, 6 ), 443 ]
+13/autotile/icon_coordinate = Vector2( 0, 0 )
+13/autotile/tile_size = Vector2( 8, 8 )
+13/autotile/spacing = 0
+13/autotile/occluder_map = [  ]
+13/autotile/navpoly_map = [  ]
+13/autotile/priority_map = [  ]
+13/autotile/z_index_map = [  ]
+13/occluder_offset = Vector2( 0, 0 )
+13/navigation_offset = Vector2( 0, 0 )
+13/shape_offset = Vector2( 0, 0 )
+13/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+13/shape_one_way = false
+13/shape_one_way_margin = 0.0
+13/shapes = [  ]
+13/z_index = 0
+14/name = "ForgottenPlains_Water.tres 14"
+14/tex_offset = Vector2( 0, 0 )
+14/modulate = Color( 1, 1, 1, 1 )
+14/region = Rect2( 0, 0, 24, 40 )
+14/tile_mode = 1
+14/autotile/bitmask_mode = 1
+14/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 254, Vector2( 2, 4 ), 411 ]
+14/autotile/icon_coordinate = Vector2( 0, 0 )
+14/autotile/tile_size = Vector2( 8, 8 )
+14/autotile/spacing = 0
+14/autotile/occluder_map = [  ]
+14/autotile/navpoly_map = [  ]
+14/autotile/priority_map = [  ]
+14/autotile/z_index_map = [  ]
+14/occluder_offset = Vector2( 0, 0 )
+14/navigation_offset = Vector2( 0, 0 )
+14/shape_offset = Vector2( 0, 0 )
+14/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+14/shape = SubResource( 1 )
+14/shape_one_way = false
+14/shape_one_way_margin = 1.0
+14/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 3 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 4 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 5 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 7 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 8 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 9 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 10 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 12 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 4 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 13 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 4 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 14 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 4 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 15 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+14/z_index = 0
+15/name = "ForgottenPlainsFlowers_Red"
+15/tex_offset = Vector2( 0, 0 )
+15/modulate = Color( 1, 1, 1, 1 )
+15/region = Rect2( 0, 0, 8, 8 )
+15/tile_mode = 0
+15/occluder_offset = Vector2( 0, 0 )
+15/navigation_offset = Vector2( 0, 0 )
+15/shape_offset = Vector2( 0, 0 )
+15/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+15/shape_one_way = false
+15/shape_one_way_margin = 0.0
+15/shapes = [  ]
+15/z_index = 0
+16/name = "ForgottenPlainsFlowers_Purple"
+16/tex_offset = Vector2( 0, 0 )
+16/modulate = Color( 1, 1, 1, 1 )
+16/region = Rect2( 8, 0, 8, 8 )
+16/tile_mode = 0
+16/occluder_offset = Vector2( 0, 0 )
+16/navigation_offset = Vector2( 0, 0 )
+16/shape_offset = Vector2( 0, 0 )
+16/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+16/shape_one_way = false
+16/shape_one_way_margin = 0.0
+16/shapes = [  ]
+16/z_index = 0
+17/name = "ForgottenPlainsFlowers_Grass1"
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 24, 0, 8, 8 )
+17/tile_mode = 0
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shape_offset = Vector2( 0, 0 )
+17/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+17/shape_one_way = false
+17/shape_one_way_margin = 0.0
+17/shapes = [  ]
+17/z_index = 0
+18/name = "ForgottenPlainsFlowers_White"
+18/tex_offset = Vector2( 0, 0 )
+18/modulate = Color( 1, 1, 1, 1 )
+18/region = Rect2( 16, 0, 8, 8 )
+18/tile_mode = 0
+18/occluder_offset = Vector2( 0, 0 )
+18/navigation_offset = Vector2( 0, 0 )
+18/shape_offset = Vector2( 0, 0 )
+18/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+18/shape_one_way = false
+18/shape_one_way_margin = 0.0
+18/shapes = [  ]
+18/z_index = 0
+19/name = "ForgottenPlainsFlowers_Grass2"
+19/tex_offset = Vector2( 0, 0 )
+19/modulate = Color( 1, 1, 1, 1 )
+19/region = Rect2( 32, 0, 8, 8 )
+19/tile_mode = 0
+19/occluder_offset = Vector2( 0, 0 )
+19/navigation_offset = Vector2( 0, 0 )
+19/shape_offset = Vector2( 0, 0 )
+19/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+19/shape_one_way = false
+19/shape_one_way_margin = 0.0
+19/shapes = [  ]
+19/z_index = 0
+20/name = "ForgottenPlainsWaterCattail"
+20/tex_offset = Vector2( 0, 0 )
+20/modulate = Color( 1, 1, 1, 1 )
+20/region = Rect2( 0, 0, 8, 16 )
+20/tile_mode = 0
+20/occluder_offset = Vector2( 0, 0 )
+20/navigation_offset = Vector2( 0, 0 )
+20/shape_offset = Vector2( 0, 0 )
+20/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+20/shape_one_way = false
+20/shape_one_way_margin = 0.0
+20/shapes = [  ]
+20/z_index = 0
+21/name = "SilentSwamp_ForgottenPlains_Grass_Link"
+21/tex_offset = Vector2( 0, 0 )
+21/modulate = Color( 1, 1, 1, 1 )
+21/region = Rect2( 16, 624, 24, 40 )
+21/tile_mode = 1
+21/autotile/bitmask_mode = 1
+21/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 220, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 254, Vector2( 2, 4 ), 443 ]
+21/autotile/icon_coordinate = Vector2( 0, 0 )
+21/autotile/tile_size = Vector2( 8, 8 )
+21/autotile/spacing = 0
+21/autotile/occluder_map = [  ]
+21/autotile/navpoly_map = [  ]
+21/autotile/priority_map = [  ]
+21/autotile/z_index_map = [  ]
+21/occluder_offset = Vector2( 0, 0 )
+21/navigation_offset = Vector2( 0, 0 )
+21/shape_offset = Vector2( 0, 0 )
+21/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+21/shape_one_way = false
+21/shape_one_way_margin = 0.0
+21/shapes = [  ]
+21/z_index = 0
+22/name = "IcyWilderness_Snow"
+22/tex_offset = Vector2( 0, 0 )
+22/modulate = Color( 1, 1, 1, 1 )
+22/region = Rect2( 8, 8, 32, 48 )
+22/tile_mode = 1
+22/autotile/bitmask_mode = 2
+22/autotile/bitmask_flags = [ Vector2( 0, 0 ), 511, Vector2( 0, 3 ), 144, Vector2( 0, 4 ), 146, Vector2( 0, 5 ), 18, Vector2( 1, 0 ), 511, Vector2( 1, 2 ), 32, Vector2( 1, 3 ), 176, Vector2( 1, 4 ), 178, Vector2( 1, 5 ), 50, Vector2( 2, 0 ), 511, Vector2( 2, 2 ), 56, Vector2( 2, 3 ), 184, Vector2( 2, 4 ), 186, Vector2( 2, 5 ), 58, Vector2( 3, 0 ), 511, Vector2( 3, 2 ), 24, Vector2( 3, 3 ), 152, Vector2( 3, 4 ), 154, Vector2( 3, 5 ), 26 ]
+22/autotile/icon_coordinate = Vector2( 0, 0 )
+22/autotile/tile_size = Vector2( 8, 8 )
+22/autotile/spacing = 0
+22/autotile/occluder_map = [  ]
+22/autotile/navpoly_map = [  ]
+22/autotile/priority_map = [  ]
+22/autotile/z_index_map = [  ]
+22/occluder_offset = Vector2( 0, 0 )
+22/navigation_offset = Vector2( 0, 0 )
+22/shape_offset = Vector2( 0, 0 )
+22/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+22/shape_one_way = false
+22/shape_one_way_margin = 0.0
+22/shapes = [  ]
+22/z_index = 0
+23/name = "DesolateDesert_Sand0"
+23/tex_offset = Vector2( 0, 0 )
+23/modulate = Color( 1, 1, 1, 1 )
+23/region = Rect2( 0, 0, 40, 8 )
+23/tile_mode = 1
+23/autotile/bitmask_mode = 1
+23/autotile/bitmask_flags = [ Vector2( 0, 0 ), 511, Vector2( 1, 0 ), 511, Vector2( 2, 0 ), 511, Vector2( 3, 0 ), 511, Vector2( 4, 0 ), 511 ]
+23/autotile/icon_coordinate = Vector2( 0, 0 )
+23/autotile/tile_size = Vector2( 8, 8 )
+23/autotile/spacing = 0
+23/autotile/occluder_map = [  ]
+23/autotile/navpoly_map = [  ]
+23/autotile/priority_map = [  ]
+23/autotile/z_index_map = [  ]
+23/occluder_offset = Vector2( 0, 0 )
+23/navigation_offset = Vector2( 0, 0 )
+23/shape_offset = Vector2( 0, 0 )
+23/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+23/shape_one_way = false
+23/shape_one_way_margin = 0.0
+23/shapes = [  ]
+23/z_index = 0
+24/name = "SilentSwampMurky_Grass2Mud_Link.tres 24"
+24/tex_offset = Vector2( 0, 0 )
+24/modulate = Color( 1, 1, 1, 1 )
+24/region = Rect2( 0, 0, 32, 32 )
+24/tile_mode = 1
+24/autotile/bitmask_mode = 1
+24/autotile/bitmask_flags = [ Vector2( 0, 1 ), 447, Vector2( 0, 2 ), 510, Vector2( 1, 0 ), 507, Vector2( 1, 3 ), 255, Vector2( 2, 0 ), 510, Vector2( 2, 3 ), 447, Vector2( 3, 1 ), 507, Vector2( 3, 2 ), 255 ]
+24/autotile/icon_coordinate = Vector2( 0, 0 )
+24/autotile/tile_size = Vector2( 8, 8 )
+24/autotile/spacing = 0
+24/autotile/occluder_map = [  ]
+24/autotile/navpoly_map = [  ]
+24/autotile/priority_map = [  ]
+24/autotile/z_index_map = [  ]
+24/occluder_offset = Vector2( 0, 0 )
+24/navigation_offset = Vector2( 0, 0 )
+24/shape_offset = Vector2( 0, 0 )
+24/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+24/shape_one_way = false
+24/shape_one_way_margin = 0.0
+24/shapes = [  ]
+24/z_index = 0
+25/name = "SilentSwampMurky_Grass2Water_Link.tres 25"
+25/tex_offset = Vector2( 0, 0 )
+25/modulate = Color( 1, 1, 1, 1 )
+25/region = Rect2( 0, 0, 24, 40 )
+25/tile_mode = 1
+25/autotile/bitmask_mode = 1
+25/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 254, Vector2( 2, 4 ), 443 ]
+25/autotile/icon_coordinate = Vector2( 0, 0 )
+25/autotile/tile_size = Vector2( 8, 8 )
+25/autotile/spacing = 0
+25/autotile/occluder_map = [  ]
+25/autotile/navpoly_map = [  ]
+25/autotile/priority_map = [  ]
+25/autotile/z_index_map = [  ]
+25/occluder_offset = Vector2( 0, 0 )
+25/navigation_offset = Vector2( 0, 0 )
+25/shape_offset = Vector2( 0, 0 )
+25/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+25/shape_one_way = false
+25/shape_one_way_margin = 0.0
+25/shapes = [  ]
+25/z_index = 0
+26/name = "SilentSwampMurky_Mud2Water_Link.tres 26"
+26/tex_offset = Vector2( 0, 0 )
+26/modulate = Color( 1, 1, 1, 1 )
+26/region = Rect2( 0, 0, 24, 40 )
+26/tile_mode = 1
+26/autotile/bitmask_mode = 1
+26/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 254, Vector2( 2, 4 ), 443 ]
+26/autotile/icon_coordinate = Vector2( 0, 0 )
+26/autotile/tile_size = Vector2( 8, 8 )
+26/autotile/spacing = 0
+26/autotile/occluder_map = [  ]
+26/autotile/navpoly_map = [  ]
+26/autotile/priority_map = [  ]
+26/autotile/z_index_map = [  ]
+26/occluder_offset = Vector2( 0, 0 )
+26/navigation_offset = Vector2( 0, 0 )
+26/shape_offset = Vector2( 0, 0 )
+26/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+26/shape_one_way = false
+26/shape_one_way_margin = 0.0
+26/shapes = [  ]
+26/z_index = 0
+27/name = "SilentSwampMurky_Water.tres 27"
+27/tex_offset = Vector2( 0, 0 )
+27/modulate = Color( 1, 1, 1, 1 )
+27/region = Rect2( 0, 0, 24, 40 )
+27/tile_mode = 1
+27/autotile/bitmask_mode = 1
+27/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 254, Vector2( 2, 4 ), 443 ]
+27/autotile/icon_coordinate = Vector2( 0, 0 )
+27/autotile/tile_size = Vector2( 8, 8 )
+27/autotile/spacing = 0
+27/autotile/occluder_map = [  ]
+27/autotile/navpoly_map = [  ]
+27/autotile/priority_map = [  ]
+27/autotile/z_index_map = [  ]
+27/occluder_offset = Vector2( 0, 0 )
+27/navigation_offset = Vector2( 0, 0 )
+27/shape_offset = Vector2( 0, 0 )
+27/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+27/shape_one_way = false
+27/shape_one_way_margin = 0.0
+27/shapes = [  ]
+27/z_index = 0
+28/name = "SilentSwampMurky_Grass2DarkGrass_Link"
+28/tex_offset = Vector2( 0, 0 )
+28/modulate = Color( 1, 1, 1, 1 )
+28/region = Rect2( 48, 8, 24, 40 )
+28/tile_mode = 1
+28/autotile/bitmask_mode = 1
+28/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 254, Vector2( 2, 4 ), 443 ]
+28/autotile/icon_coordinate = Vector2( 0, 0 )
+28/autotile/tile_size = Vector2( 8, 8 )
+28/autotile/spacing = 0
+28/autotile/occluder_map = [  ]
+28/autotile/navpoly_map = [  ]
+28/autotile/priority_map = [  ]
+28/autotile/z_index_map = [  ]
+28/occluder_offset = Vector2( 0, 0 )
+28/navigation_offset = Vector2( 0, 0 )
+28/shape_offset = Vector2( 0, 0 )
+28/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+28/shape_one_way = false
+28/shape_one_way_margin = 0.0
+28/shapes = [  ]
+28/z_index = 0
+29/name = "SilentSwamMurky_Grass2Mud_Link"
+29/tex_offset = Vector2( 0, 0 )
+29/modulate = Color( 1, 1, 1, 1 )
+29/region = Rect2( 80, 8, 24, 40 )
+29/tile_mode = 1
+29/autotile/bitmask_mode = 1
+29/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 443, Vector2( 2, 4 ), 254 ]
+29/autotile/icon_coordinate = Vector2( 0, 0 )
+29/autotile/tile_size = Vector2( 8, 8 )
+29/autotile/spacing = 0
+29/autotile/occluder_map = [  ]
+29/autotile/navpoly_map = [  ]
+29/autotile/priority_map = [  ]
+29/autotile/z_index_map = [  ]
+29/occluder_offset = Vector2( 0, 0 )
+29/navigation_offset = Vector2( 0, 0 )
+29/shape_offset = Vector2( 0, 0 )
+29/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+29/shape_one_way = false
+29/shape_one_way_margin = 0.0
+29/shapes = [  ]
+29/z_index = 0
+30/name = "SilentSwampMurky_Mud2DarkMud_Link"
+30/tex_offset = Vector2( 0, 0 )
+30/modulate = Color( 1, 1, 1, 1 )
+30/region = Rect2( 112, 8, 24, 40 )
+30/tile_mode = 1
+30/autotile/bitmask_mode = 1
+30/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 443, Vector2( 2, 4 ), 254 ]
+30/autotile/icon_coordinate = Vector2( 0, 0 )
+30/autotile/tile_size = Vector2( 8, 8 )
+30/autotile/spacing = 0
+30/autotile/occluder_map = [  ]
+30/autotile/navpoly_map = [  ]
+30/autotile/priority_map = [  ]
+30/autotile/z_index_map = [  ]
+30/occluder_offset = Vector2( 0, 0 )
+30/navigation_offset = Vector2( 0, 0 )
+30/shape_offset = Vector2( 0, 0 )
+30/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+30/shape_one_way = false
+30/shape_one_way_margin = 0.0
+30/shapes = [  ]
+30/z_index = 0
+31/name = "SilentSwampMurky_TallGrass"
+31/tex_offset = Vector2( 0, 0 )
+31/modulate = Color( 1, 1, 1, 1 )
+31/region = Rect2( 16, 56, 24, 40 )
+31/tile_mode = 1
+31/autotile/bitmask_mode = 1
+31/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 443, Vector2( 2, 4 ), 254 ]
+31/autotile/icon_coordinate = Vector2( 0, 0 )
+31/autotile/tile_size = Vector2( 8, 8 )
+31/autotile/spacing = 0
+31/autotile/occluder_map = [  ]
+31/autotile/navpoly_map = [  ]
+31/autotile/priority_map = [  ]
+31/autotile/z_index_map = [  ]
+31/occluder_offset = Vector2( 0, 0 )
+31/navigation_offset = Vector2( 0, 0 )
+31/shape_offset = Vector2( 0, 0 )
+31/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+31/shape_one_way = false
+31/shape_one_way_margin = 0.0
+31/shapes = [  ]
+31/z_index = 0
+32/name = "SilentSwampMurky_Grass"
+32/tex_offset = Vector2( 0, 0 )
+32/modulate = Color( 1, 1, 1, 1 )
+32/region = Rect2( 48, 56, 24, 40 )
+32/tile_mode = 1
+32/autotile/bitmask_mode = 1
+32/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 443, Vector2( 2, 4 ), 254 ]
+32/autotile/icon_coordinate = Vector2( 0, 0 )
+32/autotile/tile_size = Vector2( 8, 8 )
+32/autotile/spacing = 0
+32/autotile/occluder_map = [  ]
+32/autotile/navpoly_map = [  ]
+32/autotile/priority_map = [  ]
+32/autotile/z_index_map = [  ]
+32/occluder_offset = Vector2( 0, 0 )
+32/navigation_offset = Vector2( 0, 0 )
+32/shape_offset = Vector2( 0, 0 )
+32/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+32/shape_one_way = false
+32/shape_one_way_margin = 0.0
+32/shapes = [  ]
+32/z_index = 0
+33/name = "SilentSwampMurky_TallDarkGrass"
+33/tex_offset = Vector2( 0, 0 )
+33/modulate = Color( 1, 1, 1, 1 )
+33/region = Rect2( 80, 56, 24, 40 )
+33/tile_mode = 1
+33/autotile/bitmask_mode = 1
+33/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 511, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 443, Vector2( 2, 4 ), 254 ]
+33/autotile/icon_coordinate = Vector2( 0, 0 )
+33/autotile/tile_size = Vector2( 8, 8 )
+33/autotile/spacing = 0
+33/autotile/occluder_map = [  ]
+33/autotile/navpoly_map = [  ]
+33/autotile/priority_map = [  ]
+33/autotile/z_index_map = [  ]
+33/occluder_offset = Vector2( 0, 0 )
+33/navigation_offset = Vector2( 0, 0 )
+33/shape_offset = Vector2( 0, 0 )
+33/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+33/shape_one_way = false
+33/shape_one_way_margin = 0.0
+33/shapes = [  ]
+33/z_index = 0
+34/name = "SilentSwampMurky_DarkGrass"
+34/tex_offset = Vector2( 0, 0 )
+34/modulate = Color( 1, 1, 1, 1 )
+34/region = Rect2( 112, 56, 24, 40 )
+34/tile_mode = 1
+34/autotile/bitmask_mode = 1
+34/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 443, Vector2( 2, 4 ), 254 ]
+34/autotile/icon_coordinate = Vector2( 0, 0 )
+34/autotile/tile_size = Vector2( 8, 8 )
+34/autotile/spacing = 0
+34/autotile/occluder_map = [  ]
+34/autotile/navpoly_map = [  ]
+34/autotile/priority_map = [  ]
+34/autotile/z_index_map = [  ]
+34/occluder_offset = Vector2( 0, 0 )
+34/navigation_offset = Vector2( 0, 0 )
+34/shape_offset = Vector2( 0, 0 )
+34/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+34/shape_one_way = false
+34/shape_one_way_margin = 0.0
+34/shapes = [  ]
+34/z_index = 0
+35/name = "SilentSwampMurky_ForgottenPlainsGrass_Link"
+35/tex_offset = Vector2( 0, 0 )
+35/modulate = Color( 1, 1, 1, 1 )
+35/region = Rect2( 16, 288, 24, 40 )
+35/tile_mode = 1
+35/autotile/bitmask_mode = 1
+35/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 510, Vector2( 0, 4 ), 447, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 507, Vector2( 1, 4 ), 255, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 254, Vector2( 2, 4 ), 443 ]
+35/autotile/icon_coordinate = Vector2( 0, 0 )
+35/autotile/tile_size = Vector2( 8, 8 )
+35/autotile/spacing = 0
+35/autotile/occluder_map = [  ]
+35/autotile/navpoly_map = [  ]
+35/autotile/priority_map = [  ]
+35/autotile/z_index_map = [  ]
+35/occluder_offset = Vector2( 0, 0 )
+35/navigation_offset = Vector2( 0, 0 )
+35/shape_offset = Vector2( 0, 0 )
+35/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+35/shape_one_way = false
+35/shape_one_way_margin = 0.0
+35/shapes = [  ]
+35/z_index = 0
+36/name = "ForgottenPlains__Pillars1"
+36/tex_offset = Vector2( 0, 0 )
+36/modulate = Color( 1, 1, 1, 1 )
+36/region = Rect2( 0, 0, 16, 32 )
+36/tile_mode = 0
+36/occluder_offset = Vector2( 0, 0 )
+36/navigation_offset = Vector2( 0, 0 )
+36/shape_offset = Vector2( 0, 0 )
+36/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+36/shape = SubResource( 16 )
+36/shape_one_way = false
+36/shape_one_way_margin = 1.0
+36/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 16 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+36/z_index = 0
+37/name = "ForgottenPlains__Pillars2"
+37/tex_offset = Vector2( 0, 0 )
+37/modulate = Color( 1, 1, 1, 1 )
+37/region = Rect2( 16, 0, 16, 32 )
+37/tile_mode = 0
+37/occluder_offset = Vector2( 0, 0 )
+37/navigation_offset = Vector2( 0, 0 )
+37/shape_offset = Vector2( 0, 0 )
+37/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+37/shape = SubResource( 17 )
+37/shape_one_way = false
+37/shape_one_way_margin = 1.0
+37/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 17 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+37/z_index = 0
+38/name = "ForgottenPlains__Pillars3"
+38/tex_offset = Vector2( 0, 0 )
+38/modulate = Color( 1, 1, 1, 1 )
+38/region = Rect2( 32, 0, 16, 32 )
+38/tile_mode = 0
+38/occluder_offset = Vector2( 0, 0 )
+38/navigation_offset = Vector2( 0, 0 )
+38/shape_offset = Vector2( 0, 0 )
+38/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+38/shape = SubResource( 18 )
+38/shape_one_way = false
+38/shape_one_way_margin = 1.0
+38/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 18 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+38/z_index = 0
+39/name = "ForgottenPlains__Pillars4"
+39/tex_offset = Vector2( 0, 0 )
+39/modulate = Color( 1, 1, 1, 1 )
+39/region = Rect2( 48, 8, 16, 24 )
+39/tile_mode = 0
+39/occluder_offset = Vector2( 0, 0 )
+39/navigation_offset = Vector2( 0, 0 )
+39/shape_offset = Vector2( 0, 0 )
+39/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+39/shape = SubResource( 19 )
+39/shape_one_way = false
+39/shape_one_way_margin = 1.0
+39/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 19 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+39/z_index = 0
+40/name = "ForgottenPlains__Pillars5"
+40/tex_offset = Vector2( 0, 0 )
+40/modulate = Color( 1, 1, 1, 1 )
+40/region = Rect2( 64, 16, 16, 16 )
+40/tile_mode = 0
+40/occluder_offset = Vector2( 0, 0 )
+40/navigation_offset = Vector2( 0, 0 )
+40/shape_offset = Vector2( 0, 0 )
+40/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+40/shape = SubResource( 20 )
+40/shape_one_way = false
+40/shape_one_way_margin = 1.0
+40/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 20 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+40/z_index = 0
+41/name = "ForgottenPlains__Pillars6"
+41/tex_offset = Vector2( 0, 0 )
+41/modulate = Color( 1, 1, 1, 1 )
+41/region = Rect2( 80, 16, 16, 16 )
+41/tile_mode = 0
+41/occluder_offset = Vector2( 0, 0 )
+41/navigation_offset = Vector2( 0, 0 )
+41/shape_offset = Vector2( 0, 0 )
+41/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+41/shape = SubResource( 21 )
+41/shape_one_way = false
+41/shape_one_way_margin = 1.0
+41/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 21 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+41/z_index = 0
+42/name = "ForgottenPlains__Pillars7"
+42/tex_offset = Vector2( 0, 0 )
+42/modulate = Color( 1, 1, 1, 1 )
+42/region = Rect2( 96, 16, 16, 16 )
+42/tile_mode = 0
+42/occluder_offset = Vector2( 0, 0 )
+42/navigation_offset = Vector2( 0, 0 )
+42/shape_offset = Vector2( 0, 0 )
+42/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+42/shape = SubResource( 22 )
+42/shape_one_way = false
+42/shape_one_way_margin = 1.0
+42/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 22 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+42/z_index = 0
+43/name = "ForgottenPlainsShadow_Pillars1"
+43/tex_offset = Vector2( -1, 8 )
+43/modulate = Color( 1, 1, 1, 1 )
+43/region = Rect2( 0, 16, 16, 16 )
+43/tile_mode = 0
+43/occluder_offset = Vector2( 0, 0 )
+43/navigation_offset = Vector2( 0, 0 )
+43/shape_offset = Vector2( 0, 0 )
+43/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+43/shape_one_way = false
+43/shape_one_way_margin = 0.0
+43/shapes = [  ]
+43/z_index = 0
+44/name = "ForgottenPlainsShadow_Pillars2"
+44/tex_offset = Vector2( -1, 8 )
+44/modulate = Color( 1, 1, 1, 1 )
+44/region = Rect2( 16, 16, 16, 16 )
+44/tile_mode = 0
+44/occluder_offset = Vector2( 0, 0 )
+44/navigation_offset = Vector2( 0, 0 )
+44/shape_offset = Vector2( 0, 0 )
+44/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+44/shape_one_way = false
+44/shape_one_way_margin = 0.0
+44/shapes = [  ]
+44/z_index = 0
+45/name = "ForgottenPlainsShadow_Pillars3"
+45/tex_offset = Vector2( -1, 8 )
+45/modulate = Color( 1, 1, 1, 1 )
+45/region = Rect2( 32, 16, 16, 16 )
+45/tile_mode = 0
+45/occluder_offset = Vector2( 0, 0 )
+45/navigation_offset = Vector2( 0, 0 )
+45/shape_offset = Vector2( 0, 0 )
+45/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+45/shape_one_way = false
+45/shape_one_way_margin = 0.0
+45/shapes = [  ]
+45/z_index = 0
+46/name = "ForgottenPlainsShadow_Pillars4"
+46/tex_offset = Vector2( -1, 4 )
+46/modulate = Color( 1, 1, 1, 1 )
+46/region = Rect2( 48, 16, 16, 16 )
+46/tile_mode = 0
+46/occluder_offset = Vector2( 0, 0 )
+46/navigation_offset = Vector2( 0, 0 )
+46/shape_offset = Vector2( 0, 0 )
+46/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+46/shape_one_way = false
+46/shape_one_way_margin = 0.0
+46/shapes = [  ]
+46/z_index = 0
+47/name = "ForgottenPlainsShadow_Pillars5"
+47/tex_offset = Vector2( -1, 4 )
+47/modulate = Color( 1, 1, 1, 1 )
+47/region = Rect2( 64, 16, 16, 16 )
+47/tile_mode = 0
+47/occluder_offset = Vector2( 0, 0 )
+47/navigation_offset = Vector2( 0, 0 )
+47/shape_offset = Vector2( 0, 0 )
+47/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+47/shape_one_way = false
+47/shape_one_way_margin = 0.0
+47/shapes = [  ]
+47/z_index = 0
+48/name = "ForgottenPlainsShadow_Pillars6"
+48/tex_offset = Vector2( -1, 0 )
+48/modulate = Color( 1, 1, 1, 1 )
+48/region = Rect2( 80, 16, 16, 16 )
+48/tile_mode = 0
+48/occluder_offset = Vector2( 0, 0 )
+48/navigation_offset = Vector2( 0, 0 )
+48/shape_offset = Vector2( 0, 0 )
+48/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+48/shape_one_way = false
+48/shape_one_way_margin = 0.0
+48/shapes = [  ]
+48/z_index = 0
+49/name = "ForgottenPlainsShadow_Pillars7"
+49/tex_offset = Vector2( -1, 0 )
+49/modulate = Color( 1, 1, 1, 1 )
+49/region = Rect2( 96, 16, 16, 16 )
+49/tile_mode = 0
+49/occluder_offset = Vector2( 0, 0 )
+49/navigation_offset = Vector2( 0, 0 )
+49/shape_offset = Vector2( 0, 0 )
+49/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+49/shape_one_way = false
+49/shape_one_way_margin = 0.0
+49/shapes = [  ]
+49/z_index = 0
+script = SubResource( 25 )

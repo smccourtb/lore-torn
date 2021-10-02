@@ -11,7 +11,6 @@ func get_action():
 	if action == null || action == "":
 		return name
 	else:
-		print(action, "CALLED")
 		return action
 
 func set_action(a):

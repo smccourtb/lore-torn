@@ -1,12 +1,13 @@
 extends KinematicBody2D
-
+export var arrival_distance: int # How far away to begin circling?
+export var pursuit_deadzone: float = rand_range(12.0, 48.0) 
 # contains all information of character
 var data: Character
-onready var time = get_parent().time
+#onready var time = get_parent().time
 
 # TEMP VARIABLES #
 
-export(float) var run_speed = 10.0
+export(float) var run_speed = 15.0
 
 var motion = Vector2(0, 0)
 var previous_position = Vector2(0, 0)
@@ -22,11 +23,43 @@ signal action_end
 # MY OWN TEMP VARS TO REPLACE THE NODE CALLS ( $NodeName )
 onready var timer = get_parent().get_node("Timer")
 onready var detect = get_node("Area2D")
-
+onready var path_line = get_node("Line2D")
+onready var movement = AIMovement.new(self)
 # TEMP VARIABLES END 
+var velocity: Vector2 = Vector2.ZERO
+var path: Array
+var target_direction: Vector2
+var target_position
+var pathfinding: PathFinding
+
 
 func _ready() -> void:
 	pass
+	
+func get_neighbors() -> Array:
+	return detect.get_overlapping_bodies()
+
+func get_move_speed() -> float:
+	return 3.0 * run_speed
+	
+func set_path_line(points: Array):
+	var local_points:= []
+	for point in points:
+		local_points.append(point - global_position)
+	path_line.points = local_points
+
+func _physics_process(_delta):
+	if target_position:
+		path = pathfinding.get_new_path(position, target_position)
+		set_path_line(path)
+		var desired_velocity = movement.get_pursue_velocity(target_position,0,0)
+		velocity = velocity.linear_interpolate(desired_velocity, 0.1)
+		if position.distance_to(target_position) < 15:
+			emit_signal("run_end", true)
+			velocity = Vector2.ZERO
+			target_position = null
+	velocity = move_and_slide(velocity)
+		
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed():
@@ -38,54 +71,41 @@ func _input(event: InputEvent) -> void:
 func run_to(p):
 	blocked_time = 0.0
 	target = p
+	print("GOOOOO")
+	target_position = p
+	target_direction = target_position - position
+	
 
 func find_nearest_object(object_type = null):
-	var nearest_distance = 100
+	var nearest_distance = 10000000
 	var nearest_object = null
 	for o in detect.get_overlapping_bodies():
 		print("OOOOO: ", o)
 		if o.is_inside_tree():
-			
-			var distance = (global_transform.origin - o.global_transform.origin).length()
+			var distance = position.distance_to(o.position)
 			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
 				nearest_distance = distance
 				nearest_object = o
 	return { object=nearest_object, distance=nearest_distance }
 
-func get_nearest_object(object_type = null):
-	# FINDS nearest object or CHECK for specified object
-	var nearest_distance = 100
-	var nearest_object = null
-	for o in detect.get_overlapping_bodies():
-		print("Ozzzzzzz: ", o)
-		if o.is_inside_tree():
-			var distance = (global_transform.origin - o.global_transform.origin).length()
-			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
-				nearest_distance = distance
-				nearest_object = o
-	return { object=nearest_object, distance=nearest_distance }
 
 func count_visible_objects(object_type):
 	# TODO: Just look up global list for objects and populate it on start up
 	var count = 0
 	for o in detect.get_overlapping_bodies():
-		print("Occcccccc: ", o)
-		
 		if o.is_inside_tree():
-			var distance = (global_transform.origin - o.global_transform.origin).length()
+			var distance = position.distance_to(o.position)
 			if o != self and o.get_script() != null and o.get_object_type() == object_type:
 				count += 1
 	return count
 
 func holds(object_type):
-#	if held != null and held.get_object_type() == object_type:
-#		return true
-#	return false
-	return true
+	if held != null and held.get_object_type() == object_type:
+		return true
+	return false
 	
 func pickup_object(object_type):
-	var nearest = get_nearest_object(object_type)
-	print("IM IN HERE AND HERES NEAREST OBJECT: ", nearest)
+	var nearest = find_nearest_object(object_type)
 	if nearest.object == null or nearest.distance > 1.0:
 		return false
 	pickup(nearest.object)
@@ -109,13 +129,14 @@ func store_held(object_type):
 func pickup_nearest_object(object_type):
 	if holds(object_type):
 		return false
-	var object = get_nearest_object(object_type).object
+	var object = find_nearest_object(object_type).object
 	if object == null:
 		return false
-	run_to(object.translation) # object.position
+	run_to(object.position)
+	
 	if !yield(self, "run_end"):
-		emit_signal("action_end", false)
-	emit_signal("action_end", pickup_object(object_type))
+		return false
+	return pickup_object(object_type)
 
 func pickup_axe():
 	return pickup_nearest_object("axe")
@@ -126,10 +147,17 @@ func pickup_wood():
 
 
 func use_nearest_object(object_type):
-	var object = get_nearest_object(object_type).object
+	var object = find_nearest_object(object_type).object
 	if object == null:
+		print('NOW IN FALSE TERRITORY')
 		return false
-	run_to(object.translation) # object.position
+	run_to(object.position)
+	print("THIS IS WHY IM RUNNING TO A TREE")
+	if !yield(self, "run_end"):
+		return false
+	return object.action(self)
+		
+	run_to(object.position) # object.position
 	if !yield(self, "run_end"):
 		emit_signal("action_end", false)
 	emit_signal("action_end", object.action(self))
@@ -163,7 +191,7 @@ func get_goap_current_goal():
 	var goal
 	# the goal is to plant trees then gather wood when there are enough trees
 	#if count_visible_objects("tree") < 10:
-	goal = "cut_tree"
+	goal = "sees_wood"
 #	else:
 #		goal = "wood_stored"
 	# in any case, avoid starvation
@@ -171,6 +199,7 @@ func get_goap_current_goal():
 	return goal
 
 func goap():
+	print("GOAP BEING CALLED")
 	var start_time = OS.get_unix_time()
 	var count = 0
 	var action_planner = get_node("ActionPlanner")

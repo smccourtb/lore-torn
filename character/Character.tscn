@@ -6,7 +6,7 @@
 [ext_resource path="res://addons/goap/goap_action_planner.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 49.0692, 44.8251 )
+extents = Vector2( 717.671, 428.145 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 3.58041
@@ -34,3 +34,6 @@ effect = "sees_wood"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0

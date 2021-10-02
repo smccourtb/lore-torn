@@ -9,7 +9,10 @@ func _ready() -> void:
 	$Sprite.texture = texture
 	name = data.type
 
+func get_object_type():
+	return data.type
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func action(character):
+	print('THIS TREE HAS BEEN CUT')
+	queue_free()
+	return true
