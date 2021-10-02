@@ -21,4 +21,7 @@ func _ready() -> void:
 		new_row.ref = i
 		container.add_child(new_row)
 
-
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.is_pressed():
+		if event.get_scancode() == KEY_ESCAPE or event.get_scancode() == KEY_J:
+			queue_free()

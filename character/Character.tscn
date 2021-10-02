@@ -29,7 +29,7 @@ script = ExtResource( 4 )
 [node name="cut_tree" type="Node" parent="ActionPlanner"]
 script = ExtResource( 3 )
 action = "cut_tree"
-preconditions = "assigned_chop !tired"
+preconditions = "assigned_chop !tired sees_tree"
 effect = "!assigned_chop"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

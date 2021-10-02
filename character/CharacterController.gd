@@ -167,7 +167,8 @@ func get_goap_current_state():
 #			if find_nearest_object(o).object != null:
 #				state += "sees_"+o+" "
 	for o in ["tree"]:  # , "box"
-		if find_nearest_object(o).object == null:
+		if Global.resource_nodes.size() < 1:
+#		if find_nearest_object(o).object == null:
 			state += "!"
 		state += "sees_"
 		state += o

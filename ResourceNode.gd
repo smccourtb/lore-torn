@@ -3,6 +3,7 @@ extends StaticBody2D
 # IDEA: If tree or whateever is especially big or special in someway then note it in the history or memories
 var texture: AtlasTexture
 var data: Resource
+var selected: bool = false setget set_selected
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,3 +21,10 @@ func action(character):
 	character.data.energy_level -= 1 # just testing #TODO: decrease by (size of tree, strength, skill)
 	queue_free()
 	return true
+	
+func set_selected(boo: bool):
+	selected = boo
+	var selector = load("res://Selector.tscn").instance()
+	add_child(selector)
+	Global.resource_nodes.append(self)
+#	get_parent().resource_node_positions.append(global_position)

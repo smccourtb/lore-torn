@@ -13,6 +13,7 @@ func _ready() -> void:
 	$HBoxContainer/Label.rect_min_size = Vector2(column_size, 0)
 	for i in Global.jobs.size():
 		var checkbox = CheckBox.new()
+		checkbox.pressed = check_assigned(Global.jobs[i], ref)
 		$HBoxContainer.add_child(checkbox)
 		checkbox.connect("pressed", self, "_on_Pressed", [i, checkbox, ref])
 		
@@ -27,3 +28,9 @@ func _on_Pressed(yo, boop, beep):
 		beep.assign_new_job(Global.jobs[yo])
 	else:
 		beep.remove_assigned_job(Global.jobs[yo])
+
+func check_assigned(job: String, character):
+	for i in character.assigned_jobs:
+		if i == job:
+			return true
+	return false

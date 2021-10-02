@@ -379,7 +379,7 @@ class Chunk:
 							new_resource.texture = tree.texture
 							new_resource.position = map.map_to_world(tilepos) + Vector2(4,4)
 							map.get_parent().call_deferred('add_child', new_resource)
-							Global.resource_nodes.append(new_resource)
+#							Global.resource_nodes.append(new_resource)
 #							nodes[tree.position] = tree
 							#map.walkable_cells.erase(map.map_grid.calculate_map_position(tilepos))
 #					if chunk_height > 0.01 and chunk_height < 0.04:

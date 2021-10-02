@@ -45,3 +45,6 @@ func _input(event: InputEvent) -> void:
 		if event.get_scancode() == KEY_J:
 			var job_menu = job_assigner.instance()
 			$CanvasLayer.add_child(job_menu)
+		if event.get_scancode() == KEY_P:
+			var zone_selector = load("res://ZoneGenerator.tscn").instance()
+			add_child(zone_selector)
