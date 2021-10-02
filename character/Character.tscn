@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/characters/dwarf/dwarf.png" type="Texture" id=1]
 [ext_resource path="res://character/CharacterController.gd" type="Script" id=2]
 [ext_resource path="res://addons/goap/goap_action.gd" type="Script" id=3]
 [ext_resource path="res://addons/goap/goap_action_planner.gd" type="Script" id=4]
+[ext_resource path="res://assets/font/m5x7.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 717.671, 428.145 )
@@ -11,6 +12,10 @@ extents = Vector2( 717.671, 428.145 )
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 3.58041
 height = 1.55687
+
+[sub_resource type="DynamicFont" id=3]
+size = 10
+font_data = ExtResource( 5 )
 
 [node name="Character" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -28,7 +33,7 @@ script = ExtResource( 4 )
 
 [node name="cut_tree" type="Node" parent="ActionPlanner"]
 script = ExtResource( 3 )
-action = "cut_tree"
+action = "cut _tree"
 preconditions = "assigned_chop !tired sees_tree"
 effect = "!assigned_chop"
 
@@ -37,3 +42,13 @@ shape = SubResource( 2 )
 
 [node name="Line2D" type="Line2D" parent="."]
 width = 2.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = -20.1298
+margin_top = -19.492
+margin_right = 19.8702
+margin_bottom = -5.492
+custom_fonts/font = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

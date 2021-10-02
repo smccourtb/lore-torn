@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://resource/nodes/resource_node_template.gd" type="Script" id=1]
 [ext_resource path="res://assets/resource-nodes/trees.png" type="Texture" id=2]
+[ext_resource path="res://resource/items/oak_log.tres" type="Resource" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -12,3 +13,4 @@ script = ExtResource( 1 )
 type = "tree"
 subtype = "oak"
 texture = SubResource( 1 )
+drops = [ ExtResource( 3 ) ]

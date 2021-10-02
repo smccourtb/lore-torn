@@ -48,6 +48,7 @@ func set_path_line(points: Array):
 	path_line.points = local_points
 
 func _physics_process(_delta):
+	
 	if target_position:
 		path = pathfinding.get_new_path(position, target_position)
 		set_path_line(path)
@@ -219,6 +220,7 @@ func goap():
 			if has_method(a):
 				print("Calling action function "+a)
 				var status = call(a)
+				$Label.text = a
 				print("STATUS: ", status)
 				while status is GDScriptFunctionState:
 					status = yield(status, "completed")
