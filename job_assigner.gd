@@ -4,7 +4,7 @@ onready var container = get_node("VBoxContainer")
 onready var job_row = preload("res://JobAssignerRow.tscn")
 onready var header = get_node("VBoxContainer/Header/HBoxContainer")
 
-var column_size = 175
+var column_size = 100
 
 
 func _ready() -> void:

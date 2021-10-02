@@ -8,14 +8,7 @@ var data: Character
 # TEMP VARIABLES #
 
 export(float) var run_speed = 15.0
-
-var motion = Vector2(0, 0)
-var previous_position = Vector2(0, 0)
-var blocked_time = 0.0
-var target = null
-var life = 100.0
-var held = null # This represents one handed item being equipped.
-
+var held = null
 signal run_end
 signal action_end
 
@@ -71,8 +64,6 @@ func _input(event: InputEvent) -> void:
 
 	
 func run_to(p):
-	blocked_time = 0.0
-	target = p
 	target_position = p
 	target_direction = target_position - position
 	
@@ -136,7 +127,6 @@ func pickup_nearest_object(object_type):
 	run_to(object.position)
 	
 	if !yield(self, "run_end"):
-		print("FDSFDFHDIFHSIHFEIUE4")
 		return false
 	return pickup_object(object_type)
 
@@ -149,11 +139,9 @@ func pickup_wood():
 func use_nearest_object(object_type: String):
 	var object = find_nearest_object(object_type).object
 	if object == null:
-		print( "FALSE TERRITORY")
 		return false
 	run_to(object.position)
 	if !yield(self, "run_end"):
-		print("WELLWELLWELL")
 		return false
 	return object.action(self)
 
@@ -165,10 +153,12 @@ func get_goap_current_state():
 	print("GETTING CURRENT STATE")
 	var state = ""
 	# Check assigned jobs for what to do
-	for i in data.assigned_jobs:
-		state += "assigned_"+i+" "
-		if Global.jobs.find(i) == -1:
+	for i in Global.jobs:
+		
+		if data.assigned_jobs.find(i) == -1:
 			state += "!assigned_"+i+" "
+		else:
+			state += "assigned_"+i+" "
 #	for o in ["axe"]:  # , "wood", "fruit"
 #		if holds(o):
 #			state += "has_"+o+" sees_"+o+" "
@@ -178,12 +168,12 @@ func get_goap_current_state():
 #				state += "sees_"+o+" "
 	for o in ["tree"]:  # , "box"
 		if find_nearest_object(o).object == null:
-			print("YES ITS NULL")
 			state += "!"
 		state += "sees_"
 		state += o
 		state += " "
 	state += " !hungry" #if (life < 75) else " !hungry"
+	state += " !tired" if (data.energy_level > 25) else " tired"
 	print(state)
 	return state
 
@@ -196,10 +186,10 @@ func get_goap_current_goal():
 #		goal = "wood_stored"
 	# in any case, avoid starvation
 	goal += " !hungry"
+	goal += " !tired"
 	return goal
 
 func goap():
-	print("GOAP BEING CALLED")
 	var start_time = OS.get_unix_time()
 	var count = 0
 	var action_planner = get_node("ActionPlanner")

@@ -15,7 +15,9 @@ var weight: int
 var genes: Dictionary = {}
 var personality: Resource
 var mood_level: Dictionary
+
 var assigned_jobs: = []
+var energy_level: int = 100
 # THINGS TO ADD
 # memories
 
