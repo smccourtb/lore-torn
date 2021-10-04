@@ -124,12 +124,14 @@ func _physics_process(delta):
 func _on_pickup():
 	queue_free()
 
+func get_object_type():
+	return new_item.type
 
 func spawn(at : Vector2, angle : float, delay_duration = -1, \
 		spawn_speed = rand_range(SPEED_MIN, SPEED_MAX)):
 	global_position = at
 	velocity = polar2cartesian(spawn_speed, angle)
-	Global.items.append(self)
+	Global.items[new_item.type] = [self]
 
 
 func item_check():

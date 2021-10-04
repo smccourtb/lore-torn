@@ -7,6 +7,6 @@ var resource_nodes: = []
 
 var jobs: Array = ["chop", "mine", "gather"]
 
-var items: = []
+var items: = {}
 
 var stockpiles: = []

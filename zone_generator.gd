@@ -29,20 +29,19 @@ func _unhandled_input(event):
 			query.set_shape(select_rect)
 			query.transform = Transform2D(0, (drag_end + drag_start) / 2)
 			selected = space.intersect_shape(query)
-#			get_parent().blackboard.data.chop_wood = true
+
 			for item in selected:
 				if !(item.collider is KinematicBody2D): #<- would confirm its a character
 					item.collider.set_selected(true)
+					
 			if type == "stockpile":
-				
+				# TODO: check if if intersects with another stockpile or non-empty tile
 				var start = world_map.map_to_world(world_map.world_to_map(drag_start))
 				var end = world_map.map_to_world(world_map.world_to_map(drag_end))
 				var columns = (start.x - end.x) / 8
 				var rows = (start.y - end.y) / 8
-				var x = Stockpile.new(["wood"], abs(columns*rows))
+				var x = Stockpile.new(["wood"], abs(columns*rows), [start, end])
 				Global.stockpiles.append(x)
-				print(Global.stockpiles[0].allowed)
-				print(Global.stockpiles[0].max_slots)
 			queue_free()
 	if event is InputEventMouseMotion and dragging:
 		update()

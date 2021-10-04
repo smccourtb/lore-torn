@@ -1,6 +1,6 @@
 extends KinematicBody2D
 var data: Character
-var goals: = {"basic needs": [ "!tired ", "!hungry ", "!thirsty ",], #
+var goals: = {"basic needs": [ " !tired", " !hungry", " !thirsty"],
 			  "jobs": ["chop", "mine", "gather"]}   
 
 # TEMP VARIABLES #
@@ -80,7 +80,7 @@ func find_nearest_object(object_type = null, arr:= []):
 	# TODO: look to global list of OBJECT_TYPE
 	for o in arr:
 		var distance = position.distance_to(o.position)
-		if !(o is KinematicBody2D):
+		if !(o is KinematicBody2D) || o is Collectable:
 			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
 				nearest_distance = distance
 				nearest_object = o
@@ -92,8 +92,8 @@ func holds(object_type):
 	return false
 	
 func pickup_object(object_type):
-	var nearest = find_nearest_object(object_type)
-	if nearest.object == null or nearest.distance > 1.0:
+	var nearest = find_nearest_object(object_type, Global.items[object_type])
+	if nearest.object == null : #or nearest.distance > 1.0:
 		return false
 	pickup(nearest.object)
 	return true
@@ -101,8 +101,11 @@ func pickup_object(object_type):
 func pickup(object):
 	if held != null:
 		get_parent().add_child(held)
+	SignalBus.emit_signal("resource_removed", object, object.get_object_type())
+	Global.items[object.get_object_type()].erase(object)
 	object.get_parent().remove_child(object)
 	held = object
+	
 
 func store_held(object_type):
 	if held != null && held.get_object_type() == object_type:
@@ -117,7 +120,7 @@ func store_held(object_type):
 func pickup_nearest_object(object_type):
 	if holds(object_type):
 		return false
-	var object = find_nearest_object(object_type).object
+	var object = find_nearest_object(object_type, Global.items[object_type]).object
 	if object == null:
 		return false
 	run_to(object.position)
@@ -133,7 +136,7 @@ func pickup_wood():
 	return pickup_nearest_object("wood")
 
 func use_nearest_object(object_type: String):
-	var object = find_nearest_object(object_type, Global.get(object_type)).object
+	var object = find_nearest_object(object_type, Global.resource_nodes).object
 	if object == null:
 		return false
 	run_to(object.position)
@@ -145,9 +148,20 @@ func cut_tree():
 	return use_nearest_object("tree")
 
 func store_wood():
-	return use_nearest_object("box")
+	# TODO: change to find_applicable_stockpile(specific item)
+	return find_applicable_stockpile("wood")
 
-
+func find_applicable_stockpile(what: String):
+	for i in Global.stockpiles:
+		if what in i.allowed:
+			run_to(i.slot_coords[Util.randi_range(0,i.slot_coords.size()-1)])
+			print("SHOULD BE RUNNING TO STOCKPILE NOW")
+			if !yield(self, "run_end"):
+				print("CAUGHT IN HERER TTTTTTTTTTTTTTTTTTTTTTT")
+				return false
+			print('CAllING the ACTION DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd')
+			return i.action(self, held)
+			
 func get_goap_current_state() -> String:
 	var state = ""
 	# Check assigned jobs for what to do
@@ -160,17 +174,23 @@ func get_goap_current_state() -> String:
 	# Represents items on the ground
 	for i in ["wood"]:
 		if holds(i):
-			state += "has_"+i+" sees_"+i+" "
+			state += " has_"+i+" sees_"+i
 		else:
-			state += "!has_"+i+" "
-			if find_nearest_object(i, Global.get(i)).object != null:
-				state += "sees_"+i+" "
+			state += " !has_"+i
+			if Global.items.has(i) and Global.items[i].size() > 0:
+				if find_nearest_object(i, Global.items[i]).object != null:
+					state += " sees_"+i
 
 	for o in ["tree"]:
 		if Global.resource_nodes.size() < 1:
-				state += "!"
-		state += " sees_"
-		state += o
+				state += " !sees_"+o
+		else:
+			state += " sees_"+o
+	
+	if Global.stockpiles.size() > 0:
+		state += " sees_stockpile"
+	else:
+		state += " !sees_stockpile"
 	state += " !hungry" #if (life < 75) else " !hungry"
 	state += " !tired" if (data.energy_level > 25) else " tired"
 	state += " !thirsty"
@@ -182,10 +202,9 @@ func get_goap_current_goal():
 	
 	# the goal is to plant trees then gather wood when there are enough trees
 	#if count_visible_objects("tree") < 10:
-	goal += "wood_stored "
+	goal += " wood_stored"
 #	print("GOAL: ", goal)
 	for i in goals['basic needs']:
-		print(i)
 		goal += i
 #	else:
 #		goal = "wood_stored"

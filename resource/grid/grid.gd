@@ -9,6 +9,9 @@ export var size : Vector2
 # The size of a cell in pixels.
 export var cell_size : Vector2
 
+func _init(map_size, tile_size):
+	self.size = Vector2(abs(map_size.x), abs(map_size.y))
+	self.cell_size = Vector2(abs(tile_size.x), abs(tile_size.y))
 # Half of ``cell_size``.
 # We will use this to calculate the center of a grid cell in pixels, on the screen.
 # That's how we can place units in the center of a cell.

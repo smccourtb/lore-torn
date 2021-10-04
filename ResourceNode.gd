@@ -35,7 +35,7 @@ func set_selected(boo: bool):
 func spawn_resources():
 	# TODO: Add a more elegant way of deciding what to drop and how much
 	var at = position
-	var count = 2
+	var count = 1
 	var spacing = 2 * PI / count
 	for i in count:
 		var item = load("res://Collectable.tscn").instance()
