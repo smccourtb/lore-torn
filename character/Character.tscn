@@ -34,8 +34,20 @@ script = ExtResource( 4 )
 [node name="cut_tree" type="Node" parent="ActionPlanner"]
 script = ExtResource( 3 )
 action = "cut _tree"
-preconditions = "assigned_chop !tired sees_tree"
-effect = "!assigned_chop"
+preconditions = "assigned_chop !thirsty !tired !hungry sees_tree"
+effect = "sees_wood"
+
+[node name="store_wood" type="Node" parent="ActionPlanner"]
+script = ExtResource( 3 )
+action = "store_wood"
+preconditions = "has_wood sees_box"
+effect = "!has_wood wood_stored"
+
+[node name="pickup_wood" type="Node" parent="ActionPlanner"]
+script = ExtResource( 3 )
+action = "pickup_wood"
+preconditions = "sees_wood !has_wood"
+effect = "has_wood !has_fruit !has_axe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )

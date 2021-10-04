@@ -16,9 +16,6 @@ func _unhandled_input(event):
 			if selected.size() == 0:
 				dragging = true
 				drag_start = get_global_mouse_position()
-				print('raw: ', drag_start)
-				print('drag start converted: ', world_map.world_to_map(drag_start))
-				print('converted and converted back: ', world_map.map_to_world(world_map.world_to_map(drag_start)))
 		elif dragging:
 			# Button released while dragging.
 
@@ -26,7 +23,6 @@ func _unhandled_input(event):
 			if type == 'harvest':
 				update()
 			var drag_end = get_global_mouse_position()
-			print('drag end: ', world_map.world_to_map(drag_end))
 			select_rect.extents = (drag_end - drag_start) / 2
 			var space = get_world_2d().direct_space_state
 			var query = Physics2DShapeQueryParameters.new()
@@ -35,11 +31,11 @@ func _unhandled_input(event):
 			selected = space.intersect_shape(query)
 #			get_parent().blackboard.data.chop_wood = true
 			for item in selected:
-				print(item)
 				if !(item.collider is KinematicBody2D): #<- would confirm its a character
 					item.collider.set_selected(true)
 			if type == 'harvest':
 				queue_free()
+			Global.stockpiles["wood"] = [drag_start, drag_end] #, Inventory.new()]
 
 
 	if event is InputEventMouseMotion and dragging:
@@ -47,8 +43,8 @@ func _unhandled_input(event):
 
 func _draw():
 	if dragging:
-		draw_rect(Rect2(world_map.map_to_world(world_map.world_to_map(drag_start)), world_map.map_to_world(world_map.world_to_map(get_global_mouse_position()) - world_map.world_to_map(drag_start))),
-				Color(.5, .5, .5, .5), true)
+#		draw_rect(Rect2(world_map.map_to_world(world_map.world_to_map(drag_start)), world_map.map_to_world(world_map.world_to_map(get_global_mouse_position()) - world_map.world_to_map(drag_start))),
+#				Color(.5, .5, .5, .5), true)
 		draw_rect(Rect2(world_map.map_to_world(world_map.world_to_map(drag_start)), world_map.map_to_world(world_map.world_to_map(get_global_mouse_position()) - world_map.world_to_map(drag_start))),
 				Color(.5, .5, .5), false,2.0)
 	

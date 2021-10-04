@@ -1,9 +1,7 @@
 extends KinematicBody2D
-export var arrival_distance: int # How far away to begin circling?
-#export var pursuit_deadzone: float = rand_range(12.0, 48.0) 
-# contains all information of character
 var data: Character
-#onready var time = get_parent().time
+var goals: = {"basic needs": [ "!tired ", "!hungry ", "!thirsty ",], #
+			  "jobs": ["chop", "mine", "gather"]}   
 
 # TEMP VARIABLES #
 
@@ -32,7 +30,7 @@ func _ready() -> void:
 func _on_ResouceRemoved(ref, target):
 	if target_position:
 		if target_position.is_equal_approx(ref.position):
-			print("YYEEEEEEEEEEEEEESSSSSSSSSSSSSSS")
+			print("YYEEEEEEEEEEEEEESSSSSSSSSSSSSSS pick a new target bud.")
 			use_nearest_object(target)
 		
 func get_neighbors() -> Array:
@@ -48,7 +46,6 @@ func set_path_line(points: Array):
 	path_line.points = local_points
 
 func _physics_process(_delta):
-	
 	if target_position:
 		path = pathfinding.get_new_path(position, target_position)
 		set_path_line(path)
@@ -77,28 +74,17 @@ func run_to(p):
 	target_direction = target_position - position
 	
 
-func find_nearest_object(object_type = null):
+func find_nearest_object(object_type = null, arr:= []):
 	var nearest_distance = 10000000
 	var nearest_object = null
 	# TODO: look to global list of OBJECT_TYPE
-	for o in Global.resource_nodes:
+	for o in arr:
 		var distance = position.distance_to(o.position)
 		if !(o is KinematicBody2D):
 			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
 				nearest_distance = distance
 				nearest_object = o
 	return { object=nearest_object, distance=nearest_distance }
-
-
-func count_visible_objects(object_type):
-	# TODO: Just look up global list for objects and populate it on start up
-	var count = 0
-	for o in detect.get_overlapping_bodies():
-		if o.is_inside_tree():
-			var distance = position.distance_to(o.position)
-			if o != self and o.get_script() != null and o.get_object_type() == object_type:
-				count += 1
-	return count
 
 func holds(object_type):
 	if held != null and held.get_object_type() == object_type:
@@ -124,83 +110,94 @@ func store_held(object_type):
 		return true
 	else:
 		return false
+		
 
 # Actions for GOAP
 
-#func pickup_nearest_object(object_type):
-#	if holds(object_type):
-#		return false
-#	var object = find_nearest_object(object_type).object
-#	if object == null:
-#		return false
-#	run_to(object.position)
-#
-#	if !yield(self, "run_end"):
-#		return false
-#	return pickup_object(object_type)
-
-#func pickup_axe():
-#	return pickup_nearest_object("axe")
-#
-#func pickup_wood():
-#	return pickup_nearest_object("wood")
-
-func use_nearest_object(object_type: String):
+func pickup_nearest_object(object_type):
+	if holds(object_type):
+		return false
 	var object = find_nearest_object(object_type).object
 	if object == null:
 		return false
 	run_to(object.position)
+
 	if !yield(self, "run_end"):
-		print("NAHUOAPJFOEAJFIEJFSEIFJESJ:EFJEFLFSEJFLKFJEKLFJESFJESLF:ES")
+		return false
+	return pickup_object(object_type)
+
+func pickup_axe():
+	return pickup_nearest_object("axe")
+
+func pickup_wood():
+	return pickup_nearest_object("wood")
+
+func use_nearest_object(object_type: String):
+	var object = find_nearest_object(object_type, Global.get(object_type)).object
+	if object == null:
+		return false
+	run_to(object.position)
+	if !yield(self, "run_end"):
 		return false
 	return object.action(self)
 
 func cut_tree():
 	return use_nearest_object("tree")
 
+func store_wood():
+	return use_nearest_object("box")
 
-func get_goap_current_state():
-	print("GETTING CURRENT STATE")
+
+func get_goap_current_state() -> String:
 	var state = ""
 	# Check assigned jobs for what to do
 	for i in Global.jobs:
-		
+		# if the job isnt assigned to the character
 		if data.assigned_jobs.find(i) == -1:
-			state += "!assigned_"+i+" "
+			state += " !assigned_" + i
 		else:
-			state += "assigned_"+i+" "
-#	for o in ["axe"]:  # , "wood", "fruit"
-#		if holds(o):
-#			state += "has_"+o+" sees_"+o+" "
-#		else:
-#			state += "!has_"+o+" "
-#			if find_nearest_object(o).object != null:
-#				state += "sees_"+o+" "
-	for o in ["tree"]:  # , "box"
+			state += " assigned_" + i
+	# Represents items on the ground
+	for i in ["wood"]:
+		if holds(i):
+			state += "has_"+i+" sees_"+i+" "
+		else:
+			state += "!has_"+i+" "
+			if find_nearest_object(i, Global.get(i)).object != null:
+				state += "sees_"+i+" "
+
+	for o in ["tree"]:
 		if Global.resource_nodes.size() < 1:
-#		if find_nearest_object(o).object == null:
-			state += "!"
-		state += "sees_"
+				state += "!"
+		state += " sees_"
 		state += o
-		state += " "
 	state += " !hungry" #if (life < 75) else " !hungry"
 	state += " !tired" if (data.energy_level > 25) else " tired"
+	state += " !thirsty"
 	print(state)
 	return state
 
 func get_goap_current_goal():
-	var goal
+	var goal = ""
+	
 	# the goal is to plant trees then gather wood when there are enough trees
 	#if count_visible_objects("tree") < 10:
-	goal = "!assigned_chop"
+	goal += "wood_stored "
+#	print("GOAL: ", goal)
+	for i in goals['basic needs']:
+		print(i)
+		goal += i
 #	else:
 #		goal = "wood_stored"
 	# in any case, avoid starvation
-	goal += " !hungry"
-	goal += " !tired"
+#	goal += " !hungry"
+#	goal += " !tired"
 	return goal
 
 func goap():
+	# makes a plan based on current state and current goal
+	# loops through plan (list of actions) and performs each one
+	# if any of the actions returns false it breaks out and makes a new plan.
 	var start_time = OS.get_unix_time()
 	var count = 0
 	var action_planner = get_node("ActionPlanner")
@@ -214,14 +211,16 @@ func goap():
 		# execute plan
 		for a in plan:
 			var error = false
-			# Actions are implemented as methods
+			# Actions are implemented as methods. meaning each actions needs a matching function to call
 			# - immediate actions return a boolean status
 			# - non immediate actions (that call yield) return a GDScriptFunctionState
 			if has_method(a):
 				print("Calling action function "+a)
+				# calls the current action method
 				var status = call(a)
-				$Label.text = a
-				print("STATUS: ", status)
+				$Label.text = Util.titlefy(a)
+				# While action method is being performed wait for completion. expecting
+				# a return of true or false
 				while status is GDScriptFunctionState:
 					status = yield(status, "completed")
 				if typeof(status) != TYPE_BOOL:

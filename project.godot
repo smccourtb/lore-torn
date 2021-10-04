@@ -105,6 +105,11 @@ _global_script_classes=[ {
 "path": "res://resource/grid/grid.gd"
 }, {
 "base": "Resource",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://inventory.gd"
+}, {
+"base": "Resource",
 "class": "Item",
 "language": "GDScript",
 "path": "res://resource/items/items.gd"
@@ -184,6 +189,7 @@ _global_script_class_icons={
 "GeneFactory": "",
 "Goal": "",
 "Grid": "",
+"Inventory": "",
 "Item": "",
 "Name": "",
 "PathFinding": "",
