@@ -33,18 +33,24 @@ func _unhandled_input(event):
 			for item in selected:
 				if !(item.collider is KinematicBody2D): #<- would confirm its a character
 					item.collider.set_selected(true)
-			if type == 'harvest':
-				queue_free()
-			Global.stockpiles["wood"] = [drag_start, drag_end] #, Inventory.new()]
-
-
+			if type == "stockpile":
+				
+				var start = world_map.map_to_world(world_map.world_to_map(drag_start))
+				var end = world_map.map_to_world(world_map.world_to_map(drag_end))
+				var columns = (start.x - end.x) / 8
+				var rows = (start.y - end.y) / 8
+				var x = Stockpile.new(["wood"], abs(columns*rows))
+				Global.stockpiles.append(x)
+				print(Global.stockpiles[0].allowed)
+				print(Global.stockpiles[0].max_slots)
+			queue_free()
 	if event is InputEventMouseMotion and dragging:
 		update()
 
 func _draw():
 	if dragging:
-#		draw_rect(Rect2(world_map.map_to_world(world_map.world_to_map(drag_start)), world_map.map_to_world(world_map.world_to_map(get_global_mouse_position()) - world_map.world_to_map(drag_start))),
-#				Color(.5, .5, .5, .5), true)
+		draw_rect(Rect2(world_map.map_to_world(world_map.world_to_map(drag_start)), world_map.map_to_world(world_map.world_to_map(get_global_mouse_position()) - world_map.world_to_map(drag_start))),
+				Color(.5, .5, .5, .5), true)
 		draw_rect(Rect2(world_map.map_to_world(world_map.world_to_map(drag_start)), world_map.map_to_world(world_map.world_to_map(get_global_mouse_position()) - world_map.world_to_map(drag_start))),
 				Color(.5, .5, .5), false,2.0)
 	

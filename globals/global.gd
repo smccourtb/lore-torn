@@ -9,4 +9,4 @@ var jobs: Array = ["chop", "mine", "gather"]
 
 var items: = []
 
-var stockpiles: = {}
+var stockpiles: = []

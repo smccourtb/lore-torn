@@ -52,6 +52,7 @@ func _input(event: InputEvent) -> void:
 			add_child(zone_selector)
 			zone_selector.type = "harvest"
 		if event.get_scancode() == KEY_P:
+			
 			var zone_selector = load("res://ZoneGenerator.tscn").instance()
 			add_child(zone_selector)
 			zone_selector.type = "stockpile"

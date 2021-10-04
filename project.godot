@@ -154,6 +154,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resource/nodes/resource_node_template.gd"
 }, {
+"base": "Inventory",
+"class": "Stockpile",
+"language": "GDScript",
+"path": "res://stockpile.gd"
+}, {
 "base": "Resource",
 "class": "Time",
 "language": "GDScript",
@@ -199,6 +204,7 @@ _global_script_class_icons={
 "ResourceGenerator": "",
 "ResourceNode": "",
 "ResourceNodeTemplate": "",
+"Stockpile": "",
 "Time": "",
 "TreeNode": "",
 "Utils": ""
