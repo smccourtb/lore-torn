@@ -88,7 +88,6 @@ func update_navigation_map(nodes_to_avoid):
 			
 			var id = get_id_for_point(tiles)
 			if astar.has_point(id):
-				print(true)
 				astar.set_point_disabled(id, true)
 	# This is the main way ill use for now
 	for point in nodes_to_avoid:

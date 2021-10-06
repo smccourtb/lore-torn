@@ -7,6 +7,7 @@ var grid: Grid
 var slot_coords: Array
 
 func _init(allowed_items: Array, size, coordinates).(size) -> void:
+	self.items = []
 	self.allowed = allowed_items
 	self.coords = coordinates
 	var start = coords[0]
@@ -25,12 +26,16 @@ func get_slot_coordinates():
 	return stockpile_coords
 
 func action(character, held_item):
-	var x = .add_item(held_item)
-	print("THE INDEX OF THE STOCKPILE INVENTORY: ", x)
-	held_item.position = slot_coords[x]
-	print("THE POSITION OF THE INDEX: ", held_item.position)
-	character.get_parent().add_child(held_item)
-	character.held = null
-	
-	
-	return true
+	if !check_if_full():
+		var x = .add_item(held_item)
+		held_item.position = slot_coords[x]
+		character.get_parent().add_child(held_item)
+		character.held = null
+		return true
+	return false
+
+func check_if_full():
+	for i in items:
+		if i != null:
+			return true
+	return false

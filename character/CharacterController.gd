@@ -33,7 +33,6 @@ func _ready() -> void:
 func _on_ResouceRemoved(ref, target):
 	if target_position:
 		if target_position.is_equal_approx(ref.position):
-			print("YYEEEEEEEEEEEEEESSSSSSSSSSSSSSS pick a new target bud.")
 			use_nearest_object(target)
 		
 func get_neighbors() -> Array:
@@ -154,14 +153,12 @@ func store_wood():
 
 func find_applicable_stockpile(what: String):
 	for i in Global.stockpiles:
-		if what in i.allowed:
+		if what in i.allowed and !i.check_if_full():
 			run_to(i.slot_coords[Util.randi_range(0,i.slot_coords.size()-1)])
-			print("SHOULD BE RUNNING TO STOCKPILE NOW")
 			if !yield(self, "run_end"):
-				print("CAUGHT IN HERER TTTTTTTTTTTTTTTTTTTTTTT")
 				return false
-			print('CAllING the ACTION DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd')
 			return i.action(self, held)
+	return false
 			
 func get_goap_current_state() -> String:
 	var state = ""
@@ -204,7 +201,6 @@ func get_goap_current_goal():
 	# the goal is to plant trees then gather wood when there are enough trees
 	#if count_visible_objects("tree") < 10:
 	if 'chop' in data.assigned_jobs:
-		print(true)
 		goal += " !sees_tree"
 	else:
 		goal += " wood_stored"

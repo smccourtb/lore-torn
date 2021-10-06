@@ -18,8 +18,6 @@ func _ready() -> void:
 		checkbox.connect("pressed", self, "_on_Pressed", [i, checkbox, ref])
 
 func _on_Pressed(yo, boop, beep):
-	print(character_name)
-	print(boop.pressed)
 	if boop.pressed:
 		beep.assign_new_job(Global.jobs[yo])
 	else:

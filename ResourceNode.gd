@@ -39,7 +39,6 @@ func spawn_resources():
 		var item = load("res://Collectable.tscn").instance()
 		var x = Util.choose(data.node_data.drops)
 		item.title = x.name
-		print(x.name)
 		get_parent().add_child(item)
 		item.sprite.texture = x.texture
 		# Offset the angle based on the iteration

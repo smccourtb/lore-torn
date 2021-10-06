@@ -95,8 +95,6 @@ func remove_assigned_job(job: String) -> void:
 	for i in assigned_jobs:
 		if job == i:
 			assigned_jobs.erase(i)
-		print("THE JOB YOU WANT TO REMOVE IS INDEED ASSIGNED BUT I HAVE NOT BEEN SET UP TO REMOVE IT YET")
-
 
 func character_data() -> Dictionary:
 	return {"race": self.race, 
@@ -130,9 +128,6 @@ func determine_pronoun():
 				"possesive": "her",
 				"object": "her"}
 
-func tell_a_joke():
-	if personality.facets.humor.value > 50:
-		print('IT IS AND THIS WORKS')
 
 func have_conversation():
 	var closest = find_closest()
