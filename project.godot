@@ -159,7 +159,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://stockpile.gd"
 }, {
-"base": "Resource",
+"base": "Node",
 "class": "Time",
 "language": "GDScript",
 "path": "res://globals/time.gd"

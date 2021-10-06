@@ -8,9 +8,7 @@ var resource_node: PackedScene = preload("res://ResourceNode.tscn")
 onready var grid = preload("res://resource/grid/cell_grid.tres")
 onready var time = Time.new({'day':0, 'hour':0, 'minute':0, 'month':0, 'year':0}) # Use this to set the time of day when starting
 onready var job_assigner = preload("res://JobAssigner.tscn")
-var tree_positions: PoolVector2Array = [Vector2(150, 100), Vector2(300,150), Vector2(275,55), Vector2(95,95), Vector2(300,25),]
 
-var population: Array = []
 onready var pathfinder = get_node("Pathfinding")
 onready var world_map = get_node("TileMap")
 

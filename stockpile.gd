@@ -19,15 +19,18 @@ func _init(allowed_items: Array, size, coordinates).(size) -> void:
 func get_slot_coordinates():
 	var stockpile_coords = []
 	var offset = Vector2(4,4)
-	for y in grid.size.y+1:
-		for x in grid.size.x+1:
-			stockpile_coords.append(Vector2(coords[0].x + (x*offset.x), coords[0].y + (y*offset.y)))
+	for y in grid.size.y:
+		for x in grid.size.x:
+			stockpile_coords.append(Vector2(coords[0].x + ((x+1)*offset.x), coords[0].y + ((y+1)*offset.y)))
 	return stockpile_coords
 
 func action(character, held_item):
-	print("IM BEING CALLED")
 	var x = .add_item(held_item)
-	character.held = null
-	character.get_parent().add_child(held_item)
+	print("THE INDEX OF THE STOCKPILE INVENTORY: ", x)
 	held_item.position = slot_coords[x]
+	print("THE POSITION OF THE INDEX: ", held_item.position)
+	character.get_parent().add_child(held_item)
+	character.held = null
+	
+	
 	return true
