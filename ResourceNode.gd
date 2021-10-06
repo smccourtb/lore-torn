@@ -14,7 +14,6 @@ func get_object_type():
 	return data.type
 
 func action(character):
-	print('THIS TREE HAS BEEN CUT')
 	Global.resource_nodes.erase(self)
 	SignalBus.emit_signal("resource_removed", self, get_object_type())
 	# TODO: add signal that alerts this node has been removed
@@ -30,7 +29,6 @@ func set_selected(boo: bool):
 	add_child(selector)
 	if Global.resource_nodes.find(self) == -1:
 		Global.resource_nodes.append(self)
-#	get_parent().resource_node_positions.append(global_position)
 
 func spawn_resources():
 	# TODO: Add a more elegant way of deciding what to drop and how much

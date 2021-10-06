@@ -8,6 +8,7 @@ var half_cell_size: Vector2
 
 
 
+# warning-ignore:shadowed_variable
 func create_navigation_path(tilemap: TileMap):
 	self.tilemap = tilemap
 	
@@ -17,7 +18,7 @@ func create_navigation_path(tilemap: TileMap):
 	var tiles = tilemap.get_used_cells()
 	add_traversable_tiles(tiles)
 	connect_traversable_tiles(tiles)
-	#update_navigation_map(tilemap.node_resources)
+	update_navigation_map(Global.resource_nodes)
 	print('pathfinding done')
 	
 func add_traversable_tiles(tiles: Array):

@@ -127,11 +127,15 @@ func _on_pickup():
 func get_object_type():
 	return new_item.type
 
+# warning-ignore:unused_argument
 func spawn(at : Vector2, angle : float, delay_duration = -1, \
 		spawn_speed = rand_range(SPEED_MIN, SPEED_MAX)):
 	global_position = at
 	velocity = polar2cartesian(spawn_speed, angle)
-	Global.items[new_item.type] = [self]
+	if Global.items.has(new_item.type):
+		Global.items[new_item.type].append(self)
+	else:
+		Global.items[new_item.type] = [self]
 
 
 func item_check():

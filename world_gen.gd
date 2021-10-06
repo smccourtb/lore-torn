@@ -342,7 +342,7 @@ class Chunk:
 				#cells[map.map_grid.as_index(map.map_grid.calculate_map_position(tilepos))] = map.map_grid.calculate_map_position(tilepos)
 				# Get noise values from ChunkMap(Elevation) and ChunkMap(Moisture)
 				var chunk_height = map.chunkElevationMap.get_noise_2d(tilepos.x,tilepos.y)
-				var chunk_moisture = map.chunkMoistureMap.get_noise_2d(tilepos.x,tilepos.y)
+#				var chunk_moisture = map.chunkMoistureMap.get_noise_2d(tilepos.x,tilepos.y)
 				
 				# Get noise values from biomeMap(Elevation) and biomeMap(Moisture)
 				var biome_value = map.biomeElevationMap.get_noise_2d(tilepos.x,tilepos.y)

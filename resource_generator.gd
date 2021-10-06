@@ -13,11 +13,11 @@ func generate_tree(type: String):
 	var tree = TreeNode.new(load(trees[type]))
 	return tree
 	
-func generate_rock(type: String):
+func generate_rock(_type: String):
 	pass
 	
-func generate_plant(type: String):
+func generate_plant(_type: String):
 	pass
 	
-func generate_node(type: String, subtype: String):
+func generate_node(_type: String, _subtype: String):
 	pass

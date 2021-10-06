@@ -9,7 +9,7 @@ var max_slots: int
 func _init(size) -> void:
 	
 	self.max_slots = size
-	for i in range(max_slots):
+	for _i in range(max_slots):
 		self.items.append(null)
 	
 func set_item(item_index, item):

@@ -7,7 +7,9 @@ var goals: = {"basic needs": [ " !tired", " !hungry", " !thirsty"],
 
 export(float) var run_speed = 15.0
 var held = null
+
 signal run_end
+# warning-ignore:unused_signal
 signal action_end
 
 
@@ -25,6 +27,7 @@ var pathfinding: PathFinding
 
 
 func _ready() -> void:
+# warning-ignore:return_value_discarded
 	SignalBus.connect("resource_removed", self, "_on_ResouceRemoved")
 
 func _on_ResouceRemoved(ref, target):
@@ -54,9 +57,7 @@ func _physics_process(_delta):
 		velocity = velocity.linear_interpolate(desired_velocity, 0.1)
 		
 		if position.distance_to(target_position) < 15:
-			
 			velocity = Vector2.ZERO
-#			target_position = null
 			emit_signal("run_end", true)
 		else:
 			emit_signal("run_end", false)
@@ -93,7 +94,7 @@ func holds(object_type):
 	
 func pickup_object(object_type):
 	var nearest = find_nearest_object(object_type, Global.items[object_type])
-	if nearest.object == null : #or nearest.distance > 1.0:
+	if nearest.object == null or nearest.distance >= 15.0:
 		return false
 	pickup(nearest.object)
 	return true
@@ -202,29 +203,30 @@ func get_goap_current_goal():
 	
 	# the goal is to plant trees then gather wood when there are enough trees
 	#if count_visible_objects("tree") < 10:
-	goal += " wood_stored"
-#	print("GOAL: ", goal)
+	if 'chop' in data.assigned_jobs:
+		print(true)
+		goal += " !sees_tree"
+	else:
+		goal += " wood_stored"
 	for i in goals['basic needs']:
 		goal += i
-#	else:
-#		goal = "wood_stored"
-	# in any case, avoid starvation
-#	goal += " !hungry"
-#	goal += " !tired"
+	print("GOAL: ", goal)
 	return goal
 
 func goap():
 	# makes a plan based on current state and current goal
 	# loops through plan (list of actions) and performs each one
 	# if any of the actions returns false it breaks out and makes a new plan.
+# warning-ignore:unused_variable
 	var start_time = OS.get_unix_time()
+# warning-ignore:unused_variable
 	var count = 0
 	var action_planner = get_node("ActionPlanner")
 	if action_planner == null:
 		return
 	while true:
 		count += 1
-		print("%d: Planning (%d)..." % [ OS.get_unix_time() - start_time, count ])
+		#print("%d: Planning (%d)..." % [ OS.get_unix_time() - start_time, count ])
 		var plan : Array = action_planner.plan(get_goap_current_state(), get_goap_current_goal())
 		print('PLAN: ', plan)
 		# execute plan
@@ -234,7 +236,7 @@ func goap():
 			# - immediate actions return a boolean status
 			# - non immediate actions (that call yield) return a GDScriptFunctionState
 			if has_method(a):
-				print("Calling action function "+a)
+				#print("Calling action function "+a)
 				# calls the current action method
 				var status = call(a)
 				$Label.text = Util.titlefy(a)

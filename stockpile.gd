@@ -17,12 +17,12 @@ func _init(allowed_items: Array, size, coordinates).(size) -> void:
 	slot_coords = get_slot_coordinates()
 	
 func get_slot_coordinates():
-	var slot_coords = []
+	var stockpile_coords = []
 	var offset = Vector2(4,4)
 	for y in grid.size.y+1:
 		for x in grid.size.x+1:
-			slot_coords.append(Vector2(coords[0].x + (x*offset.x), coords[0].y + (y*offset.y)))
-	return slot_coords
+			stockpile_coords.append(Vector2(coords[0].x + (x*offset.x), coords[0].y + (y*offset.y)))
+	return stockpile_coords
 
 func action(character, held_item):
 	print("IM BEING CALLED")
