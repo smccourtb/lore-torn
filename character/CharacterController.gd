@@ -48,19 +48,7 @@ func set_path_line(points: Array):
 	path_line.points = local_points
 
 func _physics_process(_delta):
-	if target_position:
-		path = pathfinding.get_new_path(position, target_position)
-		set_path_line(path)
-#		if path.size() > 1:
-		var desired_velocity = movement.get_pursue_velocity(target_position,0,0)
-		velocity = velocity.linear_interpolate(desired_velocity, 0.1)
-		
-		if position.distance_to(target_position) < 15:
-			velocity = Vector2.ZERO
-			emit_signal("run_end", true)
-		else:
-			emit_signal("run_end", false)
-	velocity = move_and_slide(velocity)
+	pass
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed():
@@ -137,9 +125,6 @@ func pickup_wood():
 func use_nearest_object(object_type: String):
 	var object = find_nearest_object(object_type, Global.resource_nodes).object
 	if object == null:
-		return false
-	run_to(object.position)
-	if !yield(self, "run_end"):
 		return false
 	return object.action(self)
 

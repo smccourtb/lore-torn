@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/characters/dwarf/dwarf.png" type="Texture" id=1]
 [ext_resource path="res://character/CharacterController.gd" type="Script" id=2]
+[ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=3]
+[ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=4]
 [ext_resource path="res://assets/font/m5x7.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assigned Chop.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 717.671, 428.145 )
@@ -41,3 +44,14 @@ custom_fonts/font = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="BehaviorTree" type="Node" parent="."]
+script = ExtResource( 3 )
+is_active = true
+_blackboard = NodePath("../Blackboard")
+_agent = NodePath("..")
+
+[node name="Assigned Chop\?" parent="BehaviorTree" instance=ExtResource( 6 )]
