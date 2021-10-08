@@ -124,7 +124,6 @@ func pickup_nearest_object(object_type):
 	if object == null:
 		return false
 	run_to(object.position)
-
 	if !yield(self, "run_end"):
 		return false
 	return pickup_object(object_type)
@@ -178,6 +177,7 @@ func get_goap_current_state() -> String:
 			if Global.items.has(i) and Global.items[i].size() > 0:
 				if find_nearest_object(i, Global.items[i]).object != null:
 					state += " sees_"+i
+					
 
 	for o in ["tree"]:
 		if Global.resource_nodes.size() < 1:
@@ -192,7 +192,7 @@ func get_goap_current_state() -> String:
 	state += " !hungry" #if (life < 75) else " !hungry"
 	state += " !tired" if (data.energy_level > 25) else " tired"
 	state += " !thirsty"
-	print(state)
+	print("STATE: ", state)
 	return state
 
 func get_goap_current_goal():
@@ -202,8 +202,8 @@ func get_goap_current_goal():
 	#if count_visible_objects("tree") < 10:
 	if 'chop' in data.assigned_jobs:
 		goal += " !sees_tree"
-	else:
-		goal += " wood_stored"
+	
+	goal += " wood_stored"
 	for i in goals['basic needs']:
 		goal += i
 	print("GOAL: ", goal)

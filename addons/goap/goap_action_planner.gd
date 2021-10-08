@@ -156,7 +156,7 @@ func state_to_string(s):
 	return s.tostring(state_atoms)
 
 func astar(nodes, ends, goal, index):
-	print("Starting from node "+str(index))
+#	print("Starting from node "+str(index))
 	var node = nodes[index]
 	for a in actions:
 		#print(a.tostring(state_atoms))

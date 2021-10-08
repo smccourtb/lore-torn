@@ -15,7 +15,7 @@ onready var world_map = get_node("TileMap")
 func _ready() -> void:
 	pathfinder.create_navigation_path(world_map)
 	
-	for _i in range(2):
+	for _i in range(1):
 		# Generates character DATA
 		var x = character_generator.generate_ancestor()
 		Global.population.append(x)
