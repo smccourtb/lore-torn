@@ -164,16 +164,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://character/personality/facet_template.gd"
 }, {
-"base": "Node",
-"class": "GOAPAction",
-"language": "GDScript",
-"path": "res://addons/goap/goap_action.gd"
-}, {
-"base": "Node",
-"class": "GOAPActionPlanner",
-"language": "GDScript",
-"path": "res://addons/goap/goap_action_planner.gd"
-}, {
 "base": "Resource",
 "class": "Gene",
 "language": "GDScript",
@@ -296,8 +286,6 @@ _global_script_class_icons={
 "Descendant": "",
 "Facet": "",
 "FacetTemplate": "",
-"GOAPAction": "",
-"GOAPActionPlanner": "",
 "Gene": "",
 "GeneFactory": "",
 "Goal": "",
@@ -346,7 +334,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/goap/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg", "res://addons/behavior_tree/plugin.cfg" )
 
 [importer_defaults]
 
