@@ -8,6 +8,7 @@ var goals: = {"basic needs": [ " !tired", " !hungry", " !thirsty"],
 export(float) var run_speed = 15.0
 var held = null
 
+# warning-ignore:unused_signal
 signal run_end
 # warning-ignore:unused_signal
 signal action_end
@@ -29,8 +30,7 @@ onready var pathfinding = get_parent().get_node("Pathfinding")
 func _ready() -> void:
 # warning-ignore:return_value_discarded
 	SignalBus.connect("resource_removed", self, "_on_ResouceRemoved")
-	print(pathfinding)
-func _on_ResouceRemoved(ref, target):
+func _on_ResouceRemoved(_ref, _target):
 #	if target_position:
 #		if target_position.is_equal_approx(ref.position):
 #			use_nearest_object(target)

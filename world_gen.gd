@@ -13,10 +13,10 @@ const N = 1
 const E = 2
 const S = 4
 const W = 8
-
+# Used for check_neighbor() function
 var cell_walls = {Vector2(0, -1): N, Vector2(1, 0): E, 
 				  Vector2(0, 1): S, Vector2(-1, 0): W}
-#declares tile types
+# Declares tile types
 const tiles = {
 	'ForgottenPlains_Dirt' : 1,
 	'ForgottenPlains_Grass' : 0,
@@ -35,10 +35,10 @@ const tiles = {
 	'SilentSwampMurky_DarkGrass' : 9,
 	'SilentSwampMurky_ForgottenPlainsGrass_Link' : 14
 }
-
-export var renderdistance : int = 5 # Used if loading/unloading chunks
-export var noiseScale : int = 1
-export var roughnessScale : float = 1.0
+# Used if loading/unloading chunks
+#export var renderdistance : int = 5 
+export var noiseScale : int = 175
+export var roughnessScale : float = 3.0
 export var treeRarity : float = 0.0015
 export var waterHeight : float = -.500
 export var mudHeight  : float = 10
@@ -87,35 +87,28 @@ func _ready():
 	print("Seed: ", mapseed)
 	# Generate elevation noise map for chunks
 	chunkElevationMap.seed = mapseed  #Global.worldSeed
-	chunkElevationMap.octaves = 3  #roughnessScale
-	chunkElevationMap.period =  175   # noiseScale
-	
+	chunkElevationMap.octaves = roughnessScale
+	chunkElevationMap.period = noiseScale
 	# Generate moisture noise map for chunks
 	chunkMoistureMap.seed = mapseed
 	chunkMoistureMap.octaves = 6
 	chunkMoistureMap.period = 64
-	
 	# Generate moisture noise map for biomes
 	biomeMoistureMap.seed = mapseed
 	biomeMoistureMap.octaves = 1
 	biomeMoistureMap.period = 1150    #noiseScale
 	biomeMoistureMap.persistence = 4
-	
 	# Generate elevation noise map for biomes
 	biomeElevationMap.seed = mapseed
 	biomeElevationMap.octaves = 1
 	biomeElevationMap.period = 350
 	biomeElevationMap.persistence = .446
 	biomeElevationMap.lacunarity = 2
-	
 	# Generate noise noise map for trees and various objects
 	treeMap.seed = mapseed  #Global.worldSeed
 	treeMap.octaves = 3
 	treeMap.period = treeRarity
-	
 	generate_map()
-#	node_overlay.draw(node_resources)
-	print('Signal should fire but map is done')
 
 
 func generate_map():
@@ -126,11 +119,7 @@ func generate_map():
 			if !chunk.has(pos):
 				var c = Chunk.new(pos, self)
 				chunk[pos] = c.chunk_data
-				print(chunk[pos])
-				print()
-				print()
-				print('----------------------')
-				print()
+			
 				
 # Used if loading/unloading chunks
 
@@ -337,26 +326,7 @@ class Chunk:
 		#Place the tiles of the chunk
 		for y in range(height):
 			for x in range(width):
-				# get tilepos
-				# if you want to know whats inside tilpos which equals the tile itself 8x8 square
-				# wrap the position inside grid_coordinates?
-				# Get the tile position on the map
-				var tilepos = pos * 16 + Vector2(x,y) # returns the tile coord of the grid. first one is (0,0)
-#				print('map grid coords('+str(x)+','+str(y)+'): ', map.map_grid.calculate_grid_coordinates(Vector2(x,y)))
-#				#map.walkable_cells.append(map.map_grid.calculate_map_position(tilepos))
-##				cells[map.map_grid.as_index(map.map_grid.calculate_map_position(tilepos))] = map.map_grid.calculate_map_position(tilepos)
-#				print('tilepos: ', tilepos)
-#				print(map.map_grid.as_index(tilepos))
-#				print(map.map_grid.index_as(map.map_grid.as_index(tilepos)))
-#				print('map_grid map_position(tilepos'+str(tilepos)+'): ', map.map_grid.calculate_map_position(tilepos)) # returns the center of the tile the GRID COORD is in. good for place objects in a tile. like place in tile(0,0) and boom it will place it in the center
-#				print('converted back: ', map.map_grid.calculate_grid_coordinates(map.map_grid.calculate_map_position(tilepos)))
-#				print(map.map_grid.calculate_grid_coordinates(Vector2(0,7))) # caculates an input coord and returns 
-																			 # the grid coord (tilepos). Use to lookup whats 
-																			 # on a tile in the cells dict by passing in a position 
-																			 # of character or mouse
-#				print('----------------------------')
-#				print(cells)
-				
+				var tilepos = pos * 16 + Vector2(x, y) # returns the tile coord of the grid. first one is (0,0)
 				# Get noise values from ChunkMap(Elevation) and ChunkMap(Moisture)
 				var chunk_height = map.chunkElevationMap.get_noise_2d(tilepos.x,tilepos.y)
 #				var chunk_moisture = map.chunkMoistureMap.get_noise_2d(tilepos.x,tilepos.y)
@@ -364,10 +334,8 @@ class Chunk:
 				# Get noise values from biomeMap(Elevation) and biomeMap(Moisture)
 				var biome_value = map.biomeElevationMap.get_noise_2d(tilepos.x,tilepos.y)
 				var moisture_value = map.biomeMoistureMap.get_noise_2d(tilepos.x,tilepos.y)
-				
 				# Use values from above to decide current biome the tile to be placed is in.
 				var biome = map.getBiome(biome_value, moisture_value)
-				
 				# Use biome and tile position information to decide which tile to place.
 				var id = map.TileAtPos(tilepos.x, tilepos.y, biome)
 				
@@ -375,17 +343,17 @@ class Chunk:
 #				if id == tiles.ForgottenPlains_WaterTile:
 #					if Util.chance(.5):
 #						map.groundcluttermap.set_cell(tilepos.x, tilepos.y, 20)
-				var node_present: bool = false
+				
+				var node_present: bool = false # Used to indicate whether a resource node is present in the cell
+				
 				if id == tiles.ForgottenPlains_Grass:
-					map.set_cell(tilepos.x, tilepos.y, 0)
+					map.set_cellv(tilepos, 0)
 					map.update_bitmask_area(tilepos)
 					
 					# TODO: Still need to play around with the variables. Start looking into sub biomes,
 					# and taking out the randomness of tiles. (Util.choose)
 					var treeNoise = stepify(map.treeMap.get_noise_2d(tilepos.x,tilepos.y), .01)
 					
-					
-
 					# This is for the trees
 					if chunk_height < -.1:
 						if treeNoise >=.4:
@@ -402,22 +370,17 @@ class Chunk:
 					if chunk_height > 0.01 and chunk_height < 0.04:
 						map.set_cell(tilepos.x, tilepos.y, tiles.ForgottenPlains_Dirt)
 						map.update_bitmask_area(tilepos)
-
-					
-					
 				else:
-					map.set_cell(tilepos.x, tilepos.y, id)
+					map.set_cellv(tilepos, id)
 					map.update_bitmask_area(tilepos)
-				#cells[map.map_grid.calculate_map_position(tilepos)] = {"id":id}
-				cells[map.map_grid.as_index(tilepos)] = {"id":id, "chunk":pos}
+				
+				cells[tilepos] = {"id":id, "chunk":pos}
 				
 				if node_present:
-					cells[map.map_grid.as_index(tilepos)]["tree"] = "oak"
-					cells[map.map_grid.as_index(tilepos)]["walkable"] = false
+					cells[tilepos]["tree"] = "oak"
+					cells[tilepos]["walkable"] = false
 					Global.walkable_cells.append(map.map_grid.calculate_map_position(tilepos))
-#				if cells[map.map_grid.as_index(map.grid_map.calculate_grid_coordinates(position))].has("tree"):
-					# add to list or some shit
-					
+
 	func RemoveTiles():
 		#Remove the tiles of the chunk
 		if objects:

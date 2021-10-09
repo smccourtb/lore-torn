@@ -1,7 +1,7 @@
 extends BTLeaf
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 	#find nearest tree
 	agent.target_position = agent.find_nearest_object("tree", Global.resource_nodes).object.position
 	if agent.target_position:
