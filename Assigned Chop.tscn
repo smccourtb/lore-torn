@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assigned_chop.gd" type="Script" id=1]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_sequence.gd" type="Script" id=2]
@@ -6,14 +6,13 @@
 [ext_resource path="res://sees_tree.gd" type="Script" id=4]
 [ext_resource path="res://walk_to_tree.gd" type="Script" id=5]
 [ext_resource path="res://cut_tree.gd" type="Script" id=6]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/leaves/bt_wait.gd" type="Script" id=7]
 
 [node name="Assigned Chop\?" type="Node"]
 script = ExtResource( 1 )
-debug = true
 
 [node name="Sees Tree\?" type="Node" parent="."]
 script = ExtResource( 4 )
-debug = true
 
 [node name="BTSequence" type="Node" parent="Sees Tree\?"]
 script = ExtResource( 2 )
@@ -24,7 +23,10 @@ until_what = 1
 
 [node name="Walk to Tree" type="Node" parent="Sees Tree\?/BTSequence/Repeat Until Success"]
 script = ExtResource( 5 )
-debug = true
+
+[node name="BTWait" type="Node" parent="Sees Tree\?/BTSequence"]
+script = ExtResource( 7 )
+wait_time = 2.0
 
 [node name="Cut Tree" type="Node" parent="Sees Tree\?/BTSequence"]
 script = ExtResource( 6 )

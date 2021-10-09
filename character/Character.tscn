@@ -8,7 +8,7 @@
 [ext_resource path="res://Assigned Chop.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 717.671, 428.145 )
+extents = Vector2( 8, 8 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 3.58041
@@ -19,6 +19,7 @@ size = 10
 font_data = ExtResource( 5 )
 
 [node name="Character" type="KinematicBody2D"]
+collision_layer = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

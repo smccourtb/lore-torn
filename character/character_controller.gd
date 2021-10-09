@@ -36,6 +36,7 @@ func _on_ResouceRemoved(ref, target):
 #			use_nearest_object(target)
 		pass
 func get_neighbors() -> Array:
+	print(detect.get_overlapping_bodies())
 	return detect.get_overlapping_bodies()
 
 func get_move_speed() -> float:
