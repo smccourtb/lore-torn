@@ -2,27 +2,24 @@ extends Inventory
 class_name Stockpile
 
 var allowed: = []
-var coords = []
-var grid: Grid
+var start_coord: Vector2
+var grid: Grid = Global.map_grid
 var slot_coords: Array
 
-func _init(allowed_items: Array, size, coordinates).(size) -> void:
-	
+func _init(allowed_items: Array, columns, rows, start).(columns * rows) -> void:
 	self.allowed = allowed_items
-	self.coords = coordinates
-#	var start = coords[0]
-#	var end = coords[1]
-#	var columns = (start.x - end.x) / 8
-#	var rows = (start.y - end.y) / 8
-#	grid = Grid.new(Vector2(columns,rows), Vector2(8,8))
-	slot_coords = get_slot_coordinates()
-	
-func get_slot_coordinates():
+	self.start_coord = start
+	slot_coords = get_slot_coordinates(columns, rows)
+	update_map_data()
+func get_slot_coordinates(columns, rows):
 	var stockpile_coords = []
-	var offset = Vector2(4,4)
-	for y in grid.size.y:
-		for x in grid.size.x:
-			stockpile_coords.append(Vector2(coords[0].x + ((x+1)*offset.x), coords[0].y + ((y+1)*offset.y)))
+	for y in rows:
+		for x in columns:
+			stockpile_coords.append(start_coord + Vector2(x, y))
+			# Use if using start_coord is a map coordinate NOT a grid coordinate
+#			stockpile_coords.append(grid.calculate_map_position(start_coord) + 
+#									Vector2(x * grid.cell_size.x, y * grid.cell_size.y))
+	print(stockpile_coords)
 	return stockpile_coords
 
 func action(character, held_item):
@@ -37,3 +34,10 @@ func check_if_full():
 		if i != null:
 			return true
 	return false
+
+func update_map_data():
+	for i in slot_coords:
+		var convert_to_map = grid.calculate_map_position(i)
+		var chunk_pos = Global.chunk_grid.calculate_grid_coordinates(convert_to_map)
+		Global.map_data[chunk_pos][i]["stockpile"] = self
+		

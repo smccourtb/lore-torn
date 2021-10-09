@@ -2,13 +2,9 @@ extends TileMap
 
 const width = 16
 const height = 16
-const map_grid = preload("res://resource/grid/map_grid.tres")
-const chunk_grid = preload("res://resource/grid/chunk_grid.tres")
 # the new stuff. keep here until it works
 const MAP_SIZE = Vector2(12,12)
-var mouse_pos: Vector2
-var current_chunk: Vector2
-var node_resources := []
+
 const N = 1
 const E = 2
 const S = 4
@@ -74,6 +70,7 @@ var treeMap = OpenSimplexNoise.new()
 
 
 func _ready():
+	# Used for chunk loading and unloading
 #	var timer = Timer.new()
 #	timer.set_wait_time(0.1)
 #	timer.set_one_shot(false)
@@ -112,13 +109,13 @@ func _ready():
 
 
 func generate_map():
-	var pos: Vector2
+	var pos: Vector2 # Chunk coordinate
 	for y in range(MAP_SIZE.y):
 		for x in range(MAP_SIZE.x):
-			pos = Vector2(x,y)
+			pos = Vector2(x, y)
 			if !chunk.has(pos):
 				var c = Chunk.new(pos, self)
-				chunk[pos] = c.chunk_data
+				Global.map_data[pos] = c.chunk_data
 			
 				
 # Used if loading/unloading chunks
@@ -251,7 +248,6 @@ func TileAtPos(var x, var y, biome):
 					tile = tiles.SilentSwampMurky_Mud2Water_Link
 				else:
 					tile = tiles.SilentSwampMurky_Grass2Water_Link
-
 			elif height >= waterHeight:
 				if moisture > .32:
 					tile = tiles.SilentSwampMurky_Mud2DarkMud_Link
@@ -266,7 +262,6 @@ func TileAtPos(var x, var y, biome):
 						tile = tiles.SilentSwampMurky_Grass
 				elif moisture >= .25:
 					tile = tiles.SilentSwampMurky_Grass2Mud_Link
-
 			elif height < waterHeight:
 				# "Deep Water"
 				tile = tiles.SilentSwampMurky_Water
@@ -293,17 +288,10 @@ func getBiome(e, m):
 class Chunk:
 	# for the various dictionaries we want to know
 	# the {chunk id, chunk position}, {cell id, cell position}, object reference
-	
 	# Chunk should take care of the data
-	
-	# Maybe i can add in links later? if i need to?? 
-	#I still dont really understand all the way
 	var pos : Vector2
 	var map : TileMap
-	var objects = {}
-	var nodes := []
 	var cells := {}
-	var walkable: bool = true
 	var chunk_data: Dictionary
 
 	func _init(world_pos, world_map):
@@ -362,7 +350,7 @@ class Chunk:
 							var new_resource = map.resource_node.instance()
 							new_resource.data = tree
 							new_resource.texture = tree.texture
-							new_resource.position = map.map_grid.calculate_map_position(tilepos) 
+							new_resource.position = Global.map_grid.calculate_map_position(tilepos) 
 							map.get_parent().call_deferred('add_child', new_resource)
 #							Global.resource_nodes.append(new_resource)
 #							nodes[tree.position] = tree
@@ -379,14 +367,11 @@ class Chunk:
 				if node_present:
 					cells[tilepos]["tree"] = "oak"
 					cells[tilepos]["walkable"] = false
-					Global.walkable_cells.append(map.map_grid.calculate_map_position(tilepos))
+					# TODO: change to unwalkable_cells or something. Opposite of walkable
+					Global.walkable_cells.append(Global.map_grid.calculate_map_position(tilepos))
 
 	func RemoveTiles():
 		#Remove the tiles of the chunk
-		if objects:
-			for t in objects:
-				t.queue_free()
-
 		for y in range(height):
 			for x in range(width):
 				var tilepos = pos*16 

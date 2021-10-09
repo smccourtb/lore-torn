@@ -4,7 +4,7 @@ var dragging = false  # Are we currently dragging?
 var selected = []  # Array of selected units.
 var drag_start = Vector2.ZERO  # Location where drag began.
 var select_rect = RectangleShape2D.new()  # Collision shape for drag box.
-onready var world_map = get_parent().get_node('TileMap')
+
 # TODO: add type to specify which type of zone to be genrated (ex. harvest resources, set stockpile, etc)
 var type: String
 
@@ -36,11 +36,11 @@ func _unhandled_input(event):
 					
 			if type == "stockpile":
 				# TODO: check if if intersects with another stockpile or non-empty tile
-				var start = world_map.map_to_world(world_map.world_to_map(drag_start))
-				var end = world_map.map_to_world(world_map.world_to_map(drag_end))
-				var columns = (start.x - end.x) / 8
-				var rows = (start.y - end.y) / 8
-				var x = Stockpile.new(["wood"], abs(columns*rows), [start, end])
+				var start = Global.map_grid.calculate_grid_coordinates(drag_start)
+				var end = Global.map_grid.calculate_grid_coordinates(drag_end)
+				var columns = abs(start.x - end.x) + 1
+				var rows = abs(start.y - end.y) + 1
+				var x = Stockpile.new(["wood"], columns, rows, start)
 				Global.stockpiles.append(x)
 			queue_free()
 	if event is InputEventMouseMotion and dragging:
@@ -48,8 +48,8 @@ func _unhandled_input(event):
 
 func _draw():
 	if dragging:
-		draw_rect(Rect2(world_map.map_to_world(world_map.world_to_map(drag_start)), world_map.map_to_world(world_map.world_to_map(get_global_mouse_position()) - world_map.world_to_map(drag_start))),
+		draw_rect(Rect2(Global.map_grid.calculate_map_position(Global.map_grid.calculate_grid_coordinates(drag_start)) - Vector2(4,4), Global.map_grid.calculate_map_position(Global.map_grid.calculate_grid_coordinates(get_global_mouse_position()) - Global.map_grid.calculate_grid_coordinates(drag_start))+ Vector2(4,4)) ,
 				Color(.5, .5, .5, .5), true)
-		draw_rect(Rect2(world_map.map_to_world(world_map.world_to_map(drag_start)), world_map.map_to_world(world_map.world_to_map(get_global_mouse_position()) - world_map.world_to_map(drag_start))),
+		draw_rect(Rect2(Global.map_grid.calculate_map_position(Global.map_grid.calculate_grid_coordinates(drag_start)) - Vector2(4,4), Global.map_grid.calculate_map_position(Global.map_grid.calculate_grid_coordinates(get_global_mouse_position()) - Global.map_grid.calculate_grid_coordinates(drag_start))+ Vector2(4,4)),
 				Color(.5, .5, .5), false,2.0)
 	

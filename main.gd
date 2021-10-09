@@ -5,8 +5,6 @@ onready var character: PackedScene = preload("res://character/Character.tscn")
 onready var resource_generator: Resource = ResourceGenerator.new()
 var resource_node: PackedScene = preload("res://ResourceNode.tscn")
 
-onready var chunk_grid = preload("res://resource/grid/chunk_grid.tres")
-onready var map_grid = preload("res://resource/grid/map_grid.tres")
 
 #onready var time = Time.new({'day':0, 'hour':0, 'minute':0, 'month':0, 'year':0}) # Use this to set the time of day when starting
 onready var job_assigner = preload("res://JobAssigner.tscn")
@@ -66,9 +64,8 @@ func _input(event: InputEvent) -> void:
 			
 
 func _on_AcceptPressed(grid_coord):
-	
-	var index = map_grid.as_index(grid_coord)
-	print(world_map.chunk[chunk_cell][index])
+	if Global.map_data[chunk_cell][grid_coord].has("stockpile"):
+		print(Global.map_data[chunk_cell][grid_coord].stockpile.allowed)
 	
 func _onChunkGrid(cell):
 	print(cell)
@@ -76,7 +73,7 @@ func _onChunkGrid(cell):
 	chunk_cell = cell
 	# get all trees in chunk
 	# get chunk
-	var chunk_data = world_map.chunk[cell]
+	var chunk_data = Global.map_data[cell]
 	for i in chunk_data:
 		if chunk_data[i].has("tree"):
 			trees.append(i)

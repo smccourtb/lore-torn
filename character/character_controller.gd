@@ -64,6 +64,13 @@ func run_to(p):
 	
 
 func find_nearest_object(object_type = null, arr:= []):
+	# get posiition of player
+	# get chunk posiiton is in
+	# search chunk and get list of "object_type"
+	# for i of chunk[currente_chunk].keys():
+#		if chunk[current_chunk][i].has(object_type)
+#			append to objects list
+	
 	var nearest_distance = 10000000
 	var nearest_object = null
 	# TODO: look to global list of OBJECT_TYPE
