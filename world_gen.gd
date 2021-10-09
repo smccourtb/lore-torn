@@ -1,13 +1,12 @@
 extends TileMap
 
-const width = 8
-const height = 8
-
+const width = 16
+const height = 16
+const map_grid = preload("res://resource/grid/map_grid.tres")
 # the new stuff. keep here until it works
-const MAP_SIZE = Vector2(35,35)
+const MAP_SIZE = Vector2(12,12)
 var mouse_pos: Vector2
 var current_chunk: Vector2
-#const chunk_grid: Grid = preload("res://chunk_grid.tres")
 var node_resources := []
 const N = 1
 const E = 2
@@ -18,26 +17,22 @@ var cell_walls = {Vector2(0, -1): N, Vector2(1, 0): E,
 				  Vector2(0, 1): S, Vector2(-1, 0): W}
 #declares tile types
 const tiles = {
-	'ForgottenPlains_Dirt' : 9,
-	'ForgottenPlains_Grass' : 10,
-	'ForgottenPlains_Cliffs' : 11,
-	'ForgottenPlains_Clifftop' : 12,
-	'ForgottenPlains_WaterTile' : 14,
-	'SilentSwamp_ForgottenPlains_Grass_Link' : 21,
-	'IcyWilderness_Snow' : 22,
-	'DesolateDesert_Sand0' : 23,
-	'SilentSwampMurky_Grass2Mud_Link_WATER' : 24,
-	'SilentSwampMurky_Grass2Water_Link' : 25,
-	'SilentSwampMurky_Mud2Water_Link' : 26,
-	'SilentSwampMurky_Water' : 27,
-	'SilentSwampMurky_Grass2DarkGrass_Link' : 28,
-	'SilentSwampMurky_Grass2Mud_Link' : 29,
-	'SilentSwampMurky_Mud2DarkMud_Link' : 30,
-	'SilentSwampMurky_TallGrass' : 31,
-	'SilentSwampMurky_Grass' : 32,
-	'SilentSwampMurky_TallDarkGrass' : 33,
-	'SilentSwampMurky_DarkGrass' : 34,
-	'SilentSwampMurky_ForgottenPlainsGrass_Link' : 35
+	'ForgottenPlains_Dirt' : 1,
+	'ForgottenPlains_Grass' : 0,
+	'ForgottenPlains_WaterTile' : 2,
+	'SilentSwamp_ForgottenPlains_Grass_Link' : 15,
+	'SilentSwampMurky_Grass2Mud_Link_WATER' : 10,
+	'SilentSwampMurky_Grass2Water_Link' : 11,
+	'SilentSwampMurky_Mud2Water_Link' : 12,
+	'SilentSwampMurky_Water' : 13,
+	'SilentSwampMurky_Grass2DarkGrass_Link' : 3,
+	'SilentSwampMurky_Grass2Mud_Link' : 4,
+	'SilentSwampMurky_Mud2DarkMud_Link' : 5,
+	'SilentSwampMurky_TallGrass' : 6,
+	'SilentSwampMurky_Grass' : 7,
+	'SilentSwampMurky_TallDarkGrass' : 8,
+	'SilentSwampMurky_DarkGrass' : 9,
+	'SilentSwampMurky_ForgottenPlainsGrass_Link' : 14
 }
 
 export var renderdistance : int = 5 # Used if loading/unloading chunks
@@ -337,7 +332,7 @@ class Chunk:
 			for x in range(width):
 				
 				# Get the tile position on the map
-				var tilepos = pos * 8 + Vector2(x,y)
+				var tilepos = pos * 16 + Vector2(x,y)
 				#map.walkable_cells.append(map.map_grid.calculate_map_position(tilepos))
 				#cells[map.map_grid.as_index(map.map_grid.calculate_map_position(tilepos))] = map.map_grid.calculate_map_position(tilepos)
 				# Get noise values from ChunkMap(Elevation) and ChunkMap(Moisture)
@@ -360,8 +355,8 @@ class Chunk:
 #						map.groundcluttermap.set_cell(tilepos.x, tilepos.y, 20)
 
 				if id == tiles.ForgottenPlains_Grass:
-#					map.set_cell(tilepos.x, tilepos.y, 10)
-#					map.update_bitmask_area(tilepos)
+					map.set_cell(tilepos.x, tilepos.y, 0)
+					map.update_bitmask_area(tilepos)
 					
 					# TODO: Still need to play around with the variables. Start looking into sub biomes,
 					# and taking out the randomness of tiles. (Util.choose)
@@ -382,15 +377,15 @@ class Chunk:
 #							Global.resource_nodes.append(new_resource)
 #							nodes[tree.position] = tree
 							#map.walkable_cells.erase(map.map_grid.calculate_map_position(tilepos))
-#					if chunk_height > 0.01 and chunk_height < 0.04:
-#						map.set_cell(tilepos.x, tilepos.y, tiles.ForgottenPlains_Dirt)
-#						map.update_bitmask_area(tilepos)
+					if chunk_height > 0.01 and chunk_height < 0.04:
+						map.set_cell(tilepos.x, tilepos.y, tiles.ForgottenPlains_Dirt)
+						map.update_bitmask_area(tilepos)
 
 					
 
-#				else:
-#					map.set_cell(tilepos.x, tilepos.y, id)
-#					map.update_bitmask_area(tilepos)
+				else:
+					map.set_cell(tilepos.x, tilepos.y, id)
+					map.update_bitmask_area(tilepos)
 
 	func RemoveTiles():
 		#Remove the tiles of the chunk

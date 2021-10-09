@@ -23,18 +23,18 @@ var velocity: Vector2 = Vector2.ZERO
 var path: Array
 var target_direction: Vector2
 var target_position
-var pathfinding: PathFinding
+onready var pathfinding = get_parent().get_node("Pathfinding")
 
 
 func _ready() -> void:
 # warning-ignore:return_value_discarded
 	SignalBus.connect("resource_removed", self, "_on_ResouceRemoved")
-
+	print(pathfinding)
 func _on_ResouceRemoved(ref, target):
-	if target_position:
-		if target_position.is_equal_approx(ref.position):
-			use_nearest_object(target)
-		
+#	if target_position:
+#		if target_position.is_equal_approx(ref.position):
+#			use_nearest_object(target)
+		pass
 func get_neighbors() -> Array:
 	return detect.get_overlapping_bodies()
 
@@ -111,9 +111,9 @@ func pickup_nearest_object(object_type):
 	var object = find_nearest_object(object_type, Global.items[object_type]).object
 	if object == null:
 		return false
-	run_to(object.position)
-	if !yield(self, "run_end"):
-		return false
+#	run_to(object.position)
+#	if !yield(self, "run_end"):
+#		return false
 	return pickup_object(object_type)
 
 func pickup_axe():

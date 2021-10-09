@@ -70,28 +70,29 @@ func get_id_for_point(point: Vector2):
 
 # USE THIS IN A LOOP FOR EACH REGION IN MAP IN THE BEGINNING
 func update_navigation_map(nodes_to_avoid):
-	# TODO: This seems inefficient and I would rather set up a signal that updates the region
-	for point in astar.get_points():
-		astar.set_point_disabled(point, false)
-	
-	var obstacles = get_tree().get_nodes_in_group('obstacles')
-	for obstacle in obstacles:
-		print(obstacle)
-#		if obstacle is TileMap:
-#			var tiles = obstacle.get_used_cells()
-#			for tile in tiles:
-#				var id = get_id_for_point(tile)
-#				if astar.has_point(id):
-#					astar.set_point_disabled(id, true)
-		if obstacle is StaticBody2D:
-			var tiles = tilemap.world_to_map(obstacle.collision_shape.global_position)
-			
-			var id = get_id_for_point(tiles)
-			if astar.has_point(id):
-				astar.set_point_disabled(id, true)
 	# This is the main way ill use for now
 	for point in nodes_to_avoid:
 		var id = get_id_for_point(point)
 		if astar.has_point(id):
 			astar.set_point_disabled(id, true)
+	# TODO: This seems inefficient and I would rather set up a signal that updates the region
+#	for point in astar.get_points():
+#		astar.set_point_disabled(point, false)
+#
+#	var obstacles = get_tree().get_nodes_in_group('obstacles')
+#	for obstacle in obstacles:
+#		print(obstacle)
+##		if obstacle is TileMap:
+##			var tiles = obstacle.get_used_cells()
+##			for tile in tiles:
+##				var id = get_id_for_point(tile)
+##				if astar.has_point(id):
+##					astar.set_point_disabled(id, true)
+#		if obstacle is StaticBody2D:
+#			var tiles = tilemap.world_to_map(obstacle.collision_shape.global_position)
+#
+#			var id = get_id_for_point(tiles)
+#			if astar.has_point(id):
+#				astar.set_point_disabled(id, true)
+	
 
