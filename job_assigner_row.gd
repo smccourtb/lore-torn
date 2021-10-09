@@ -21,6 +21,7 @@ func _on_Pressed(yo, boop, beep):
 	if boop.pressed:
 		beep.assign_new_job(Global.jobs[yo])
 	else:
+		print("SHOULD UNASSIGN")
 		beep.remove_assigned_job(Global.jobs[yo])
 
 func check_assigned(job: String, character):
