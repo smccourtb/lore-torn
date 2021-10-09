@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Pathfinding.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world.tres" type="TileSet" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://world_gen.gd" type="Script" id=4]
 [ext_resource path="res://camera.gd" type="Script" id=5]
 [ext_resource path="res://ui/Cursor.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resource/grid/map_grid.tres" type="Resource" id=7]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -26,5 +27,8 @@ current = true
 script = ExtResource( 5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Cursor2" parent="." instance=ExtResource( 6 )]
+grid = ExtResource( 7 )
 
 [node name="Cursor" parent="." instance=ExtResource( 6 )]

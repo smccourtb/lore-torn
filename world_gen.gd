@@ -3,6 +3,7 @@ extends TileMap
 const width = 16
 const height = 16
 const map_grid = preload("res://resource/grid/map_grid.tres")
+const chunk_grid = preload("res://resource/grid/chunk_grid.tres")
 # the new stuff. keep here until it works
 const MAP_SIZE = Vector2(12,12)
 var mouse_pos: Vector2
@@ -125,6 +126,12 @@ func generate_map():
 			if !chunk.has(pos):
 				var c = Chunk.new(pos, self)
 				chunk[pos] = c.chunk_data
+				print(chunk[pos])
+				print()
+				print()
+				print('----------------------')
+				print()
+				
 # Used if loading/unloading chunks
 
 #func _on_ChunkTimer_timeout():
@@ -308,7 +315,7 @@ class Chunk:
 	var nodes := []
 	var cells := {}
 	var walkable: bool = true
-	var chunk_data: Array
+	var chunk_data: Dictionary
 
 	func _init(world_pos, world_map):
 		self.pos = world_pos
@@ -320,7 +327,7 @@ class Chunk:
 		place_tiles()
 #		if nodes.size() > (16*16)/2:
 #			walkable = false
-		chunk_data = [cells, nodes, objects, walkable]
+		chunk_data = cells
 	func generate_nodes():
 		pass
 	func generate_objects():
@@ -330,11 +337,26 @@ class Chunk:
 		#Place the tiles of the chunk
 		for y in range(height):
 			for x in range(width):
-				
+				# get tilepos
+				# if you want to know whats inside tilpos which equals the tile itself 8x8 square
+				# wrap the position inside grid_coordinates?
 				# Get the tile position on the map
-				var tilepos = pos * 16 + Vector2(x,y)
-				#map.walkable_cells.append(map.map_grid.calculate_map_position(tilepos))
-				#cells[map.map_grid.as_index(map.map_grid.calculate_map_position(tilepos))] = map.map_grid.calculate_map_position(tilepos)
+				var tilepos = pos * 16 + Vector2(x,y) # returns the tile coord of the grid. first one is (0,0)
+#				print('map grid coords('+str(x)+','+str(y)+'): ', map.map_grid.calculate_grid_coordinates(Vector2(x,y)))
+#				#map.walkable_cells.append(map.map_grid.calculate_map_position(tilepos))
+##				cells[map.map_grid.as_index(map.map_grid.calculate_map_position(tilepos))] = map.map_grid.calculate_map_position(tilepos)
+#				print('tilepos: ', tilepos)
+#				print(map.map_grid.as_index(tilepos))
+#				print(map.map_grid.index_as(map.map_grid.as_index(tilepos)))
+#				print('map_grid map_position(tilepos'+str(tilepos)+'): ', map.map_grid.calculate_map_position(tilepos)) # returns the center of the tile the GRID COORD is in. good for place objects in a tile. like place in tile(0,0) and boom it will place it in the center
+#				print('converted back: ', map.map_grid.calculate_grid_coordinates(map.map_grid.calculate_map_position(tilepos)))
+#				print(map.map_grid.calculate_grid_coordinates(Vector2(0,7))) # caculates an input coord and returns 
+																			 # the grid coord (tilepos). Use to lookup whats 
+																			 # on a tile in the cells dict by passing in a position 
+																			 # of character or mouse
+#				print('----------------------------')
+#				print(cells)
+				
 				# Get noise values from ChunkMap(Elevation) and ChunkMap(Moisture)
 				var chunk_height = map.chunkElevationMap.get_noise_2d(tilepos.x,tilepos.y)
 #				var chunk_moisture = map.chunkMoistureMap.get_noise_2d(tilepos.x,tilepos.y)
@@ -353,7 +375,7 @@ class Chunk:
 #				if id == tiles.ForgottenPlains_WaterTile:
 #					if Util.chance(.5):
 #						map.groundcluttermap.set_cell(tilepos.x, tilepos.y, 20)
-
+				var node_present: bool = false
 				if id == tiles.ForgottenPlains_Grass:
 					map.set_cell(tilepos.x, tilepos.y, 0)
 					map.update_bitmask_area(tilepos)
@@ -367,12 +389,12 @@ class Chunk:
 					# This is for the trees
 					if chunk_height < -.1:
 						if treeNoise >=.4:
-							
+							node_present = true
 							var tree = map.resource_generator.generate_tree("oak")
 							var new_resource = map.resource_node.instance()
 							new_resource.data = tree
 							new_resource.texture = tree.texture
-							new_resource.position = map.map_to_world(tilepos) + Vector2(4,4)
+							new_resource.position = map.map_grid.calculate_map_position(tilepos) 
 							map.get_parent().call_deferred('add_child', new_resource)
 #							Global.resource_nodes.append(new_resource)
 #							nodes[tree.position] = tree
@@ -382,11 +404,20 @@ class Chunk:
 						map.update_bitmask_area(tilepos)
 
 					
-
+					
 				else:
 					map.set_cell(tilepos.x, tilepos.y, id)
 					map.update_bitmask_area(tilepos)
-
+				#cells[map.map_grid.calculate_map_position(tilepos)] = {"id":id}
+				cells[map.map_grid.as_index(tilepos)] = {"id":id, "chunk":pos}
+				
+				if node_present:
+					cells[map.map_grid.as_index(tilepos)]["tree"] = "oak"
+					cells[map.map_grid.as_index(tilepos)]["walkable"] = false
+					Global.walkable_cells.append(map.map_grid.calculate_map_position(tilepos))
+#				if cells[map.map_grid.as_index(map.grid_map.calculate_grid_coordinates(position))].has("tree"):
+					# add to list or some shit
+					
 	func RemoveTiles():
 		#Remove the tiles of the chunk
 		if objects:

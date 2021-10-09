@@ -5,15 +5,25 @@ onready var character: PackedScene = preload("res://character/Character.tscn")
 onready var resource_generator: Resource = ResourceGenerator.new()
 var resource_node: PackedScene = preload("res://ResourceNode.tscn")
 
-onready var grid = preload("res://resource/grid/cell_grid.tres")
+onready var chunk_grid = preload("res://resource/grid/chunk_grid.tres")
+onready var map_grid = preload("res://resource/grid/map_grid.tres")
+
 onready var time = Time.new({'day':0, 'hour':0, 'minute':0, 'month':0, 'year':0}) # Use this to set the time of day when starting
 onready var job_assigner = preload("res://JobAssigner.tscn")
 
 onready var pathfinder = get_node("Pathfinding")
 onready var world_map = get_node("TileMap")
+onready var cursor1 = get_node("Cursor")
+onready var cursor2 = get_node("Cursor2")
+
+
+var chunk_cell: Vector2
 
 func _ready() -> void:
 	pathfinder.create_navigation_path(world_map)
+	cursor1.connect("accept_pressed", self, "_onChunkGrid")
+	
+	cursor2.connect("accept_pressed", self, "_on_AcceptPressed")
 	
 	for _i in range(1):
 		# Generates character DATA
@@ -54,3 +64,22 @@ func _input(event: InputEvent) -> void:
 			add_child(zone_selector)
 			zone_selector.type = "stockpile"
 			
+
+func _on_AcceptPressed(grid_coord):
+	
+	var index = map_grid.as_index(grid_coord)
+	print(world_map.chunk[chunk_cell][index])
+	
+func _onChunkGrid(cell):
+	print(cell)
+	var trees = []
+	chunk_cell = cell
+	# get all trees in chunk
+	# get chunk
+	var chunk_data = world_map.chunk[cell]
+	for i in chunk_data:
+		print(i)
+		if chunk_data[i].has("tree"):
+			trees.append(i)
+	print(trees)
+	

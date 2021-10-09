@@ -66,3 +66,4 @@ func clamp(grid_position: Vector2) -> Vector2:
 # 2. You can use it for performance. More on that below.
 func as_index(cell: Vector2) -> int:
 	return int(cell.x + size.x * cell.y)
+

@@ -10,7 +10,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 		if agent.path.size() > 1:
 			var desired_velocity = agent.movement.get_pursue_velocity(agent.path[1],0,0)
 			agent.velocity = agent.velocity.linear_interpolate(desired_velocity, .1)
-		if agent.position.distance_to(agent.target_position) < 12:
+		if agent.position.distance_to(agent.target_position) < 8:
 			agent.velocity = Vector2.ZERO
 			return succeed()
 	agent.velocity = agent.move_and_slide(agent.velocity)

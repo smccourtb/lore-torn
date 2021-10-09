@@ -14,7 +14,7 @@ func _init(allowed_items: Array, size, coordinates).(size) -> void:
 	var end = coords[1]
 	var columns = (start.x - end.x) / 8
 	var rows = (start.y - end.y) / 8
-	grid = Grid.new(Vector2(columns,rows), Vector2(8,8))
+#	grid = Grid.new(Vector2(columns,rows), Vector2(8,8))
 	slot_coords = get_slot_coordinates()
 	
 func get_slot_coordinates():

@@ -4,7 +4,6 @@
 tool
 class_name Cursor
 extends Node2D
-
 # We'll use signals to keep the cursor decoupled from other nodes.
 # When the player moves the cursor or wants to interact with a cell, we emit a signal and let
 # another node handle the interaction.

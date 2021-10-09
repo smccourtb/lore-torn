@@ -18,7 +18,7 @@ func create_navigation_path(tilemap: TileMap):
 	var tiles = tilemap.get_used_cells()
 	add_traversable_tiles(tiles)
 	connect_traversable_tiles(tiles)
-	update_navigation_map(Global.resource_nodes)
+	update_navigation_map(Global.walkable_cells)
 	print('pathfinding done')
 	
 func add_traversable_tiles(tiles: Array):
