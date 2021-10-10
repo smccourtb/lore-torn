@@ -42,6 +42,8 @@ func _unhandled_input(event):
 				var rows = abs(start.y - end.y) + 1
 				var x = Stockpile.new(["wood"], columns, rows, start)
 				Global.stockpiles.append(x)
+				get_parent().update()
+				
 			queue_free()
 	if event is InputEventMouseMotion and dragging:
 		update()

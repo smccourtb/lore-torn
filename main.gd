@@ -14,6 +14,7 @@ onready var world_map = get_node("TileMap")
 onready var cursor1 = get_node("Cursor")
 onready var cursor2 = get_node("Cursor2")
 
+var stockpile_menu: bool = false
 
 var chunk_cell: Vector2
 
@@ -57,8 +58,11 @@ func _input(event: InputEvent) -> void:
 			add_child(zone_selector)
 			zone_selector.type = "harvest"
 		if event.get_scancode() == KEY_P:
-			var stockpile_interface = load("res://StockpileInterface.tscn").instance()
-			$Camera2D.add_child(stockpile_interface)
+			if !stockpile_menu:
+				var stockpile_interface = load("res://StockpileInterface.tscn").instance()
+				$CanvasLayer.add_child(stockpile_interface)
+				stockpile_menu = true
+				get_node("Stockpiles").visible = true
 			
 
 func _on_AcceptPressed(grid_coord):
@@ -77,3 +81,4 @@ func _onChunkGrid(cell):
 			trees.append(i)
 	print(trees)
 	
+

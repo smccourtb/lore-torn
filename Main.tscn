@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Pathfinding.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world.tres" type="TileSet" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://ui/Cursor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://resource/grid/map_grid.tres" type="Resource" id=7]
 [ext_resource path="res://resource/grid/chunk_grid.tres" type="Resource" id=8]
+[ext_resource path="res://stockpiles.gd" type="Script" id=9]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -36,3 +37,6 @@ grid = ExtResource( 7 )
 
 [node name="Cursor" parent="." instance=ExtResource( 6 )]
 grid = ExtResource( 8 )
+
+[node name="Stockpiles" type="Node2D" parent="."]
+script = ExtResource( 9 )
