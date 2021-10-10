@@ -3,6 +3,7 @@ extends BTLeaf
 
 func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 	#find nearest tree'
+	#TODO : check to make sure target is not in the 'walkable" cells array and its within bounds
 	var boo = Vector2(Util.randi_range(-100,100), Util.randi_range(-100,100))
 	if !_blackboard.data.has("target"):
 		_blackboard.data["target"] = boo + agent.position
@@ -16,8 +17,6 @@ func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 		if agent.position.distance_to(agent.target_position) < 5:
 			agent.velocity = Vector2.ZERO
 			_blackboard.data.erase("target")
-			print("SUCCEEDING")
 			return succeed()
 	agent.velocity = agent.move_and_slide(agent.velocity)
-	print("FAILING")
 	return fail()
