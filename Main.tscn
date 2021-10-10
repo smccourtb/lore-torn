@@ -38,5 +38,11 @@ grid = ExtResource( 7 )
 [node name="Cursor" parent="." instance=ExtResource( 6 )]
 grid = ExtResource( 8 )
 
-[node name="Stockpiles" type="Node2D" parent="."]
+[node name="Stockpiles" type="TextureRect" parent="."]
 script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="gui_input" from="Stockpiles" to="Stockpiles" method="_on_Stockpiles_gui_input"]
+[connection signal="mouse_entered" from="Stockpiles" to="Stockpiles" method="_on_Stockpiles_mouse_entered"]
