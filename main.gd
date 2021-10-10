@@ -57,10 +57,8 @@ func _input(event: InputEvent) -> void:
 			add_child(zone_selector)
 			zone_selector.type = "harvest"
 		if event.get_scancode() == KEY_P:
-			
-			var zone_selector = load("res://ZoneGenerator.tscn").instance()
-			add_child(zone_selector)
-			zone_selector.type = "stockpile"
+			var stockpile_interface = load("res://StockpileInterface.tscn").instance()
+			$Camera2D.add_child(stockpile_interface)
 			
 
 func _on_AcceptPressed(grid_coord):

@@ -5,12 +5,15 @@ var allowed: = []
 var start_coord: Vector2
 var grid: Grid = Global.map_grid
 var slot_coords: Array
+var rect: Rect2
 
 func _init(allowed_items: Array, columns, rows, start).(columns * rows) -> void:
 	self.allowed = allowed_items
 	self.start_coord = start
+	self.rect = Rect2(grid.calculate_map_position(start)-Vector2(4,4), (Vector2(columns, rows)*8))
 	slot_coords = get_slot_coordinates(columns, rows)
 	update_map_data()
+	
 func get_slot_coordinates(columns, rows):
 	var stockpile_coords = []
 	for y in rows:
@@ -40,4 +43,3 @@ func update_map_data():
 		var convert_to_map = grid.calculate_map_position(i)
 		var chunk_pos = Global.chunk_grid.calculate_grid_coordinates(convert_to_map)
 		Global.map_data[chunk_pos][i]["stockpile"] = self
-		

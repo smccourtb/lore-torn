@@ -12,6 +12,9 @@
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+pause_mode = 2
+
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Pathfinding" parent="." instance=ExtResource( 1 )]
@@ -24,10 +27,9 @@ tile_data = PoolIntArray( 0, 5, 0, 1, 5, 0, 2, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 
 script = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
 current = true
 script = ExtResource( 5 )
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Cursor2" parent="." instance=ExtResource( 6 )]
 grid = ExtResource( 7 )
