@@ -70,7 +70,7 @@ func _on_AcceptPressed(grid_coord):
 		print(Global.map_data[chunk_cell][grid_coord].stockpile.allowed)
 	
 func _onChunkGrid(cell):
-	print(cell)
+	print("CHUNK: ", cell)
 	var trees = []
 	chunk_cell = cell
 	# get all trees in chunk
@@ -79,6 +79,6 @@ func _onChunkGrid(cell):
 	for i in chunk_data:
 		if chunk_data[i].has("tree"):
 			trees.append(i)
-	print(trees)
+	print("TREES IN CHUNK: ", trees)
 	
 

@@ -2,7 +2,6 @@
 # Supports both keyboard and mouse (or touch) input.
 # The `tool` mode allows us to preview the drawing code you'll see below in the editor.
 tool
-class_name Cursor
 extends Node2D
 # We'll use signals to keep the cursor decoupled from other nodes.
 # When the player moves the cursor or wants to interact with a cell, we emit a signal and let
@@ -43,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("left_click") or event.is_action_pressed("ui_accept"):
 		#  In that case, we emit a signal to let another node handle that input. The game board will
 		#  have the responsibility of looking at the cell's content.
-		SignalBus.emit_signal("accept_pressed", cell)
+		SignalBus.emit_signal("cell_pressed", cell)
 #		get_tree().set_input_as_handled()
 		
 	# The code below is for the cursor's movement.
