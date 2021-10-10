@@ -89,7 +89,7 @@ func holds(object_type):
 	
 func pickup_object(object_type):
 	var nearest = find_nearest_object(object_type, Global.items[object_type])
-	if nearest.object == null or nearest.distance >= 15.0:
+	if nearest.object == null:
 		return false
 	pickup(nearest.object)
 	return true
@@ -145,9 +145,9 @@ func store_wood():
 
 func find_applicable_stockpile(what: String):
 	for i in Global.stockpiles:
-		if what in i.allowed and !i.check_if_full():
-			run_to(i.slot_coords[Util.randi_range(0,i.slot_coords.size()-1)])
-			if !yield(self, "run_end"):
-				return false
-			return i.action(self, held)
-	return false
+		if what in i.allowed:
+			print("GOT PAST ALLOWED") 
+		if !i.check_if_full():
+			print("FOUND ONE AND RETURNING")
+			return i
+#			return i.action(self, held)

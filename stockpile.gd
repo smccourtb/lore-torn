@@ -27,15 +27,17 @@ func get_slot_coordinates(columns, rows):
 
 func action(character, held_item):
 	var x = .add_item(held_item)
-	held_item.position = slot_coords[x]
+	held_item.position = Global.map_grid.calculate_map_position(slot_coords[x])
 	character.get_parent().add_child(held_item)
 	character.held = null
-	return true
 
 func check_if_full():
+	var count = 0
 	for i in items:
 		if i != null:
-			return true
+			count += 1
+	if count >= items.size():
+		return true
 	return false
 
 func update_map_data():
