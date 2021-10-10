@@ -11,7 +11,6 @@ extends BTConditional
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	verified = false
 	if Global.items.has("wood"):
-		print("YES I SEE WOOD")
 		verified = true
 
 
