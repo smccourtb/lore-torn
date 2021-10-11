@@ -57,6 +57,5 @@ func _input(event: InputEvent) -> void:
 				var stockpile_interface = load("res://StockpileInterface.tscn").instance()
 				$CanvasLayer.add_child(stockpile_interface)
 				stockpile_menu = true
-				get_node("Stockpiles").visible = true
 	
 

@@ -9,37 +9,42 @@
 [ext_resource path="res://pickup_wood.gd" type="Script" id=7]
 [ext_resource path="res://store_wood.gd" type="Script" id=8]
 
-[node name="Sees Stockpile\?" type="Node"]
-script = ExtResource( 1 )
+[node name="BTRepeatUntil2" type="Node"]
+script = ExtResource( 3 )
 debug = true
 
-[node name="BTRepeatUntil" type="Node" parent="."]
-script = ExtResource( 3 )
+[node name="Sees Stockpile\?" type="Node" parent="."]
+script = ExtResource( 1 )
 
-[node name="Sees Wood\?" type="Node" parent="BTRepeatUntil"]
+[node name="BTRepeatUntil" type="Node" parent="Sees Stockpile\?"]
+script = ExtResource( 3 )
+debug = true
+
+[node name="Sees Wood\?" type="Node" parent="Sees Stockpile\?/BTRepeatUntil"]
 script = ExtResource( 2 )
 
-[node name="BTSequence" type="Node" parent="BTRepeatUntil/Sees Wood\?"]
+[node name="BTSequence" type="Node" parent="Sees Stockpile\?/BTRepeatUntil/Sees Wood\?"]
 script = ExtResource( 5 )
 
-[node name="BTRepeatUntil" type="Node" parent="BTRepeatUntil/Sees Wood\?/BTSequence"]
+[node name="BTRepeatUntil" type="Node" parent="Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence"]
 script = ExtResource( 3 )
 until_what = 1
 
-[node name="Walk To Wood" type="Node" parent="BTRepeatUntil/Sees Wood\?/BTSequence/BTRepeatUntil"]
+[node name="Walk To Wood" type="Node" parent="Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence/BTRepeatUntil"]
 script = ExtResource( 4 )
+debug = true
 
-[node name="Pickup Wood" type="Node" parent="BTRepeatUntil/Sees Wood\?/BTSequence"]
+[node name="Pickup Wood" type="Node" parent="Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence"]
 script = ExtResource( 7 )
 
-[node name="BTRepeatUntil2" type="Node" parent="BTRepeatUntil/Sees Wood\?/BTSequence"]
+[node name="BTRepeatUntil2" type="Node" parent="Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence"]
 script = ExtResource( 3 )
 until_what = 1
 
-[node name="Walk To Stockpile" type="Node" parent="BTRepeatUntil/Sees Wood\?/BTSequence/BTRepeatUntil2"]
+[node name="Walk To Stockpile" type="Node" parent="Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence/BTRepeatUntil2"]
 script = ExtResource( 6 )
 debug = true
 
-[node name="Store Wood" type="Node" parent="BTRepeatUntil/Sees Wood\?/BTSequence"]
+[node name="Store Wood" type="Node" parent="Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence"]
 script = ExtResource( 8 )
 debug = true

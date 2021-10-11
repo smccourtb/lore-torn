@@ -45,21 +45,18 @@ func set_selected(boo: bool):
 		Global.resource_nodes.append(self)
 
 func drop_items():
+	var item = load("res://Item.tscn")
 	# TODO: Add a more elegant way of deciding what to drop and how much
+	# TODO: check neighboring cells for an empty cell
 	var at = position
+	# TODO: determine how much drops based of size of node
 	var count = 1
-	var spacing = 2 * PI / count
 	for i in count:
-		var item = load("res://Item.tscn").instance()
+		item = item.instance()
 		var x = Util.choose(drops)
-		item.title = x.name
+		item.data = x
 		get_parent().add_child(item)
-		item.sprite.texture = x.texture
-		# Offset the angle based on the iteration
-		var angle = spacing * i
-		# add a bit of randomization to scatter it about
-		angle += rand_range(0, spacing) - spacing * 0.5
-		item.spawn(at, angle)
+		item.spawn(at)
 
 func determine_time_to_harvest():
 	# Size of tree

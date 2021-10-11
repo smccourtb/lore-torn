@@ -13,5 +13,5 @@ func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 		if agent.position.distance_to(agent.target_position) < 8:
 			agent.velocity = Vector2.ZERO
 			return succeed()
-	agent.velocity = agent.move_and_slide(agent.velocity)
+		agent.velocity = agent.move_and_slide(agent.velocity)
 	return fail()
