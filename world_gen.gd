@@ -347,13 +347,12 @@ class Chunk:
 						if treeNoise >=.4:
 							node_present = true
 							var tree = map.resource_generator.generate_tree("oak")
-							var new_resource = map.resource_node.instance()
-							new_resource.data = tree
-							new_resource.texture = tree.texture
-							new_resource.position = Global.map_grid.calculate_map_position(tilepos) 
-							map.get_parent().call_deferred('add_child', new_resource)
+#							var new_resource = map.resource_node.i/nstance()
+#							new_resource.data = tree
+#							new_resource.texture = tree.texture
+							tree.position = Global.map_grid.calculate_map_position(tilepos) 
+							map.get_parent().call_deferred('add_child', tree)
 #							Global.resource_nodes.append(new_resource)
-#							nodes[tree.position] = tree
 							#map.walkable_cells.erase(map.map_grid.calculate_map_position(tilepos))
 					if chunk_height > 0.01 and chunk_height < 0.04:
 						map.set_cell(tilepos.x, tilepos.y, tiles.ForgottenPlains_Dirt)

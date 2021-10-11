@@ -184,6 +184,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resource/grid/grid.gd"
 }, {
+"base": "Prop",
+"class": "InteractiveProp",
+"language": "GDScript",
+"path": "res://interactive_prop.gd"
+}, {
 "base": "Resource",
 "class": "Inventory",
 "language": "GDScript",
@@ -220,11 +225,16 @@ _global_script_classes=[ {
 "path": "res://character/personality/personality_trait_template.gd"
 }, {
 "base": "Resource",
+"class": "Prop",
+"language": "GDScript",
+"path": "res://prop.gd"
+}, {
+"base": "Resource",
 "class": "ResourceGenerator",
 "language": "GDScript",
 "path": "res://resource_generator.gd"
 }, {
-"base": "Resource",
+"base": "StaticBody2D",
 "class": "ResourceNode",
 "language": "GDScript",
 "path": "res://resource_node.gd"
@@ -290,6 +300,7 @@ _global_script_class_icons={
 "GeneFactory": "",
 "Goal": "",
 "Grid": "",
+"InteractiveProp": "",
 "Inventory": "",
 "Item": "",
 "Name": "",
@@ -297,6 +308,7 @@ _global_script_class_icons={
 "Personality": "",
 "PersonalityTrait": "",
 "PersonaltyTraitTemplate": "",
+"Prop": "",
 "ResourceGenerator": "",
 "ResourceNode": "",
 "ResourceNodeTemplate": "",

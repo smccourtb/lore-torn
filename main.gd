@@ -2,8 +2,6 @@ extends Node2D
 
 onready var character_generator: Resource = CharacterGenerator.new()
 onready var character: PackedScene = preload("res://character/Character.tscn")
-onready var resource_generator: Resource = ResourceGenerator.new()
-var resource_node: PackedScene = preload("res://ResourceNode.tscn")
 
 
 #onready var time = Time.new({'day':0, 'hour':0, 'minute':0, 'month':0, 'year':0}) # Use this to set the time of day when starting
@@ -20,9 +18,6 @@ var chunk_cell: Vector2
 
 func _ready() -> void:
 	pathfinder.create_navigation_path(world_map)
-	cursor1.connect("accept_pressed", self, "_onChunkGrid")
-	
-	cursor2.connect("accept_pressed", self, "_on_AcceptPressed")
 	
 	for _i in range(1):
 		# Generates character DATA
@@ -63,22 +58,5 @@ func _input(event: InputEvent) -> void:
 				$CanvasLayer.add_child(stockpile_interface)
 				stockpile_menu = true
 				get_node("Stockpiles").visible = true
-			
-
-func _on_AcceptPressed(grid_coord):
-	if Global.map_data[chunk_cell][grid_coord].has("stockpile"):
-		print(Global.map_data[chunk_cell][grid_coord].stockpile.allowed)
-	
-func _onChunkGrid(cell):
-	print("CHUNK: ", cell)
-	var trees = []
-	chunk_cell = cell
-	# get all trees in chunk
-	# get chunk
-	var chunk_data = Global.map_data[cell]
-	for i in chunk_data:
-		if chunk_data[i].has("tree"):
-			trees.append(i)
-	print("TREES IN CHUNK: ", trees)
 	
 
