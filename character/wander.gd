@@ -4,7 +4,7 @@ extends BTLeaf
 func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 	#find nearest tree'
 	#TODO : check to make sure target is not in the 'walkable" cells array and its within bounds
-	var boo = Vector2(Util.randi_range(-100,100), Util.randi_range(-100,100))
+	var boo = Vector2(Util.randi_range(-25,25), Util.randi_range(-25,25))
 	if !_blackboard.data.has("target"):
 		_blackboard.data["target"] = boo + agent.position
 	agent.target_position = _blackboard.data["target"]

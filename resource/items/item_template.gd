@@ -1,5 +1,5 @@
 extends Resource
-class_name Item
+class_name ItemTemplate
 
 export var texture: AtlasTexture
 export var name: String

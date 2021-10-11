@@ -139,11 +139,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://character/character_template.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "Collectable",
-"language": "GDScript",
-"path": "res://collectable.gd"
-}, {
 "base": "Node2D",
 "class": "Cursor",
 "language": "GDScript",
@@ -194,10 +189,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://inventory.gd"
 }, {
-"base": "Resource",
+"base": "KinematicBody2D",
 "class": "Item",
 "language": "GDScript",
-"path": "res://resource/items/items.gd"
+"path": "res://item.gd"
+}, {
+"base": "Resource",
+"class": "ItemTemplate",
+"language": "GDScript",
+"path": "res://resource/items/item_template.gd"
 }, {
 "base": "Resource",
 "class": "Name",
@@ -291,7 +291,6 @@ _global_script_class_icons={
 "Character": "",
 "CharacterGenerator": "",
 "CharacterTemplate": "",
-"Collectable": "",
 "Cursor": "",
 "Descendant": "",
 "Facet": "",
@@ -303,6 +302,7 @@ _global_script_class_icons={
 "InteractiveProp": "",
 "Inventory": "",
 "Item": "",
+"ItemTemplate": "",
 "Name": "",
 "PathFinding": "",
 "Personality": "",

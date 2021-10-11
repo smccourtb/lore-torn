@@ -76,7 +76,7 @@ func find_nearest_object(object_type = null, arr:= []):
 	# TODO: look to global list of OBJECT_TYPE
 	for o in arr:
 		var distance = position.distance_to(o.position)
-		if !(o is KinematicBody2D) || o is Collectable:
+		if !(o is KinematicBody2D) || o is Item:
 			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
 				nearest_distance = distance
 				nearest_object = o
