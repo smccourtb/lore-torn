@@ -29,6 +29,4 @@ margin_right = 115.0
 margin_bottom = 20.0
 text = "Create Stockpile"
 
-[node name="Line2D" type="Line2D" parent="."]
-
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]

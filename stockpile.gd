@@ -6,6 +6,7 @@ var start_coord: Vector2
 var grid: Grid = Global.map_grid
 var slot_coords: Array
 var rect: Rect2
+var excluded_coords: Array
 
 func _init(allowed_items: Array, columns, rows, start).(columns * rows) -> void:
 	self.allowed = allowed_items
@@ -13,6 +14,9 @@ func _init(allowed_items: Array, columns, rows, start).(columns * rows) -> void:
 	self.rect = Rect2(grid.calculate_map_position(start)-Vector2(4,4), (Vector2(columns, rows)*8))
 	slot_coords = get_slot_coordinates(columns, rows)
 	update_map_data()
+	print("BEFORE: ", slot_coords.size())
+	remove_occupied_tiles()
+	print("AFTER: ", slot_coords.size())
 	
 func get_slot_coordinates(columns, rows):
 	var stockpile_coords = []
@@ -22,7 +26,6 @@ func get_slot_coordinates(columns, rows):
 			# Use if using start_coord is a map coordinate NOT a grid coordinate
 #			stockpile_coords.append(grid.calculate_map_position(start_coord) + 
 #									Vector2(x * grid.cell_size.x, y * grid.cell_size.y))
-	print(stockpile_coords)
 	return stockpile_coords
 
 func action(character, held_item):
@@ -40,8 +43,20 @@ func check_if_full():
 		return true
 	return false
 
+func remove_occupied_tiles():
+	for i in excluded_coords:
+		slot_coords.erase(i)
+
 func update_map_data():
+	# also finds cells in stockpile that are already occupied
 	for i in slot_coords:
 		var convert_to_map = grid.calculate_map_position(i)
 		var chunk_pos = Global.chunk_grid.calculate_grid_coordinates(convert_to_map)
-		Global.map_data[chunk_pos][i]["stockpile"] = self
+		if !(Global.map_data[chunk_pos][i].has("stockpile")):
+			Global.map_data[chunk_pos][i]["stockpile"] = self
+		else:
+			excluded_coords.append(i)
+		if Global.map_data[chunk_pos][i].has("tree"):
+			excluded_coords.append(i)
+
+			

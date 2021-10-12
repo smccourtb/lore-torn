@@ -1,0 +1,28 @@
+[gd_resource type="TileSet" load_steps=2 format=2]
+
+[ext_resource path="res://assets/border.png" type="Texture" id=1]
+
+[resource]
+0/name = "border"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 32, 96 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 1
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 504, Vector2( 0, 1 ), 56, Vector2( 0, 2 ), 432, Vector2( 0, 3 ), 176, Vector2( 0, 4 ), 144, Vector2( 0, 5 ), 58, Vector2( 0, 6 ), 59, Vector2( 0, 7 ), 182, Vector2( 0, 8 ), 507, Vector2( 0, 9 ), 16, Vector2( 0, 10 ), 446, Vector2( 0, 11 ), 250, Vector2( 1, 0 ), 63, Vector2( 1, 1 ), 146, Vector2( 1, 2 ), 216, Vector2( 1, 3 ), 152, Vector2( 1, 4 ), 18, Vector2( 1, 5 ), 184, Vector2( 1, 6 ), 62, Vector2( 1, 7 ), 434, Vector2( 1, 8 ), 510, Vector2( 1, 9 ), 186, Vector2( 1, 10 ), 251, Vector2( 1, 11 ), 442, Vector2( 2, 0 ), 219, Vector2( 2, 1 ), 511, Vector2( 2, 2 ), 54, Vector2( 2, 3 ), 50, Vector2( 2, 4 ), 24, Vector2( 2, 5 ), 178, Vector2( 2, 6 ), 248, Vector2( 2, 7 ), 218, Vector2( 2, 8 ), 255, Vector2( 2, 9 ), 190, Vector2( 2, 10 ), 506, Vector2( 2, 11 ), 254, Vector2( 3, 0 ), 438, Vector2( 3, 2 ), 27, Vector2( 3, 3 ), 26, Vector2( 3, 4 ), 48, Vector2( 3, 5 ), 154, Vector2( 3, 6 ), 440, Vector2( 3, 7 ), 155, Vector2( 3, 8 ), 447, Vector2( 3, 9 ), 187, Vector2( 3, 10 ), 191, Vector2( 3, 11 ), 443, Vector2( 4, 0 ), 511 ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 8, 8 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0

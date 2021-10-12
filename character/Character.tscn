@@ -68,6 +68,7 @@ script = ExtResource( 12 )
 [node name="Assigned Chop\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 6 )]
 
 [node name="Sees Stockpile\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 7 )]
+debug = false
 
 [node name="BTSequence" type="Node" parent="BehaviorTree/BTSelector"]
 script = ExtResource( 8 )
