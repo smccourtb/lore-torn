@@ -54,8 +54,13 @@ func _input(event: InputEvent) -> void:
 			zone_selector.type = "harvest"
 		if event.get_scancode() == KEY_P:
 			if !stockpile_menu:
+				$Cursor2.visible = !$Cursor2.visible
 				var stockpile_interface = load("res://StockpileInterface.tscn").instance()
 				$CanvasLayer.add_child(stockpile_interface)
 				stockpile_menu = true
+		if event.get_scancode() == KEY_ESCAPE:
+			$Cursor2.visible = !$Cursor2.visible
+			
+				
 	
 

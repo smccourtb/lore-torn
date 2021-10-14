@@ -67,7 +67,22 @@ script = ExtResource( 12 )
 
 [node name="Assigned Chop\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 6 )]
 
+[node name="Cut Tree" parent="BehaviorTree/BTSelector/Assigned Chop\?/Sees Tree\?/BTSequence" index="2"]
+debug = false
+
 [node name="Sees Stockpile\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 7 )]
+debug = false
+
+[node name="BTRepeatUntil" parent="BehaviorTree/BTSelector/Sees Stockpile\?/Sees Stockpile\?" index="0"]
+debug = false
+
+[node name="Walk To Wood" parent="BehaviorTree/BTSelector/Sees Stockpile\?/Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence/BTRepeatUntil" index="0"]
+debug = false
+
+[node name="Walk To Stockpile" parent="BehaviorTree/BTSelector/Sees Stockpile\?/Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence/BTRepeatUntil2" index="0"]
+debug = false
+
+[node name="Store Wood" parent="BehaviorTree/BTSelector/Sees Stockpile\?/Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence" index="3"]
 debug = false
 
 [node name="BTSequence" type="Node" parent="BehaviorTree/BTSelector"]
@@ -83,7 +98,6 @@ until_what = 1
 
 [node name="Wander" type="Node" parent="BehaviorTree/BTSelector/BTSequence/BTRepeatUntil"]
 script = ExtResource( 10 )
-debug = true
 
 [editable path="BehaviorTree/BTSelector/Assigned Chop?"]
 [editable path="BehaviorTree/BTSelector/Sees Stockpile?"]

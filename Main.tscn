@@ -34,9 +34,11 @@ current = true
 script = ExtResource( 5 )
 
 [node name="Cursor2" parent="." instance=ExtResource( 6 )]
+visible = false
 script = ExtResource( 7 )
 grid = ExtResource( 11 )
 
 [node name="Cursor" parent="." instance=ExtResource( 6 )]
+visible = false
 script = ExtResource( 10 )
 grid = ExtResource( 8 )

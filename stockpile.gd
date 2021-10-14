@@ -7,6 +7,7 @@ var grid: Grid = Global.map_grid
 var slot_coords: Array
 var rect: Rect2
 var excluded_coords: Array
+var color: Color
 
 func _init(allowed_items: Array, columns, rows, start).(columns * rows) -> void:
 	self.allowed = allowed_items
@@ -14,9 +15,8 @@ func _init(allowed_items: Array, columns, rows, start).(columns * rows) -> void:
 	self.rect = Rect2(grid.calculate_map_position(start)-Vector2(4,4), (Vector2(columns, rows)*8))
 	slot_coords = get_slot_coordinates(columns, rows)
 	update_map_data()
-	print("BEFORE: ", slot_coords.size())
 	remove_occupied_tiles()
-	print("AFTER: ", slot_coords.size())
+	set_color()
 	
 func get_slot_coordinates(columns, rows):
 	var stockpile_coords = []
@@ -59,4 +59,6 @@ func update_map_data():
 		if Global.map_data[chunk_pos][i].has("tree"):
 			excluded_coords.append(i)
 
-			
+func set_color():
+	if "wood" in allowed:
+		color =  Color( 0.52, 0.41, 0.12, 1 )

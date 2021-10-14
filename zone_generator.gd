@@ -4,7 +4,7 @@ var dragging = false  # Are we currently dragging?
 var selected = []  # Array of selected units.
 var drag_start = Vector2.ZERO  # Location where drag began.
 var select_rect = RectangleShape2D.new()  # Collision shape for drag box.
-
+var item: String
 # TODO: add type to specify which type of zone to be genrated (ex. harvest resources, set stockpile, etc)
 var type: String
 
@@ -30,7 +30,6 @@ func _unhandled_input(event):
 			selected = space.intersect_shape(query)
 			# Then we need to flag the ResourceNodes
 			for item in selected:
-				print(item)
 				if item.collider is ResourceNode and item.collider.type == "tree":
 					item.collider.set_selected(true)
 					
@@ -40,8 +39,10 @@ func _unhandled_input(event):
 				var end = Global.map_grid.calculate_grid_coordinates(drag_end)
 				var columns = abs(start.x - end.x) + 1
 				var rows = abs(start.y - end.y) + 1
-				var x = Stockpile.new(["wood"], columns, rows, start)
+				var x = Stockpile.new([item], columns, rows, start)
 				Global.stockpiles.append(x)
+				SignalBus.emit_signal("stockpile_created", x)
+				
 			queue_free()
 	if event is InputEventMouseMotion and dragging:
 		update()

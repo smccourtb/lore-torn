@@ -36,7 +36,6 @@ func _on_ResouceRemoved(_ref, _target):
 #			use_nearest_object(target)
 		pass
 func get_neighbors() -> Array:
-	print(detect.get_overlapping_bodies())
 	return detect.get_overlapping_bodies()
 
 func get_move_speed() -> float:
@@ -147,7 +146,8 @@ func find_applicable_stockpile(what: String):
 	for i in Global.stockpiles:
 		if what in i.allowed:
 			print("GOT PAST ALLOWED") 
-		if !i.check_if_full():
-			print("FOUND ONE AND RETURNING")
-			return i
-#			return i.action(self, held)
+		
+			if !i.check_if_full():
+				print("FOUND ONE AND RETURNING")
+				return i
+	#			return i.action(self, held)

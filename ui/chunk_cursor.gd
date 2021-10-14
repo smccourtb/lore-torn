@@ -75,7 +75,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _draw() -> void:
 	# Rect2 is built from the position of the rectangle's top-left corner and its size. To draw the
 	# square around the cell, the start position needs to be `-grid.cell_size / 2`.
-	draw_rect(Rect2(-grid.cell_size / 2, grid.cell_size), Color.aliceblue, false, 2.0)
+	draw_rect(Rect2(-grid.cell_size / 2, grid.cell_size), Color.aliceblue, false, 1.0)
 
 
 # This function controls the cursor's current position.

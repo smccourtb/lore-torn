@@ -7,3 +7,5 @@ signal resource_removed(ref)
 signal chunk_pressed(cell)
 # warning-ignore:unused_signal
 signal cell_pressed(cell)
+# warning-ignore:unused_signal
+signal stockpile_created(stockpile)
