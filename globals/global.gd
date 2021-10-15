@@ -14,6 +14,8 @@ var stockpiles: = []
 var walkable_cells = []
 
 var map_data: = {}
+
+var pending_constructions = []
 # Some sort of global item to id thang: so 
 # Right in the beginnning do it every every single item and resource and thing in the game
 # oak_tree -> hash

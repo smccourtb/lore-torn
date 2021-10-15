@@ -7,7 +7,6 @@ var projects: Array
 var materials: Dictionary
 var workstation_name: String
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	setup_node(data)
@@ -38,3 +37,6 @@ func get_available_projects() -> Array:
 	for i in projects:
 		projects.append(i.name)
 	return projects
+
+func build():
+	$Sprite.set_modulate(Color(1,1,1,1))
