@@ -302,8 +302,6 @@ class Chunk:
 		
 	func generate_data():
 		place_tiles()
-#		if nodes.size() > (16*16)/2:
-#			walkable = false
 		chunk_data = cells
 	func generate_nodes():
 		pass
