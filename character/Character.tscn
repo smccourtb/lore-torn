@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/characters/dwarf/dwarf.png" type="Texture" id=1]
 [ext_resource path="res://character/character_controller.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://character/wander.gd" type="Script" id=10]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/leaves/bt_wait.gd" type="Script" id=11]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=12]
+[ext_resource path="res://resource/items/Assigned Mine?.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -70,20 +71,12 @@ script = ExtResource( 12 )
 [node name="Cut Tree" parent="BehaviorTree/BTSelector/Assigned Chop\?/Sees Tree\?/BTSequence" index="2"]
 debug = false
 
-[node name="Sees Stockpile\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 7 )]
-debug = false
+[node name="Assigned Mine\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 13 )]
 
-[node name="BTRepeatUntil" parent="BehaviorTree/BTSelector/Sees Stockpile\?/Sees Stockpile\?" index="0"]
-debug = false
+[node name="BTRepeatUntil" type="Node" parent="BehaviorTree/BTSelector"]
+script = ExtResource( 9 )
 
-[node name="Walk To Wood" parent="BehaviorTree/BTSelector/Sees Stockpile\?/Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence/BTRepeatUntil" index="0"]
-debug = false
-
-[node name="Walk To Stockpile" parent="BehaviorTree/BTSelector/Sees Stockpile\?/Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence/BTRepeatUntil2" index="0"]
-debug = false
-
-[node name="Store Wood" parent="BehaviorTree/BTSelector/Sees Stockpile\?/Sees Stockpile\?/BTRepeatUntil/Sees Wood\?/BTSequence" index="3"]
-debug = false
+[node name="Sees Stockpile\?" parent="BehaviorTree/BTSelector/BTRepeatUntil" instance=ExtResource( 7 )]
 
 [node name="BTSequence" type="Node" parent="BehaviorTree/BTSelector"]
 script = ExtResource( 8 )
@@ -100,4 +93,4 @@ until_what = 1
 script = ExtResource( 10 )
 
 [editable path="BehaviorTree/BTSelector/Assigned Chop?"]
-[editable path="BehaviorTree/BTSelector/Sees Stockpile?"]
+[editable path="BehaviorTree/BTSelector/BTRepeatUntil/Sees Stockpile?"]

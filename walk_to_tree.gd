@@ -3,7 +3,7 @@ extends BTLeaf
 
 func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 	#find nearest tree
-	agent.target_position = agent.find_nearest_object("tree", Global.resource_nodes).object.position
+	agent.target_position = agent.find_nearest_object("tree", Global.resource_nodes.tree).object.position
 	if agent.target_position:
 		agent.path = agent.pathfinding.get_new_path(agent.position, agent.target_position)
 		agent.set_path_line(agent.path)

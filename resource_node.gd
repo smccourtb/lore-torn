@@ -14,6 +14,7 @@ func _ready() -> void:
 
 func setup_node(resource_node_data):
 	$Sprite.texture = resource_node_data.texture
+	$Sprite.offset = resource_node_data.texture_offset
 	type = resource_node_data.type
 	subtype = resource_node_data.subtype
 	resource_node_name = type + "_" + subtype
@@ -30,7 +31,7 @@ func get_name() -> String:
 	return data.name
 	
 func action(character):
-	Global.resource_nodes.erase(self)
+	Global.resource_nodes[type].erase(self)
 	SignalBus.emit_signal("resource_removed", self, get_object_type())
 	character.data.energy_level -= 1 # just testing #TODO: decrease by (size of tree, strength, skill)
 	drop_items()
@@ -41,8 +42,11 @@ func set_selected(boo: bool):
 	selected = boo
 	var selector = load("res://Selector.tscn").instance()
 	add_child(selector)
-	if Global.resource_nodes.find(self) == -1:
-		Global.resource_nodes.append(self)
+	if !Global.resource_nodes.has(type):
+		Global.resource_nodes[type] = [self]
+	else:
+		if Global.resource_nodes[type].find(self) == -1:
+			Global.resource_nodes[type].append(self)
 
 func drop_items():
 	var item = load("res://Item.tscn")

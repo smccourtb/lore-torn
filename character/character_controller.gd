@@ -130,7 +130,7 @@ func pickup_wood():
 	return pickup_nearest_object("wood")
 
 func use_nearest_object(object_type: String):
-	var object = find_nearest_object(object_type, Global.resource_nodes).object
+	var object = find_nearest_object(object_type, Global.resource_nodes[object_type]).object
 	if object == null:
 		return false
 	return object.action(self)

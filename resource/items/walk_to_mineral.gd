@@ -2,12 +2,8 @@ extends BTLeaf
 
 
 func _tick(agent: Node, _blackboard: Blackboard) -> bool:
-	var stockpile = agent.find_applicable_stockpile(agent.held.get_object_type())
-	if !stockpile:
-		return fail()
-	_blackboard.data["stock"] = stockpile
-	var rect = stockpile.rect.position
-	agent.target_position = rect
+	#find nearest tree
+	agent.target_position = agent.find_nearest_object("mineral", Global.resource_nodes.mineral).object.position
 	if agent.target_position:
 		agent.path = agent.pathfinding.get_new_path(agent.position, agent.target_position)
 		agent.set_path_line(agent.path)
@@ -17,5 +13,5 @@ func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 		if agent.position.distance_to(agent.target_position) < 8:
 			agent.velocity = Vector2.ZERO
 			return succeed()
-	agent.velocity = agent.move_and_slide(agent.velocity)
+		agent.velocity = agent.move_and_slide(agent.velocity)
 	return fail()

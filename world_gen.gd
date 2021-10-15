@@ -333,7 +333,7 @@ class Chunk:
 #						map.groundcluttermap.set_cell(tilepos.x, tilepos.y, 20)
 				
 				var node_present: bool = false # Used to indicate whether a resource node is present in the cell
-				
+				var node_choice = Util.choose([["mineral", "stone"], ["tree", "oak"]])
 				if id == tiles.ForgottenPlains_Grass:
 					map.set_cellv(tilepos, 0)
 					map.update_bitmask_area(tilepos)
@@ -346,9 +346,10 @@ class Chunk:
 					if chunk_height < -.1:
 						if treeNoise >=.4:
 							node_present = true
-							var tree = map.resource_generator.generate_node("tree", "oak")
-							tree.position = Global.map_grid.calculate_map_position(tilepos) 
-							map.get_parent().call_deferred('add_child', tree)
+							
+							var node = map.resource_generator.generate_node(node_choice[0], node_choice[1])
+							node.position = Global.map_grid.calculate_map_position(tilepos) 
+							map.get_parent().call_deferred('add_child', node)
 #							Global.resource_nodes.append(new_resource)
 					if chunk_height > 0.01 and chunk_height < 0.04:
 						map.set_cell(tilepos.x, tilepos.y, tiles.ForgottenPlains_Dirt)
@@ -360,7 +361,7 @@ class Chunk:
 				cells[tilepos] = {"id":id, "chunk":pos}
 				
 				if node_present:
-					cells[tilepos]["tree"] = "oak"
+					cells[tilepos][node_choice[0]] = node_choice[1]
 					cells[tilepos]["walkable"] = false
 					# TODO: change to unwalkable_cells or something. Opposite of walkable
 					Global.walkable_cells.append(Global.map_grid.calculate_map_position(tilepos))
