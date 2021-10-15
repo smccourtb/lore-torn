@@ -1,16 +1,20 @@
-extends Node2D
+extends StaticBody2D
+class_name Workstation
 
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
+var data: Resource
+var projects: Array
+var materials: Dictionary
+var workstation_name: String
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	setup_node(data)
 
-
+func setup_node(resource_data):
+	$Sprite.texture = resource_data.texture
+	
 func action(character):
 	# we need what we want to craft
 	# we need the mats for said goal
@@ -24,3 +28,13 @@ func action(character):
 		# if yes go drop it off there
 		# if no then drop it in one of the 9 squares or however many around the workstation
 			# if there are none available the area is cluttered and you need to resolve it before htat workstation can be used again.
+	pass
+
+func generate_crafting_menu():
+	pass
+
+func get_available_projects() -> Array:
+	var projects = []
+	for i in projects:
+		projects.append(i.name)
+	return projects
