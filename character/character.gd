@@ -16,12 +16,15 @@ var genes: Dictionary = {}
 var personality: Resource
 var mood_level: Dictionary
 
+var inventory = Inventory
 var assigned_jobs: = []
+var current_project
 var energy_level: int = 100
 # THINGS TO ADD
 # memories
 
 func _init() -> void:
+	self.inventory = Inventory.new(10)
 	self.id = get_instance_id()
 	set_personality()
 

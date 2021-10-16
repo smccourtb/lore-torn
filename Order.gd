@@ -1,5 +1,5 @@
 extends Resource
-class_name Project
+class_name Order
 
 export var workstation: String
 export var name: String

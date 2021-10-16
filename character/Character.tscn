@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/characters/dwarf/dwarf.png" type="Texture" id=1]
 [ext_resource path="res://character/character_controller.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=12]
 [ext_resource path="res://resource/items/Assigned Mine?.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Any Constructions?.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Assigned Carpenter?.tscn" type="PackedScene" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -43,6 +44,7 @@ shape = SubResource( 1 )
 shape = SubResource( 2 )
 
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 width = 2.0
 
 [node name="Label" type="Label" parent="."]
@@ -76,6 +78,14 @@ debug = false
 
 [node name="Assigned Mine\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 13 )]
 
+[node name="Assigned Carpenter\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 15 )]
+
+[node name="Have All Materials\?" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence" index="2"]
+debug = false
+
+[node name="Walk to Workstation" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence/Have All Materials\?/BTRepeatUntil" index="0"]
+debug = false
+
 [node name="BTRepeatUntil" type="Node" parent="BehaviorTree/BTSelector"]
 script = ExtResource( 9 )
 
@@ -96,4 +106,5 @@ until_what = 1
 script = ExtResource( 10 )
 
 [editable path="BehaviorTree/BTSelector/Assigned Chop?"]
+[editable path="BehaviorTree/BTSelector/Assigned Carpenter?"]
 [editable path="BehaviorTree/BTSelector/BTRepeatUntil/Sees Stockpile?"]

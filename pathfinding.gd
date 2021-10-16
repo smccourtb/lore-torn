@@ -69,12 +69,15 @@ func get_id_for_point(point: Vector2):
 	
 
 # USE THIS IN A LOOP FOR EACH REGION IN MAP IN THE BEGINNING
-func update_navigation_map(nodes_to_avoid):
+func update_navigation_map(nodes_to_avoid, disable=true):
 	# This is the main way ill use for now
+	var count = 0
 	for point in nodes_to_avoid:
-		var id = get_id_for_point(point)
+		var id = get_id_for_point(Global.map_grid.calculate_grid_coordinates(point))
 		if astar.has_point(id):
-			astar.set_point_disabled(id, true)
+			count+=1
+			astar.set_point_disabled(id, disable)
+	print(count)
 	# TODO: This seems inefficient and I would rather set up a signal that updates the region
 #	for point in astar.get_points():
 #		astar.set_point_disabled(point, false)

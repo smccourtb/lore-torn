@@ -2,5 +2,7 @@ extends BTLeaf
 
 
 func _tick(agent: Node, _blackboard: Blackboard) -> bool:
-	agent.cut_tree()
-	return succeed()
+	var action_performed = agent.cut_tree()
+	if action_performed:
+		return succeed()
+	return fail()

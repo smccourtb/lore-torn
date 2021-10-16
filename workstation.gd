@@ -13,6 +13,7 @@ func _ready() -> void:
 
 func setup_node(resource_data):
 	$Sprite.texture = resource_data.texture
+	projects = resource_data.project_options
 	
 func action(character):
 	# we need what we want to craft
@@ -40,3 +41,11 @@ func get_available_projects() -> Array:
 
 func build():
 	$Sprite.set_modulate(Color(1,1,1,1))
+
+
+func _on_Area2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.is_pressed():
+		var menu = load("res://WorkstationInterface.tscn").instance()
+		menu.available_projects = projects
+		add_child(menu)
+		

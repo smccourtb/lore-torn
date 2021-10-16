@@ -6,6 +6,9 @@ var goals: = {"basic needs": [ " !tired", " !hungry", " !thirsty"],
 # TEMP VARIABLES #
 
 export(float) var run_speed = 15.0
+
+# TODO: change to an inventory with an arbritrary number of slots. Figure out a strength formula for how much you can carry
+#		and lower movement speed based of the weight of items/how much you can carry ratiochar
 var held = null
 
 # warning-ignore:unused_signal
@@ -96,7 +99,6 @@ func pickup_object(object_type):
 func pickup(object):
 	if held != null:
 		get_parent().add_child(held)
-	SignalBus.emit_signal("resource_removed", object, object.get_object_type())
 	Global.items[object.get_object_type()].erase(object)
 	object.get_parent().remove_child(object)
 	held = object
@@ -145,9 +147,20 @@ func store_wood():
 func find_applicable_stockpile(what: String):
 	for i in Global.stockpiles:
 		if what in i.allowed:
-			print("GOT PAST ALLOWED") 
-		
 			if !i.check_if_full():
-				print("FOUND ONE AND RETURNING")
 				return i
-	#			return i.action(self, held)
+				
+func check_stockpile_for_item(what: String):
+	for i in Global.stockpiles:
+		for j in i.items:
+			if j.get_object_type() == what:
+				return i
+
+# generates an arry of strings that represent object types from a dictionary of materials and their amounts
+func convert_material_list(material_dict):
+	var material_list = []
+	for i in material_dict.keys():
+		for j in range(material_dict[i]):
+			material_list.append(i)
+	return material_list
+		

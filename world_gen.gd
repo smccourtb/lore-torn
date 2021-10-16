@@ -332,6 +332,7 @@ class Chunk:
 				
 				var node_present: bool = false # Used to indicate whether a resource node is present in the cell
 				var node_choice = Util.choose([["mineral", "stone"], ["tree", "oak"]])
+				var node
 				if id == tiles.ForgottenPlains_Grass:
 					map.set_cellv(tilepos, 0)
 					map.update_bitmask_area(tilepos)
@@ -345,7 +346,7 @@ class Chunk:
 						if treeNoise >=.4:
 							node_present = true
 							
-							var node = map.resource_generator.generate_node(node_choice[0], node_choice[1])
+							node = map.resource_generator.generate_node(node_choice[0], node_choice[1])
 							node.position = Global.map_grid.calculate_map_position(tilepos) 
 							map.get_parent().call_deferred('add_child', node)
 #							Global.resource_nodes.append(new_resource)
@@ -359,7 +360,7 @@ class Chunk:
 				cells[tilepos] = {"id":id, "chunk":pos}
 				
 				if node_present:
-					cells[tilepos][node_choice[0]] = node_choice[1]
+					cells[tilepos][node_choice[0]] = node
 					cells[tilepos]["walkable"] = false
 					# TODO: change to unwalkable_cells or something. Opposite of walkable
 					Global.walkable_cells.append(Global.map_grid.calculate_map_position(tilepos))

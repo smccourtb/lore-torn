@@ -32,7 +32,7 @@ func get_name() -> String:
 	
 func action(character):
 	Global.resource_nodes[type].erase(self)
-	SignalBus.emit_signal("resource_removed", self, get_object_type())
+	SignalBus.emit_signal("resource_removed", get_object_type(), position)
 	character.data.energy_level -= 1 # just testing #TODO: decrease by (size of tree, strength, skill)
 	drop_items()
 	queue_free()

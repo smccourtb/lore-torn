@@ -3,7 +3,7 @@ extends Control
 
 const CARPENTERS_WORKBENCH = "res://assets/props/carpenters_workbench.tres"
 
-var workstation_node = load("res://resource/items/Workstation.tscn")
+var workstation_node = load("res://Workstation.tscn")
 var generated_workstation
 
 # Called when the node enters the scene tree for the first time.
@@ -37,6 +37,7 @@ func _input(event: InputEvent) -> void:
 		if generated_workstation:
 			generated_workstation.position = Global.map_grid.calculate_map_position(Global.map_grid.calculate_grid_coordinates(get_global_mouse_position()))
 			Global.pending_constructions.append(generated_workstation)
+			Global.workstation_position = generated_workstation.position
 			generated_workstation = null
 #			SignalBus.emit_signal("workstation_built")
 	if event is InputEventKey and event.is_pressed():
