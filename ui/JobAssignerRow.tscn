@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/job_assigner_row.gd" type="Script" id=1]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+margin_top = 18.0
+margin_right = 320.0
+margin_bottom = 42.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 320.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 150, 0 )
+text = "character name"

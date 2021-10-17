@@ -5,7 +5,7 @@ onready var character: PackedScene = preload("res://character/Character.tscn")
 
 
 #onready var time = Time.new({'day':0, 'hour':0, 'minute':0, 'month':0, 'year':0}) # Use this to set the time of day when starting
-onready var job_assigner = preload("res://JobAssigner.tscn")
+onready var job_assigner = preload("res://ui/JobAssigner.tscn")
 
 onready var pathfinder = get_node("Pathfinding")
 onready var world_map = get_node("TileMap")
@@ -18,7 +18,6 @@ var chunk_cell: Vector2
 
 func _ready() -> void:
 	pathfinder.create_navigation_path(world_map)
-	
 	for _i in range(1):
 		# Generates character DATA
 		var x = character_generator.generate_ancestor()
@@ -49,17 +48,17 @@ func _input(event: InputEvent) -> void:
 		
 		# TODO: change to its own menu where you can pick what type of zone you want to generate 
 		if event.get_scancode() == KEY_H:
-			var zone_selector = load("res://ZoneGenerator.tscn").instance()
+			var zone_selector = load("res://resource/stockpile/ZoneGenerator.tscn").instance()
 			add_child(zone_selector)
 			zone_selector.type = "harvest"
 		if event.get_scancode() == KEY_P:
 			if !stockpile_menu:
 				$Cursor2.visible = !$Cursor2.visible
-				var stockpile_interface = load("res://StockpileInterface.tscn").instance()
+				var stockpile_interface = load("res://ui/StockpileInterface.tscn").instance()
 				$CanvasLayer.add_child(stockpile_interface)
 				stockpile_menu = true
 		if event.get_scancode() == KEY_W:
-			var workstation_generator = load("res://WorkstationMenu.tscn").instance()
+			var workstation_generator = load("res://ui/WorkstationMenu.tscn").instance()
 			$CanvasLayer.add_child(workstation_generator)
 		if event.get_scancode() == KEY_ESCAPE:
 			$Cursor2.visible = !$Cursor2.visible

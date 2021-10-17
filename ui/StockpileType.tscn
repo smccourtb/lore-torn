@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/font/m5x7.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://resource/stockpile/stockpile_generator.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 24, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_right = 320.0
+margin_bottom = 180.0
+theme = SubResource( 2 )
+columns = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Wood" type="Button" parent="GridContainer"]
+margin_right = 38.0
+margin_bottom = 19.0
+text = "Wood"
+
+[node name="Minerals" type="Button" parent="GridContainer"]
+margin_left = 42.0
+margin_right = 97.0
+margin_bottom = 19.0
+text = "Minerals"
+
+[node name="Plants" type="Button" parent="GridContainer"]
+margin_left = 101.0
+margin_right = 145.0
+margin_bottom = 19.0
+text = "Plants"
+
+[node name="Furniture" type="Button" parent="GridContainer"]
+margin_left = 149.0
+margin_right = 209.0
+margin_bottom = 19.0
+text = "Furniture"
+
+[node name="Food" type="Button" parent="GridContainer"]
+margin_left = 213.0
+margin_right = 249.0
+margin_bottom = 19.0
+text = "Food"
+
+[connection signal="pressed" from="GridContainer/Wood" to="." method="_on_Wood_pressed"]
+[connection signal="pressed" from="GridContainer/Minerals" to="." method="_on_Minerals_pressed"]
+[connection signal="pressed" from="GridContainer/Plants" to="." method="_on_Plants_pressed"]
+[connection signal="pressed" from="GridContainer/Furniture" to="." method="_on_Furniture_pressed"]
+[connection signal="pressed" from="GridContainer/Food" to="." method="_on_Food_pressed"]

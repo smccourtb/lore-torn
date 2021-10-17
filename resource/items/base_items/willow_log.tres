@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://resource/items/item_template.gd" type="Script" id=1]
+[ext_resource path="res://assets/resource-nodes/logging-with-shadows.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 136, 88, 8, 8 )
+
+[resource]
+script = ExtResource( 1 )
+texture = SubResource( 1 )
+name = "willow_log"
+type = "log"
+subtype = "willow"
+unique = false
+ingredients = [  ]

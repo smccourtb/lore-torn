@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://resource/items/base_items/hickory_log.tres" type="Resource" id=1]
+[ext_resource path="res://assets/resource-nodes/logging-with-shadows.png" type="Texture" id=2]
+[ext_resource path="res://resource/nodes/resource_node_template.gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 32, 32, 32 )
+
+[resource]
+script = ExtResource( 3 )
+type = "tree"
+subtype = "hickory"
+texture = SubResource( 1 )
+texture_offset = Vector2( 0, -16 )
+drops = [ ExtResource( 1 ) ]

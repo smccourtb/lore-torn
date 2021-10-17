@@ -1,2 +1,0 @@
-extends PropTemplate
-class_name InteractivePropTemplate

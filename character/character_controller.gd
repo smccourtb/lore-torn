@@ -1,20 +1,10 @@
 extends KinematicBody2D
-var data: Character
-var goals: = {"basic needs": [ " !tired", " !hungry", " !thirsty"],
-			  "jobs": ["chop", "mine", "gather"]}   
 
-# TEMP VARIABLES #
+var data: Character
+
 
 export(float) var run_speed = 15.0
 
-# TODO: change to an inventory with an arbritrary number of slots. Figure out a strength formula for how much you can carry
-#		and lower movement speed based of the weight of items/how much you can carry ratiochar
-var held = null
-
-# warning-ignore:unused_signal
-signal run_end
-# warning-ignore:unused_signal
-signal action_end
 
 
 # MY OWN TEMP VARS TO REPLACE THE NODE CALLS ( $NodeName )
@@ -31,13 +21,8 @@ onready var pathfinding = get_parent().get_node("Pathfinding")
 
 
 func _ready() -> void:
-# warning-ignore:return_value_discarded
-	SignalBus.connect("resource_removed", self, "_on_ResouceRemoved")
-func _on_ResouceRemoved(_ref, _target):
-#	if target_position:
-#		if target_position.is_equal_approx(ref.position):
-#			use_nearest_object(target)
-		pass
+	pass
+
 func get_neighbors() -> Array:
 	return detect.get_overlapping_bodies()
 
@@ -50,29 +35,36 @@ func set_path_line(points: Array):
 		local_points.append(point - global_position)
 	path_line.points = local_points
 
-func _physics_process(_delta):
-	pass
-	
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.is_pressed():
-		if event.get_scancode() == KEY_G:
-#			#This triggers the AI to start doing its thang
-			pass
 
-	
-func run_to(p):
-	target_position = p
-	target_direction = target_position - position
-	
+func pickup_object(object_type):
+	var nearest = find_nearest_object(object_type, Global.items[object_type])
+	if nearest.object == null:
+		return false
+	pickup(nearest.object)
+	return true
+
+func pickup(object):
+#	if held != null:
+#		get_parent().add_child(held)
+	Global.items[object.get_object_type()].erase(object)
+	object.get_parent().remove_child(object)
+#	held = object
+
+# Actions for GOAP
+
+func pickup_nearest_object(object_type):
+	var object = find_nearest_object(object_type, Global.items[object_type]).object
+	if object == null:
+		return false
+	return pickup_object(object_type)
+
+func use_nearest_object(object_type: String):
+	var object = find_nearest_object(object_type, Global.resource_nodes[object_type]).object
+	if object == null:
+		return false
+	return object.action(self)
 
 func find_nearest_object(object_type = null, arr:= []):
-	# get posiition of player
-	# get chunk posiiton is in
-	# search chunk and get list of "object_type"
-	# for i of chunk[currente_chunk].keys():
-#		if chunk[current_chunk][i].has(object_type)
-#			append to objects list
-	
 	var nearest_distance = 10000000
 	var nearest_object = null
 	# TODO: look to global list of OBJECT_TYPE
@@ -84,72 +76,12 @@ func find_nearest_object(object_type = null, arr:= []):
 				nearest_object = o
 	return { object=nearest_object, distance=nearest_distance }
 
-func holds(object_type):
-	if held != null and held.get_object_type() == object_type:
-		return true
-	return false
-	
-func pickup_object(object_type):
-	var nearest = find_nearest_object(object_type, Global.items[object_type])
-	if nearest.object == null:
-		return false
-	pickup(nearest.object)
-	return true
-
-func pickup(object):
-	if held != null:
-		get_parent().add_child(held)
-	Global.items[object.get_object_type()].erase(object)
-	object.get_parent().remove_child(object)
-	held = object
-	
-
-func store_held(object_type):
-	if held != null && held.get_object_type() == object_type:
-		held = null
-		return true
-	else:
-		return false
-		
-
-# Actions for GOAP
-
-func pickup_nearest_object(object_type):
-	if holds(object_type):
-		return false
-	var object = find_nearest_object(object_type, Global.items[object_type]).object
-	if object == null:
-		return false
-#	run_to(object.position)
-#	if !yield(self, "run_end"):
-#		return false
-	return pickup_object(object_type)
-
-func pickup_axe():
-	return pickup_nearest_object("axe")
-
-func pickup_wood():
-	return pickup_nearest_object("wood")
-
-func use_nearest_object(object_type: String):
-	var object = find_nearest_object(object_type, Global.resource_nodes[object_type]).object
-	if object == null:
-		return false
-	return object.action(self)
-
-func cut_tree():
-	return use_nearest_object("tree")
-
-func store_wood():
-	# TODO: change to find_applicable_stockpile(specific item)
-	return find_applicable_stockpile("wood")
-
-func find_applicable_stockpile(what: String):
+func find_applicable_stockpile(item_type: String):
 	for i in Global.stockpiles:
-		if what in i.allowed:
+		if item_type in i.allowed:
 			if !i.check_if_full():
 				return i
-				
+
 func check_stockpile_for_item(what: String):
 	for i in Global.stockpiles:
 		for j in i.items:
@@ -164,3 +96,70 @@ func convert_material_list(material_dict):
 			material_list.append(i)
 	return material_list
 		
+###########################33
+
+const N = 1
+const E = 2
+const S = 4
+const W = 8
+# Used for check_neighbor() function
+var cell_walls = {Vector2(0, -1): N, Vector2(1, 0): E, 
+				  Vector2(0, 1): S, Vector2(-1, 0): W}
+				
+func check_neighbors(cell, unvisited):
+	# returns an array of cell's unvisited neighbors
+	var list = []
+	for n in cell_walls.keys():
+		if cell + n in unvisited:
+			list.append(cell + n)
+	return list
+
+
+func find_nodes(starting_position: Vector2, item_type: String):
+#	populates unvisited array by looping through entire map
+
+	var closest_object:= {}
+	var unvisited = []  # array of unvisited tiles
+	var stack = []
+	for x in range(Global.chunk_grid.size.x):
+		for y in range(Global.chunk_grid.size.y):
+			unvisited.append(Vector2(x, y))
+	var current = Global.chunk_grid.calculate_grid_coordinates(starting_position)
+	unvisited.erase(current)
+#
+#	# execute recursive backtracker algorithm
+	while !closest_object:
+		if closest_object.empty():
+			closest_object = search_chunk(starting_position, current, item_type)
+		var d = search_chunk(starting_position, current, item_type)
+		if !d.empty():
+			if d.keys()[0] < closest_object.keys()[0]:
+				closest_object = d
+		var neighbors = check_neighbors(current, unvisited)
+		if neighbors.size() > 0:
+			var next = neighbors[randi() % neighbors.size()]
+			stack.append(current)
+			current = next
+			unvisited.erase(current)
+		elif stack:
+			current = stack.pop_back()
+
+	return closest_object.values()[0]
+
+
+func search_chunk(starting_position:Vector2, chunk_position:Vector2, item_type: String):
+	var closest_object
+	var dic = {}
+	if !Global.map_data[chunk_position][item_type].empty() and Global.chunk_grid.is_within_bounds(chunk_position):
+		for i in Global.map_data[chunk_position][item_type]:
+			var distance = i.distance_squared_to(starting_position)
+			if !closest_object:
+				closest_object = distance
+			else:
+				if distance < closest_object:
+					closest_object = distance
+			dic[distance] = i
+		var c = dic.keys()
+		closest_object = dic.keys().min()
+		return {closest_object: dic[closest_object]}
+	return {}

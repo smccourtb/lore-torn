@@ -1,0 +1,60 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://behavior/any_work_orders.gd" type="Script" id=1]
+[ext_resource path="res://behavior/assigned_carpenter.gd" type="Script" id=2]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_sequence.gd" type="Script" id=3]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_repeat_until.gd" type="Script" id=4]
+[ext_resource path="res://behavior/walk_to_workstation.gd" type="Script" id=5]
+[ext_resource path="res://behavior/pickup_item.gd" type="Script" id=6]
+[ext_resource path="res://behavior/choose_item.gd" type="Script" id=7]
+[ext_resource path="res://behavior/walk_to_item.gd" type="Script" id=8]
+[ext_resource path="res://behavior/have_all_materials.gd" type="Script" id=9]
+[ext_resource path="res://behavior/choose_project.gd" type="Script" id=10]
+[ext_resource path="res://behavior/use_workstation.gd" type="Script" id=11]
+
+[node name="Assigned Carpenter\?" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Any Work Orders\?" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="BTSequence" type="Node" parent="Any Work Orders\?"]
+script = ExtResource( 3 )
+
+[node name="Choose Project" type="Node" parent="Any Work Orders\?/BTSequence"]
+script = ExtResource( 10 )
+
+[node name="BTRepeatUntil2" type="Node" parent="Any Work Orders\?/BTSequence"]
+script = ExtResource( 4 )
+until_what = 1
+
+[node name="BTSequence" type="Node" parent="Any Work Orders\?/BTSequence/BTRepeatUntil2"]
+script = ExtResource( 3 )
+
+[node name="Choose Item" type="Node" parent="Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence"]
+script = ExtResource( 7 )
+
+[node name="BTRepeatUntil" type="Node" parent="Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence"]
+script = ExtResource( 4 )
+until_what = 1
+
+[node name="Walk to Item" type="Node" parent="Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence/BTRepeatUntil"]
+script = ExtResource( 8 )
+
+[node name="Pickup Item" type="Node" parent="Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence"]
+script = ExtResource( 6 )
+
+[node name="Have All Materials\?" type="Node" parent="Any Work Orders\?/BTSequence"]
+script = ExtResource( 9 )
+debug = true
+
+[node name="BTRepeatUntil" type="Node" parent="Any Work Orders\?/BTSequence/Have All Materials\?"]
+script = ExtResource( 4 )
+until_what = 1
+
+[node name="Walk to Workstation" type="Node" parent="Any Work Orders\?/BTSequence/Have All Materials\?/BTRepeatUntil"]
+script = ExtResource( 5 )
+debug = true
+
+[node name="Use Workstation" type="Node" parent="Any Work Orders\?/BTSequence"]
+script = ExtResource( 11 )

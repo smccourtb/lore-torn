@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=5 format=2]
 
-[ext_resource path="res://make_bed.tres" type="Resource" id=1]
+[ext_resource path="res://resource/orders/make_bed.tres" type="Resource" id=1]
 [ext_resource path="res://assets/props/crafting/woodwork-props-with-shadow.png" type="Texture" id=2]
-[ext_resource path="res://workstation_template.gd" type="Script" id=3]
+[ext_resource path="res://resource/workstations/workstation_template.gd" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )

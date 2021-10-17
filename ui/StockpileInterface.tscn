@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/stockpile_interface.gd" type="Script" id=1]
+[ext_resource path="res://assets/font/m5x7.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://ui/CreateStockpile.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="StockpileInterface" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = SubResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -26.0
+grow_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 320.0
+margin_bottom = 26.0
+
+[node name="CreateStockpile" parent="MarginContainer/HBoxContainer" instance=ExtResource( 3 )]
+
+[node name="Return" type="Button" parent="MarginContainer/HBoxContainer"]
+visible = false
+margin_left = 46.0
+margin_right = 100.0
+margin_bottom = 26.0
+text = "Return"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CreateStockpile" to="." method="_on_CreateStockpile_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Return" to="." method="_on_Return_pressed"]

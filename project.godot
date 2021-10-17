@@ -162,12 +162,12 @@ _global_script_classes=[ {
 "base": "Item",
 "class": "Furniture",
 "language": "GDScript",
-"path": "res://furniture.gd"
+"path": "res://resource/items/furniture/furniture.gd"
 }, {
 "base": "Resource",
 "class": "FurnitureTemplate",
 "language": "GDScript",
-"path": "res://furniture_template.gd"
+"path": "res://resource/items/furniture/furniture_template.gd"
 }, {
 "base": "Resource",
 "class": "Gene",
@@ -189,20 +189,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resource/grid/grid.gd"
 }, {
-"base": "PropTemplate",
-"class": "InteractivePropTemplate",
-"language": "GDScript",
-"path": "res://interactive_prop_template.gd"
-}, {
 "base": "Resource",
 "class": "Inventory",
 "language": "GDScript",
-"path": "res://inventory.gd"
+"path": "res://resource/inventory/inventory.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Item",
 "language": "GDScript",
-"path": "res://item.gd"
+"path": "res://resource/items/item.gd"
 }, {
 "base": "Resource",
 "class": "ItemTemplate",
@@ -217,12 +212,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Order",
 "language": "GDScript",
-"path": "res://Order.gd"
+"path": "res://resource/orders/Order.gd"
 }, {
 "base": "Node2D",
 "class": "PathFinding",
 "language": "GDScript",
-"path": "res://pathfinding.gd"
+"path": "res://ai/pathfinding.gd"
 }, {
 "base": "Resource",
 "class": "Personality",
@@ -240,19 +235,14 @@ _global_script_classes=[ {
 "path": "res://character/personality/personality_trait_template.gd"
 }, {
 "base": "Resource",
-"class": "PropTemplate",
-"language": "GDScript",
-"path": "res://prop_template.gd"
-}, {
-"base": "Resource",
 "class": "ResourceGenerator",
 "language": "GDScript",
-"path": "res://resource_generator.gd"
+"path": "res://resource/nodes/resource_generator.gd"
 }, {
 "base": "StaticBody2D",
 "class": "ResourceNode",
 "language": "GDScript",
-"path": "res://resource_node.gd"
+"path": "res://resource/nodes/resource_node.gd"
 }, {
 "base": "Resource",
 "class": "ResourceNodeTemplate",
@@ -262,17 +252,12 @@ _global_script_classes=[ {
 "base": "Inventory",
 "class": "Stockpile",
 "language": "GDScript",
-"path": "res://stockpile.gd"
+"path": "res://resource/stockpile/stockpile.gd"
 }, {
 "base": "Node",
 "class": "Time",
 "language": "GDScript",
 "path": "res://globals/time.gd"
-}, {
-"base": "ResourceNode",
-"class": "TreeNode",
-"language": "GDScript",
-"path": "res://tree.gd"
 }, {
 "base": "Node",
 "class": "Utils",
@@ -282,12 +267,12 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "Workstation",
 "language": "GDScript",
-"path": "res://workstation.gd"
+"path": "res://resource/workstations/workstation.gd"
 }, {
 "base": "Resource",
 "class": "WorkstationTemplate",
 "language": "GDScript",
-"path": "res://workstation_template.gd"
+"path": "res://resource/workstations/workstation_template.gd"
 } ]
 _global_script_class_icons={
 "AIContext": "",
@@ -326,7 +311,6 @@ _global_script_class_icons={
 "GeneFactory": "",
 "Goal": "",
 "Grid": "",
-"InteractivePropTemplate": "",
 "Inventory": "",
 "Item": "",
 "ItemTemplate": "",
@@ -336,13 +320,11 @@ _global_script_class_icons={
 "Personality": "",
 "PersonalityTrait": "",
 "PersonaltyTraitTemplate": "",
-"PropTemplate": "",
 "ResourceGenerator": "",
 "ResourceNode": "",
 "ResourceNodeTemplate": "",
 "Stockpile": "",
 "Time": "",
-"TreeNode": "",
 "Utils": "",
 "Workstation": "",
 "WorkstationTemplate": ""
@@ -359,6 +341,7 @@ config/icon="res://icon.png"
 Util="*res://globals/util.gd"
 SignalBus="*res://globals/signal_bus.gd"
 Global="*res://globals/global.gd"
+ItemIndex="*res://globals/item_index.gd"
 
 [debug]
 
