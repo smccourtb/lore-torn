@@ -6,26 +6,30 @@ onready var sprite = $Sprite
 var data: Resource
 var type: String
 var subtype: String
+var id: int
+var forbidden: bool
+var selected: bool = false
 
 func _ready():
 	setup_node(data)
+	id = get_instance_id()
 	
 func setup_node(item_data) -> void:
 	$Sprite.texture = item_data.texture
 	type = item_data.type
 	subtype = item_data.subtype
 	data = null
-	
-func _on_pickup():
-	queue_free()
 
 func get_object_type():
 	return type
 
+func get_object_subtype():
+	return subtype
 # warning-ignore:unused_argument
 func spawn(at : Vector2):
 	global_position = at
-	if Global.items.has(data.type):
-		Global.items[data.type].append(self)
-	else:
-		Global.items[data.type] = [self]
+	var grid_coord = Global.map_grid.calculate_grid_coordinates(global_position)
+	Global.items[grid_coord] = id
+
+func get_class():
+	return "Item"

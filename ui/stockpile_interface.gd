@@ -71,7 +71,7 @@ func _on_Return_pressed() -> void:
 func build_user_stockpile_buttons():
 	for i in Global.stockpiles:
 		var button = Button.new()
-		button.text = i.allowed[0]
+		button.text = i.allowed.keys()[0]
 		button.toggle_mode = true
 		button.connect("toggled", self, "_on_Button_pressed", [i])
 		$MarginContainer/HBoxContainer.add_child(button)

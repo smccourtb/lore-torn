@@ -10,7 +10,7 @@ extends BTConditional
 
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	verified = false
-	if Global.items.has("wood") and Global.items.wood.size() > 0:
+	if !Global.items.empty():
 		verified = true
 
 

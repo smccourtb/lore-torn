@@ -49,7 +49,7 @@ func set_selected(boo: bool):
 			Global.resource_nodes[type].append(self)
 
 func drop_items():
-	var item = load("res://Item.tscn")
+	var item = load("res://resource/items/Item.tscn")
 	# TODO: Add a more elegant way of deciding what to drop and how much
 	# TODO: check neighboring cells for an empty cell
 	var at = position
@@ -57,9 +57,11 @@ func drop_items():
 	var count = 1
 	for i in count:
 		item = item.instance()
+		
 		var x = Util.choose(drops)
 		item.data = x
 		get_parent().add_child(item)
+		
 		item.spawn(at)
 
 func determine_time_to_harvest():

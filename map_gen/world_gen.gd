@@ -110,10 +110,7 @@ func generate_map():
 			if !chunk.has(pos):
 				var c = Chunk.new(pos, self)
 				Global.map_data[pos] = c.chunk_data
-	print(Global.find_resource_node("tree", Vector2(2, 1), "oak"))
-	print(Global.find_resource_node("tree", Vector2(2, 1)))
-	print(Global.find_resource_node("mineral", Vector2(2, 1), "stone"))
-	print(Global.find_item("book", Vector2(0,0)))
+
 	
 # Used if loading/unloading chunks
 
@@ -285,7 +282,7 @@ class Chunk:
 					nodes[node_choice[0]][Global.map_grid.calculate_map_position(tilepos)] = node.data
 					cells[tilepos]["walkable"] = false
 					# TODO: change to unwalkable_cells or something. Opposite of walkable
-					Global.walkable_cells.append(Global.map_grid.calculate_map_position(tilepos))
+					#Global.walkable_cells.append(Global.map_grid.calculate_map_position(tilepos))
 
 # Used if loading/unloading chunks
 #	func RemoveTiles():

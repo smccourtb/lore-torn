@@ -14,7 +14,10 @@ var stockpiles: = []
 var walkable_cells = []
 
 var map_data: = {}
-# map_data = {cells:{}, 
+# map_data = {chunks:
+#				cells:{tile: { tile_id:___, walkable:____}}
+#				nodes:{ tree: {pos, data}, mineral: {pos, data}, plant: {pos, data}}
+
 var pending_constructions = []
 
 var workstation_orders = {"carpenters_workbench":[]}
@@ -39,25 +42,4 @@ func _on_resource_Removed(ref, pos):
 	print("yerp")
 	print(ref)
 
-func find_resource_node(node: String, chunk_pos: Vector2, type: String = ""):
-	# returns an array of positions of the specifed type of resource node
-	# if a subtype is provided, returns a list with only those types of nodes
-	
-	# first we get the resource node dictionary in the map data of the type provided
-	var node_list = map_data[chunk_pos].nodes[node]
-	# if no subtype provided return the positions all nodes
-	if !type:
-		return node_list.keys()
-	# if subtype is provided, find matching subtypes in list and return their positions
-	var specified_nodes = []
-	for i in node_list.keys():
-		if node_list[i].subtype == type:
-			specified_nodes.append(i)
-	return specified_nodes
-
-func find_item(type: String, chunk_pos: Vector2, item_id = null):
-	var item_list = map_data[chunk_pos].items.get(type, [])
-	if !item_id:
-		return item_list
-
-
+# items = {

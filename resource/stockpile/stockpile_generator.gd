@@ -11,26 +11,26 @@ func _ready() -> void:
 #	pass
 
 func _on_Wood_pressed() -> void:
-	create_stockpile("wood")
+	create_stockpile("wood", [])
 
 
 func _on_Minerals_pressed() -> void:
-	create_stockpile("mineral")
+	create_stockpile("mineral", [])
 
 
 func _on_Plants_pressed() -> void:
-	create_stockpile("plants")
+	create_stockpile("plants", [])
 
 
 func _on_Furniture_pressed() -> void:
-	create_stockpile("furniture")
+	create_stockpile("furniture", [])
 
 
 func _on_Food_pressed() -> void:
-	create_stockpile("food")
+	create_stockpile("food", [])
 
-func create_stockpile(item):
+func create_stockpile(item_type: String, item_subtypes: Array):
 	var zone_selector = load("res://resource/stockpile/ZoneGenerator.tscn").instance()
 	get_tree().get_root().add_child(zone_selector)
-	zone_selector.item = item
+	zone_selector.item = {item_type: item_subtypes}
 	zone_selector.type = "stockpile"

@@ -2,11 +2,11 @@ extends BTLeaf
 
 
 func _tick(agent: Node, _blackboard: Blackboard) -> bool:
-	var stockpile = agent.find_applicable_stockpile(agent.held.get_object_type())
+	var stockpile = agent.find_applicable_stockpiles("wood")
 	if !stockpile:
 		return fail()
 	_blackboard.data["stock"] = stockpile
-	var rect = stockpile.rect.position
+	var rect = stockpile.values()[0].rect.position
 	agent.target_position = rect
 	if agent.target_position:
 		agent.path = agent.pathfinding.get_new_path(agent.position, agent.target_position)
