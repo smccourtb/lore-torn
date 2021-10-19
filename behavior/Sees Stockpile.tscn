@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_sequence.gd" type="Script" id=1]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_repeat_until.gd" type="Script" id=2]
-[ext_resource path="res://behavior/sees_stockpile.gd" type="Script" id=3]
 [ext_resource path="res://behavior/sees_wood.gd" type="Script" id=4]
 [ext_resource path="res://behavior/walk_to_wood.gd" type="Script" id=5]
 [ext_resource path="res://behavior/walk_to_stockpile.gd" type="Script" id=6]
@@ -19,18 +18,15 @@ script = ExtResource( 1 )
 [node name="Find Closest Item" type="Node" parent="BTSequence"]
 script = ExtResource( 9 )
 
-[node name="Sees Stockpile\?" type="Node" parent="BTSequence"]
-script = ExtResource( 3 )
-
-[node name="BTRepeatUntil" type="Node" parent="BTSequence/Sees Stockpile\?"]
+[node name="BTRepeatUntil" type="Node" parent="BTSequence"]
 script = ExtResource( 2 )
 until_what = 1
 
-[node name="Walk To Wood" type="Node" parent="BTSequence/Sees Stockpile\?/BTRepeatUntil"]
+[node name="Walk To Item" type="Node" parent="BTSequence/BTRepeatUntil"]
 script = ExtResource( 5 )
 debug = true
 
-[node name="Pickup Wood" type="Node" parent="BTSequence"]
+[node name="Pickup Item" type="Node" parent="BTSequence"]
 script = ExtResource( 8 )
 
 [node name="BTRepeatUntil2" type="Node" parent="BTSequence"]

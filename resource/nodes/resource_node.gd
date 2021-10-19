@@ -31,7 +31,7 @@ func get_name() -> String:
 	return data.name
 	
 func action(character):
-	Global.resource_nodes[type].erase(self)
+	
 	SignalBus.emit_signal("resource_removed", get_object_type(), position)
 	character.data.energy_level -= 1 # just testing #TODO: decrease by (size of tree, strength, skill)
 	drop_items()
@@ -39,14 +39,11 @@ func action(character):
 	return true
 	
 func set_selected(boo: bool):
-	selected = boo
-	var selector = load("res://ui/Selector.tscn").instance()
-	add_child(selector)
-	if !Global.resource_nodes.has(type):
-		Global.resource_nodes[type] = [self]
-	else:
-		if Global.resource_nodes[type].find(self) == -1:
-			Global.resource_nodes[type].append(self)
+	if !selected:
+		selected = boo
+		var selector = load("res://ui/Selector.tscn").instance()
+		add_child(selector)
+		Global.resource_nodes[type][Global.map_grid.calculate_grid_coordinates(position)] = self
 
 func drop_items():
 	var item = load("res://resource/items/Item.tscn")

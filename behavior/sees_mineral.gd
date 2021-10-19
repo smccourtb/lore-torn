@@ -11,7 +11,7 @@ extends BTConditional
 
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	verified = false
-	if Global.items.has("mineral") and Global.items.mineral.size() > 0:
+	if Global.resource_nodes.has("mineral") and Global.resource_nodes.mineral.size() > 0:
 		verified = true
 
 

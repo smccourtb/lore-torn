@@ -25,7 +25,6 @@ func _on_Pressed(yo, boop, beep):
 		beep.remove_assigned_job(Global.jobs[yo])
 
 func check_assigned(job: String, character):
-	for i in character.assigned_jobs:
-		if i == job:
+	if character.assigned_jobs.get(job, null):
 			return true
 	return false

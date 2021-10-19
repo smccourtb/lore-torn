@@ -3,6 +3,7 @@ extends Control
 
 var available_projects: Array
 var material_positions
+var workstation_ref: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,13 +19,14 @@ func setup_menu():
 			button.disabled = false
 		else:
 			button.disabled = true
-		button.connect("pressed", self, "_on_Button_pressed", [button.text, i])
+		button.connect("pressed", self, "_on_Button_pressed", [button.text, i, workstation_ref])
 		
-func _on_Button_pressed(title, project) -> void:
-	if Global.workstation_orders.has(project.workstation):
-		Global.workstation_orders[project.workstation].append(project)
+func _on_Button_pressed(title, project, ref) -> void:
+	var workstation = Global.workstation_orders[project.workstation].has(ref)
+	if workstation:
+		Global.workstation_orders[project.workstation][ref].append(project)
 	else:
-		Global.workstation_orders[project.workstation] = [project]
+		Global.workstation_orders[project.workstation][ref] = [project]
 	queue_free()
 	
 	
@@ -46,7 +48,7 @@ func check_if_available_materials(project):
 					else:
 						if material_pos[i].size() < project.materials[i]:
 							material_pos[i].append(k)
-	var total_found: int
+	var total_found: int = 0
 	for i in material_pos.keys():
 		total_found += material_pos[i].size()
 		if material_pos[i].size() > 0:

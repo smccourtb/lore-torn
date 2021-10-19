@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/characters/dwarf/dwarf.png" type="Texture" id=1]
 [ext_resource path="res://character/character_controller.gd" type="Script" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://character/wander.gd" type="Script" id=10]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/leaves/bt_wait.gd" type="Script" id=11]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=12]
-[ext_resource path="res://behavior/Assigned Mine?.tscn" type="PackedScene" id=13]
 [ext_resource path="res://behavior/Any Constructions?.tscn" type="PackedScene" id=14]
 [ext_resource path="res://behavior/Assigned Carpenter?.tscn" type="PackedScene" id=15]
 
@@ -71,20 +70,24 @@ script = ExtResource( 12 )
 
 [node name="Any Constructions\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 14 )]
 
-[node name="Assigned Chop\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 6 )]
-
-[node name="Cut Tree" parent="BehaviorTree/BTSelector/Assigned Chop\?/Sees Tree\?/BTSequence" index="2"]
-debug = false
-
-[node name="Assigned Mine\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 13 )]
-
 [node name="Assigned Carpenter\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 15 )]
+
+[node name="Any Work Orders\?" parent="BehaviorTree/BTSelector/Assigned Carpenter\?" index="0"]
+debug = true
+
+[node name="Choose Project" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence" index="0"]
+debug = true
 
 [node name="Have All Materials\?" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence" index="2"]
 debug = false
 
 [node name="Walk to Workstation" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence/Have All Materials\?/BTRepeatUntil" index="0"]
 debug = false
+
+[node name="BTRepeatUntil2" type="Node" parent="BehaviorTree/BTSelector"]
+script = ExtResource( 9 )
+
+[node name="Assigned Chop\?" parent="BehaviorTree/BTSelector/BTRepeatUntil2" instance=ExtResource( 6 )]
 
 [node name="BTRepeatUntil" type="Node" parent="BehaviorTree/BTSelector"]
 script = ExtResource( 9 )
@@ -105,6 +108,7 @@ until_what = 1
 [node name="Wander" type="Node" parent="BehaviorTree/BTSelector/BTSequence/BTRepeatUntil"]
 script = ExtResource( 10 )
 
-[editable path="BehaviorTree/BTSelector/Assigned Chop?"]
+[editable path="BehaviorTree/BTSelector/Any Constructions?"]
 [editable path="BehaviorTree/BTSelector/Assigned Carpenter?"]
+[editable path="BehaviorTree/BTSelector/BTRepeatUntil2/Assigned Chop?"]
 [editable path="BehaviorTree/BTSelector/BTRepeatUntil/Sees Stockpile?"]

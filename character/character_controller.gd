@@ -47,9 +47,6 @@ func pickup_object(object_type):
 	return true
 
 func pickup(object):
-#	if held != null:
-#		get_parent().add_child(held)
-	Global.items[object.get_object_type()].erase(object)
 	object.get_parent().remove_child(object)
 	data.inventory.add_item(object)
 #	held = object
@@ -145,7 +142,6 @@ func find_closest(starting_position:Vector2, array_to_search: Array):
 				if distance < closest_object:
 					closest_object = distance
 			dic[distance] = i
-		var c = dic.keys()
 		closest_object = dic.keys().min()
 		# returns {distance : position}
 		return {closest_object: dic[closest_object]}

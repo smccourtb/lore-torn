@@ -3,7 +3,7 @@ extends Node
 # we need to hold all the characters in the 'tribe'
 var population = []
 
-var resource_nodes: = {}
+var resource_nodes: = {"tree": {}, "mineral": {}, "plant": {}}
 
 var jobs: Array = ["chop", "mine", "gather", "carpenter"]
 
@@ -20,7 +20,7 @@ var map_data: = {}
 
 var pending_constructions = []
 
-var workstation_orders = {"carpenters_workbench":[]}
+var workstation_orders = {"carpenters_workbench":{}}
 # Some sort of global item to id thang: so 
 # Right in the beginnning do it every every single item and resource and thing in the game
 # oak_tree -> hash

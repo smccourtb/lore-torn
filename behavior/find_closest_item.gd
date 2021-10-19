@@ -21,9 +21,12 @@ func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 		if !stockpile.empty():
 			# if it found stockpiles, find the closest one and store it
 			var closest = agent.find_closest(agent.position, stockpile.keys())
-			# Erase it from the global list so no one else can pick it
-			Global.items[closest_item_pos].selected = true
-			agent.target_position = Global.map_grid.calculate_map_position(closest.rect.position)
+			
+			var selected_item = instance_from_id(Global.items[closest_item_pos])
+			# set item to be selected so no one else can pick it
+			selected_item.selected = true
+			agent.target_position = selected_item.position
+			_blackboard.data["target_item"] = selected_item
 			return succeed()
 	return fail()
 		# if not the repeat the process until it runs out of items thst can be stored

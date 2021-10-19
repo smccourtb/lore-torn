@@ -3,6 +3,5 @@ extends BTConditional
 
 func _pre_tick(agent: Node, _blackboard: Blackboard) -> void:
 	verified = false	
-	for jobs in agent.data.assigned_jobs:
-		if jobs == "carpenter":
-			verified = true
+	if agent.data.assigned_jobs.get("carpenter", null):
+		verified = true

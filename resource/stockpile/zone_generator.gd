@@ -30,7 +30,7 @@ func _unhandled_input(event):
 			selected = space.intersect_shape(query)
 			# Then we need to flag the ResourceNodes
 			for item in selected:
-				if item.collider is ResourceNode and (item.collider.type == "tree" or item.collider.type == "mineral"):
+				if item.collider is ResourceNode:
 					item.collider.set_selected(true)
 					
 			if type == "stockpile":

@@ -17,7 +17,7 @@ var personality: Resource
 var mood_level: Dictionary
 
 var inventory = Inventory
-var assigned_jobs: = []
+var assigned_jobs: = {}
 var current_project
 var energy_level: int = 100
 # THINGS TO ADD
@@ -91,13 +91,11 @@ func get_birthday() -> int:
 func get_assigned_jobs():
 	pass
 
-func assign_new_job(new_job: String) -> void:
-	assigned_jobs.append(new_job)
+func assign_new_job(new_job: String, priority: int = 4) -> void:
+	assigned_jobs[new_job] = priority
 
 func remove_assigned_job(job: String) -> void:
-	for i in assigned_jobs:
-		if job == i:
-			assigned_jobs.erase(i)
+	assigned_jobs.erase(job)
 
 func character_data() -> Dictionary:
 	return {"race": self.race, 

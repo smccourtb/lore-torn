@@ -3,5 +3,6 @@ extends BTConditional
 
 func _pre_tick(_agent: Node, _blackboard: Blackboard) -> void:
 	verified = false
-	if Global.resource_nodes.has("tree") and Global.resource_nodes.tree.size() > 0:
+	var node_type = _blackboard.data.target_node_type
+	if !Global.resource_nodes[node_type].empty():
 		verified = true
