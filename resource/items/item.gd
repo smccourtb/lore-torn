@@ -28,7 +28,7 @@ func get_object_subtype():
 # warning-ignore:unused_argument
 func spawn(at : Vector2):
 	global_position = at
-	var grid_coord = Global.map_grid.calculate_grid_coordinates(global_position)
+	var grid_coord = Global.map_grid.calculate_grid_coordinates(position)
 	Global.items[grid_coord] = id
 
 func get_class():

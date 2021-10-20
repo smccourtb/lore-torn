@@ -1,7 +1,7 @@
 extends StaticBody2D
 class_name Workstation
 
-var id
+var id: int
 var data: Resource
 var projects: Array
 var materials: Dictionary
@@ -16,7 +16,7 @@ func setup_node(resource_data):
 	projects = resource_data.project_options
 	id = get_instance_id()
 	
-func action(character):
+func action(_character):
 	# we need what we want to craft
 	# we need the mats for said goal
 	# we need to check if those mats are in character inventory
@@ -31,20 +31,10 @@ func action(character):
 			# if there are none available the area is cluttered and you need to resolve it before htat workstation can be used again.
 	pass
 
-func generate_crafting_menu():
-	pass
-
-func get_available_projects() -> Array:
-	var projects = []
-	for i in projects:
-		projects.append(i.name)
-	return projects
-
 func build():
 	$Sprite.set_modulate(Color(1,1,1,1))
 
-
-func _on_Area2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_Area2D_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		var menu = load("res://ui/WorkstationInterface.tscn").instance()
 		menu.available_projects = projects

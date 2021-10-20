@@ -7,8 +7,8 @@
 script = ExtResource( 1 )
 workstation = "carpenters_workbench"
 name = "Make Bed"
-materials = {
-"mineral": 1,
-"wood": 1
-}
+materials = [ {
+"wood": [  ]
+}, {
+} ]
 created_item = ExtResource( 2 )

@@ -9,8 +9,8 @@ var plant: Dictionary
 
 func generate_tree(type: String):
 	var resource_node_data = load(tree[type])
-	var tree = resource_node.instance()
-	tree.data = resource_node_data
+	var tree_node = resource_node.instance()
+	tree_node.data = resource_node_data
 	return tree
 	
 func generate_mineral(_type: String):

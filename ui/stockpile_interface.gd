@@ -37,7 +37,7 @@ func _on_Button_pressed(toggled, s):
 		hide_stockpile_border()
 		
 
-func _on_AcceptPressed(grid_coord):
+func _on_AcceptPressed(_grid_coord):
 #	print(Global.map_data[chunk_cell][grid_coord])
 	pass
 	

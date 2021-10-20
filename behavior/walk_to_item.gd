@@ -4,10 +4,10 @@ var item_choice
 var target_stockpile
 func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 	
-	if _blackboard.data.item_choice:
-		target_stockpile = agent.check_stockpile_for_item(_blackboard.data.item_choice)
-		_blackboard.data["stock"] = target_stockpile
-	var rect = target_stockpile.rect.position
+#	if _blackboard.data.has(item_choice):
+	target_stockpile = agent.check_for_stored_item(_blackboard.data.item_choice)
+	_blackboard.data["target_stockpile"] = target_stockpile.values()[0]
+	var rect = target_stockpile.values()[0].rect.position
 	agent.target_position = rect
 	if agent.target_position:
 		agent.path = agent.pathfinding.get_new_path(agent.position, agent.target_position)

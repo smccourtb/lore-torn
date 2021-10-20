@@ -19,9 +19,9 @@ func setup_menu():
 			button.disabled = false
 		else:
 			button.disabled = true
-		button.connect("pressed", self, "_on_Button_pressed", [button.text, i, workstation_ref])
+		button.connect("pressed", self, "_on_Button_pressed", [i, workstation_ref])
 		
-func _on_Button_pressed(title, project, ref) -> void:
+func _on_Button_pressed(project, ref) -> void:
 	var workstation = Global.workstation_orders[project.workstation].has(ref)
 	if workstation:
 		Global.workstation_orders[project.workstation][ref].append(project)
@@ -33,7 +33,7 @@ func _on_Button_pressed(title, project, ref) -> void:
 func check_if_available_materials(project):
 	var material_pos: = {}
 	var item_pos = []
-	var total_need: int
+	var total_need: int = 0
 	# loop through need materials
 	for i in project.materials.keys():
 		total_need += project.materials[i]
@@ -59,4 +59,16 @@ func check_if_available_materials(project):
 		return true
 	material_positions = null
 	return false
+		
+func check_for_available_materials(project):
+	var material_list = project.materials
+	var item_to_search: String
+	# material_list is a dictionary that has the items type as its key and its
+	# its value is either an empty list or a list of all allowable subtypes
+	for mat in material_list:
+		var type = mat.values()[0]
+		var subtype = mat.values()[1]
+		if subtype.empty():
+			item_to_search = type
+		var item = 	null
 		

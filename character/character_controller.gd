@@ -84,7 +84,6 @@ func find_closest_item(items=Global.items.keys()):
 
 # Returns the stockpile reference that the item is located in or false
 func check_for_stored_item(item_type: String, item_subtype: String = ""):
-	print("LOOKING STOCKPILES THAT MAY CONTAIN ", item_type)
 	var stockpiles_to_search: Dictionary
 	if !item_subtype:
 		stockpiles_to_search = find_applicable_stockpiles(item_type)
@@ -99,7 +98,7 @@ func check_for_stored_item(item_type: String, item_subtype: String = ""):
 				var search = check_stockpile_for_item(item_type, i, item_subtype)
 				stockpiles_to_search.erase(i)
 				if search:
-					return search
+					return {search: i} 
 			print('ITEM NOT FOUND, CHECKING NEXT CLOSEST STOCKPILE')
 	print("STORED ITEM NOT FOUND")
 	return false
@@ -152,8 +151,9 @@ func find_closest(starting_position:Vector2, array_to_search: Array):
 func convert_material_list(material_dict):
 	var material_list = []
 	for i in material_dict.keys():
-		for j in range(material_dict[i]):
+		for _j in range(material_dict[i]):
 			material_list.append(i)
+	print("MATERIAL LIST: ", material_list)
 	return material_list
 
 

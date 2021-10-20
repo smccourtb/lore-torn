@@ -28,7 +28,7 @@ func load_workstation_data(w_name):
 func _on_Carpenters_Workbench_pressed() -> void:
 	generated_workstation = generate_workstation("carpenters_workbench")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if generated_workstation:
 		generated_workstation.position = get_global_mouse_position()
 

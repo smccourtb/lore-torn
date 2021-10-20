@@ -8,7 +8,7 @@ extends BTConditional
 # during _pre_tick().
 
 
-func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
+func _pre_tick(_agent: Node, _blackboard: Blackboard) -> void:
 	verified = false
 	if !Global.items.empty():
 		verified = true
@@ -23,6 +23,6 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	return fail()
 
 
-func _post_tick(agent: Node, blackboard: Blackboard, result: bool) -> void:
+func _post_tick(_agent: Node, _blackboard: Blackboard, _result: bool) -> void:
 	pass
 

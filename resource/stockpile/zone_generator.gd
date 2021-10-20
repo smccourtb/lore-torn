@@ -29,9 +29,9 @@ func _unhandled_input(event):
 			query.transform = Transform2D(0, (drag_end + drag_start) / 2)
 			selected = space.intersect_shape(query)
 			# Then we need to flag the ResourceNodes
-			for item in selected:
-				if item.collider is ResourceNode:
-					item.collider.set_selected(true)
+			for i in selected:
+				if i.collider is ResourceNode:
+					i.collider.set_selected(true)
 					
 			if type == "stockpile":
 				# TODO: check if if intersects with another stockpile or non-empty tile
