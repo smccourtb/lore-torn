@@ -16,7 +16,7 @@ func setup_node(resource_data):
 	projects = resource_data.project_options
 	id = get_instance_id()
 	
-func action(_character):
+func action(character):
 	# we need what we want to craft
 	# we need the mats for said goal
 	# we need to check if those mats are in character inventory

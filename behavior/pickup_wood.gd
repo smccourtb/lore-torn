@@ -7,4 +7,5 @@ func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 	item.selected = false
 	agent.pickup(item)
 	
+	
 	return succeed()

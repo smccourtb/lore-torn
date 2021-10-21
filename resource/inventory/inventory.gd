@@ -33,9 +33,9 @@ func get_item_index(type: String, subtype: String = "") -> int:
 	var index: int = 0
 	for i in items:
 		if subtype:
-			if i.subtype == subtype:
+			if i.get_object_subtype() == subtype:
 				return index
-		if i.type == type:
+		if i.get_object_type() == type:
 			return index
 		index += 1
 	return -1

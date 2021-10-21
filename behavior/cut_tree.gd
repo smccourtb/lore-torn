@@ -6,6 +6,8 @@ func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 	var node_type = _blackboard.data.target_node_type
 	Global.resource_nodes[node_type].erase(Global.map_grid.calculate_grid_coordinates(node.position))
 	
-	node.action(agent)
 	
+	node.action(agent)
+	_blackboard.data.erase("target_node_type")
+	_blackboard.data.erase("target_node")
 	return succeed()

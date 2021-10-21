@@ -10,5 +10,6 @@ name = "Make Bed"
 materials = [ {
 "wood": [  ]
 }, {
+"mineral": [  ]
 } ]
 created_item = ExtResource( 2 )

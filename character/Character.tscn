@@ -78,12 +78,6 @@ debug = true
 [node name="Choose Project" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence" index="0"]
 debug = true
 
-[node name="Have All Materials\?" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence" index="2"]
-debug = false
-
-[node name="Walk to Workstation" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence/Have All Materials\?/BTRepeatUntil" index="0"]
-debug = false
-
 [node name="BTRepeatUntil2" type="Node" parent="BehaviorTree/BTSelector"]
 script = ExtResource( 9 )
 

@@ -90,17 +90,13 @@ func check_for_stored_item(item_type: String, item_subtype: String = ""):
 	else:
 		stockpiles_to_search = find_applicable_stockpiles(item_type, item_subtype)
 	while !stockpiles_to_search.empty():
-		print("FOUND STOCKPILES. FINDING CLOSEST")
 		var closest = find_closest(position, stockpiles_to_search.keys()).values()[0]
 		for i in stockpiles_to_search.values():
 			if i.rect.position == closest:
-				print("FOUND CLOSEST. SEARCHING STOCKPILE FOR ITEM")
 				var search = check_stockpile_for_item(item_type, i, item_subtype)
 				stockpiles_to_search.erase(i)
 				if search:
 					return {search: i} 
-			print('ITEM NOT FOUND, CHECKING NEXT CLOSEST STOCKPILE')
-	print("STORED ITEM NOT FOUND")
 	return false
 		
 func find_applicable_stockpiles(item_type: String, item_subtype: String = ""):

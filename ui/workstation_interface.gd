@@ -15,10 +15,10 @@ func setup_menu():
 		button.text = i.name
 		
 		$Panel.add_child(button)
-		if check_if_available_materials(i):
-			button.disabled = false
-		else:
-			button.disabled = true
+#		if check_if_available_materials(i):
+#			button.disabled = false
+#		else:
+#			button.disabled = true
 		button.connect("pressed", self, "_on_Button_pressed", [i, workstation_ref])
 		
 func _on_Button_pressed(project, ref) -> void:
@@ -35,6 +35,7 @@ func check_if_available_materials(project):
 	var item_pos = []
 	var total_need: int = 0
 	# loop through need materials
+	
 	for i in project.materials.keys():
 		total_need += project.materials[i]
 		# loop through stockpiles

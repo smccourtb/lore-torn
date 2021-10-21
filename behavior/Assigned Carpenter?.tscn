@@ -44,15 +44,15 @@ script = ExtResource( 8 )
 [node name="Pickup Item" type="Node" parent="Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence"]
 script = ExtResource( 6 )
 
-[node name="Have All Materials\?" type="Node" parent="Any Work Orders\?/BTSequence"]
+[node name="Have All Materials\?" type="Node" parent="Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence"]
 script = ExtResource( 9 )
 debug = true
 
-[node name="BTRepeatUntil" type="Node" parent="Any Work Orders\?/BTSequence/Have All Materials\?"]
+[node name="BTRepeatUntil" type="Node" parent="Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence/Have All Materials\?"]
 script = ExtResource( 4 )
 until_what = 1
 
-[node name="Walk to Workstation" type="Node" parent="Any Work Orders\?/BTSequence/Have All Materials\?/BTRepeatUntil"]
+[node name="Walk to Workstation" type="Node" parent="Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence/Have All Materials\?/BTRepeatUntil"]
 script = ExtResource( 5 )
 debug = true
 

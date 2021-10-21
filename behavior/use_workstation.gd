@@ -9,5 +9,6 @@ func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 	agent.get_parent().add_child(new_item)
 	new_item.spawn(agent.position+ Vector2(4,4))
 	new_item.position = agent.position + Vector2(4,4) # TODO: Change to find_nearest_open_neighbor or something
-	
+	for i in agent.data.current_project.materials:
+		agent.data.inventory.remove_item(agent.data.inventory.get_item_index(i.keys()[0]))
 	return succeed()
