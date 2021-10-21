@@ -114,6 +114,8 @@ func find_applicable_stockpiles(item_type: String, item_subtype: String = ""):
 
 func check_stockpile_for_item(item_type: String, stockpile: Stockpile, item_subtype: String = ""):
 	for j in stockpile.items:
+		if !j:
+			continue
 		if !item_subtype:
 			if j.get_object_type() == item_type:
 				return j

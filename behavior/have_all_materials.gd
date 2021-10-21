@@ -22,4 +22,5 @@ func _pre_tick(agent: Node, _blackboard: Blackboard) -> void:
 		
 	if have_materials >= materials_needed.size():
 		print("I HAVE THE MATERIALS")
+		have_materials = 0
 		verified = true

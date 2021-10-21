@@ -15,9 +15,11 @@ func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 		if !item_subtype:
 			if i != null and i.get_object_type() == item_type:
 				item = stockpile.remove_item(stockpile.items.find(i))
+				break
 		else:
 			if i != null and i.get_object_type() == item_type and i.get_object_subtype() == item_subtype:
 				item = stockpile.remove_item(stockpile.items.find(i))
+				break
 	agent.data.inventory.add_item(item)
 	agent.get_parent().remove_child(item)
 	_blackboard.data.erase("item_choice")

@@ -11,4 +11,7 @@ func _tick(agent: Node, _blackboard: Blackboard) -> bool:
 	new_item.position = agent.position + Vector2(4,4) # TODO: Change to find_nearest_open_neighbor or something
 	for i in agent.data.current_project.materials:
 		agent.data.inventory.remove_item(agent.data.inventory.get_item_index(i.keys()[0]))
+	_blackboard.data.erase("target_workstation")
+	_blackboard.data.erase("material_list")
+	
 	return succeed()
