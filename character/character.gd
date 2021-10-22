@@ -18,7 +18,7 @@ var mood_level: Dictionary
 
 var inventory = Inventory
 var assigned_jobs: = {}
-var current_project
+var current_project: Order
 var energy_level: int = 100
 # THINGS TO ADD
 # memories

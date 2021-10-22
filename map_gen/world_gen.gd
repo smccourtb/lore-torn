@@ -279,7 +279,7 @@ class Chunk:
 				
 				if node_present:
 					# add resource node to map_data node dictionary
-					nodes[node_choice[0]][Global.map_grid.calculate_map_position(tilepos)] = node.data
+					nodes[node_choice[0]][Global.map_grid.calculate_map_position(tilepos)] = node
 					cells[tilepos]["walkable"] = false
 					# TODO: change to unwalkable_cells or something. Opposite of walkable
 					#Global.walkable_cells.append(Global.map_grid.calculate_map_position(tilepos))

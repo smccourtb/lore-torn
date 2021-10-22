@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/characters/dwarf/dwarf.png" type="Texture" id=1]
 [ext_resource path="res://character/character_controller.gd" type="Script" id=2]
 [ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=3]
 [ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=4]
-[ext_resource path="res://assets/font/m5x7.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://behavior/Assigned Chop.tscn" type="PackedScene" id=6]
+[ext_resource path="res://behavior/AssignedHarvest.tscn" type="PackedScene" id=6]
 [ext_resource path="res://behavior/Sees Stockpile.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_sequence.gd" type="Script" id=8]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_repeat_until.gd" type="Script" id=9]
@@ -21,10 +20,6 @@ extents = Vector2( 8, 8 )
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 3.58041
 height = 1.55687
-
-[sub_resource type="DynamicFont" id=3]
-size = 10
-font_data = ExtResource( 5 )
 
 [node name="Character" type="KinematicBody2D"]
 collision_layer = 0
@@ -43,18 +38,7 @@ shape = SubResource( 1 )
 shape = SubResource( 2 )
 
 [node name="Line2D" type="Line2D" parent="."]
-visible = false
 width = 2.0
-
-[node name="Label" type="Label" parent="."]
-margin_left = -20.1298
-margin_top = -19.492
-margin_right = 19.8702
-margin_bottom = -5.492
-custom_fonts/font = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -78,15 +62,9 @@ debug = true
 [node name="Choose Project" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence" index="0"]
 debug = true
 
-[node name="BTRepeatUntil2" type="Node" parent="BehaviorTree/BTSelector"]
-script = ExtResource( 9 )
+[node name="Sees Stockpile\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 7 )]
 
-[node name="Assigned Chop\?" parent="BehaviorTree/BTSelector/BTRepeatUntil2" instance=ExtResource( 6 )]
-
-[node name="BTRepeatUntil" type="Node" parent="BehaviorTree/BTSelector"]
-script = ExtResource( 9 )
-
-[node name="Sees Stockpile\?" parent="BehaviorTree/BTSelector/BTRepeatUntil" instance=ExtResource( 7 )]
+[node name="Assigned Harvest\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 6 )]
 
 [node name="BTSequence" type="Node" parent="BehaviorTree/BTSelector"]
 script = ExtResource( 8 )
@@ -104,5 +82,4 @@ script = ExtResource( 10 )
 
 [editable path="BehaviorTree/BTSelector/Any Constructions?"]
 [editable path="BehaviorTree/BTSelector/Assigned Carpenter?"]
-[editable path="BehaviorTree/BTSelector/BTRepeatUntil2/Assigned Chop?"]
-[editable path="BehaviorTree/BTSelector/BTRepeatUntil/Sees Stockpile?"]
+[editable path="BehaviorTree/BTSelector/Sees Stockpile?"]

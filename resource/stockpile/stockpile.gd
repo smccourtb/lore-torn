@@ -41,20 +41,19 @@ func remove_occupied_tiles():
 func update_map_data():
 	# also finds cells in stockpile that are already occupied
 	for i in slot_coords:
-		
 		var convert_to_map = grid.calculate_map_position(i)
 		var chunk_pos = Global.chunk_grid.calculate_grid_coordinates(convert_to_map)
-		i = Global.map_grid.calculate_map_position(i)
-#		if !(Global.map_data[chunk_pos].has("stockpile")):
-#			Global.map_data[chunk_pos]["stockpile"] = self
-#		else:
-#			excluded_coords.append(i)
-		if Global.map_data[chunk_pos].nodes.tree.get(i, null):
-			excluded_coords.append(i)
-		if Global.map_data[chunk_pos].nodes.mineral.get(i, null):
-			excluded_coords.append(i)
-		if Global.map_data[chunk_pos].nodes.plant.get(i, null):
-			excluded_coords.append(i)
+		var converted_i = Global.map_grid.calculate_map_position(i)
+		if !(Global.map_data[chunk_pos].cells[i].has("stockpile")):
+			Global.map_data[chunk_pos].cells[i]["stockpile"] = self
+		else:
+			excluded_coords.append(converted_i)
+		if Global.map_data[chunk_pos].nodes.tree.get(converted_i, null):
+			excluded_coords.append(converted_i)
+		if Global.map_data[chunk_pos].nodes.mineral.get(converted_i, null):
+			excluded_coords.append(converted_i)
+		if Global.map_data[chunk_pos].nodes.plant.get(converted_i, null):
+			excluded_coords.append(converted_i)
 
 func set_color():
 	if "wood" in allowed.keys():

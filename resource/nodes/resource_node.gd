@@ -8,6 +8,7 @@ var type: String
 var subtype: String
 var resource_node_name: String
 var drops: Array
+var targeted: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	setup_node(data)

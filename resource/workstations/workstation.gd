@@ -6,6 +6,7 @@ var data: Resource
 var projects: Array
 var materials: Dictionary
 var workstation_name: String
+var status: bool = false  # is built or not
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,10 +29,11 @@ func action(character):
 	# OR check if available stockpile
 		# if yes go drop it off there
 		# if no then drop it in one of the 9 squares or however many around the workstation
-			# if there are none available the area is cluttered and you need to resolve it before htat workstation can be used again.
+			# if there are none available the area is cluttered and you need to resolve it before that workstation can be used again.
 	pass
 
 func build():
+	status = true
 	$Sprite.set_modulate(Color(1,1,1,1))
 
 func _on_Area2D_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

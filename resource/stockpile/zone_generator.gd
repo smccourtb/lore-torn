@@ -5,7 +5,6 @@ var selected = []  # Array of selected units.
 var drag_start = Vector2.ZERO  # Location where drag began.
 var select_rect = RectangleShape2D.new()  # Collision shape for drag box.
 var item: Dictionary
-# TODO: add type to specify which type of zone to be genrated (ex. harvest resources, set stockpile, etc)
 var type: String
 
 func _unhandled_input(event):
@@ -34,7 +33,6 @@ func _unhandled_input(event):
 					i.collider.set_selected(true)
 					
 			if type == "stockpile":
-				# TODO: check if if intersects with another stockpile or non-empty tile
 				var start = Global.map_grid.calculate_grid_coordinates(drag_start)
 				var end = Global.map_grid.calculate_grid_coordinates(drag_end)
 				var rect = Rect2(start, (end-start) + Vector2(1,1))
