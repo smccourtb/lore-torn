@@ -17,7 +17,7 @@ var stockpile_menu: bool = false
 var chunk_cell: Vector2
 
 func _ready() -> void:
-	pathfinder.create_navigation_path(world_map)
+	(pathfinder as PathFinding).create_navigation_path(world_map)
 	for _i in range(2):
 		# Generates character DATA
 		var x = character_generator.generate_ancestor()

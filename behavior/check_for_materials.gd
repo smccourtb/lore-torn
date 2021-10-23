@@ -1,7 +1,7 @@
 extends BTConditional
 
 
-func _pre_tick(agent: Node, _blackboard: Blackboard) -> void:
+func _pre_tick(agent: CharacterController, _blackboard: Blackboard) -> void:
 #	verified = false	
 #	for jobs in agent.data.assigned_jobs:
 #		if jobs == "chop":

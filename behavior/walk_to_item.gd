@@ -2,7 +2,7 @@ extends BTLeaf
 
 var item_choice
 var target_stockpile
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	
 #	if _blackboard.data.has(item_choice):
 	if blackboard.data.item_choice.size() < 2 or blackboard.data.item_choice.back().empty():

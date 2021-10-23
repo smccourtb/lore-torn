@@ -9,7 +9,7 @@ onready var return_func: String = "fail" if always_what == 0 else "succeed"
 
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	var result = bt_child.tick(agent, blackboard)
 	
 	if result is GDScriptFunctionState:

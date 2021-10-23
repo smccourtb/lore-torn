@@ -88,8 +88,8 @@ func get_birthday() -> int:
 	# TODO: convert age into years and subtract from time
 	return self.birthday
 
-func get_assigned_jobs():
-	pass
+func get_assigned_jobs() -> Dictionary:
+	return assigned_jobs
 
 func assign_new_job(new_job: String, priority: int = 4) -> void:
 	assigned_jobs[new_job] = priority

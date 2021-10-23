@@ -1,7 +1,7 @@
 extends BTLeaf
 
 
-func _tick(agent: Node, _blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, _blackboard: Blackboard) -> bool:
 	var item = _blackboard.data.target_item
 	var stockpile = agent.find_applicable_stockpiles(item.get_object_type(), item.get_object_subtype())
 	_blackboard.data["target_stockpile"] = stockpile

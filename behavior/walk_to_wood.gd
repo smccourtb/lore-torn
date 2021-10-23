@@ -1,7 +1,7 @@
 extends BTLeaf
 
 
-func _tick(agent: Node, _blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, _blackboard: Blackboard) -> bool:
 	if agent.target_position:
 		agent.path = agent.pathfinding.get_new_path(agent.position, agent.target_position)
 		agent.set_path_line(agent.path)

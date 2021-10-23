@@ -8,33 +8,28 @@ var half_cell_size: Vector2
 
 
 
-# warning-ignore:shadowed_variable
-func create_navigation_path(tilemap: TileMap):
-	self.tilemap = tilemap
-	
-	half_cell_size = tilemap.cell_size / 2
-	used_rect = tilemap.get_used_rect()
-	
-	var tiles = tilemap.get_used_cells()
+
+func create_navigation_path(map: TileMap) -> void:
+	self.tilemap = map
+	self.half_cell_size = map.cell_size / 2
+	self.used_rect = map.get_used_rect()
+	var tiles: Array = map.get_used_cells()
 	add_traversable_tiles(tiles)
 	connect_traversable_tiles(tiles)
-	update_navigation_map(Global.walkable_cells)
+	update_navigation_map(Global.get_walkable_cells())
 	print('pathfinding done')
 	
-func add_traversable_tiles(tiles: Array):
+func add_traversable_tiles(tiles: PoolVector2Array) -> void:
 	for tile in tiles:
-		var id = get_id_for_point(tile)
-		
+		var id: int = get_id_for_point(tile)
 		astar.add_point(id, tile)
 
-func connect_traversable_tiles(tiles: Array):
+func connect_traversable_tiles(tiles: PoolVector2Array):
 	for tile in tiles:
 		var id = get_id_for_point(tile)
-#		for x in range(3):
-#			for y in range(3):
 		for point in [Vector2(0,1), Vector2(0,-1), Vector2(1,0), Vector2(-1,0)]:
-			var target = tile + point  #Vector2(x-1, y-1)
-			var target_id = get_id_for_point(target)
+			var target: Vector2 = tile + point
+			var target_id: int = get_id_for_point(target)
 			
 			if tile == target or not astar.has_point(target_id):
 				continue
@@ -61,12 +56,12 @@ func get_new_path(start: Vector2, end: Vector2) -> Array:
 	return path_world
 
 
-func get_id_for_point(point: Vector2):
-	var x = point.x - used_rect.position.x
-	var y = point.y - used_rect.position.y
-	
-	return x + y * used_rect.size.x
-	
+func get_id_for_point(point: Vector2) -> int:
+	var x: int = (point.x as int) - (self.used_rect.position.x as int)
+	var y: int = (point.y as int) - (self.used_rect.position.y as int)
+	var id = x + y * used_rect.size.x
+	return id
+
 
 # USE THIS IN A LOOP FOR EACH REGION IN MAP IN THE BEGINNING
 func update_navigation_map(nodes_to_avoid, disable=true):

@@ -41,17 +41,17 @@ func _ready():
 ### OVERRIDE THE FOLLOWING FUNCTIONS ###
 # You just need to implement them. DON'T CALL THEM MANUALLY.
 
-func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
+func _pre_tick(agent: CharacterController, blackboard: Blackboard) -> void:
 	pass
 
 
 # This is where the core behavior goes and where the node state is changed.
 # You must return either succeed() or fail() (check below), not just set the state.
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	return succeed()
 
 
-func _post_tick(agent: Node, blackboard: Blackboard, result: bool) -> void:
+func _post_tick(agent: CharacterController, blackboard: Blackboard, result: bool) -> void:
 	pass
 
 ### DO NOT OVERRIDE ANYTHING FROM HERE ON ###
@@ -118,7 +118,7 @@ func get_state() -> String:
 
 
 # Again, DO NOT override this. 
-func tick(agent: Node, blackboard: Blackboard) -> bool:
+func tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	if not is_active:
 		return fail()
 	

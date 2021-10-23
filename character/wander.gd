@@ -1,7 +1,7 @@
 extends BTLeaf
 
 
-func _tick(agent: Node, _blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, _blackboard: Blackboard) -> bool:
 	#TODO : check to make sure target is not in the 'walkable" cells array and its within bounds
 	var boo = Vector2(Util.randi_range(-25,25), Util.randi_range(-25,25))
 	if Global.map_grid.is_within_bounds(Global.map_grid.calculate_grid_coordinates(boo + agent.position)):

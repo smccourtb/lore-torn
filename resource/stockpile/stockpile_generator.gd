@@ -30,7 +30,7 @@ func _on_Food_pressed() -> void:
 	create_stockpile("food", [])
 
 func create_stockpile(item_type: String, item_subtypes: Array):
-	var zone_selector = load("res://resource/stockpile/ZoneGenerator.tscn").instance()
+	var zone_selector: Node2D = load("res://resource/stockpile/ZoneGenerator.tscn").instance()
 	get_tree().get_root().add_child(zone_selector)
 	zone_selector.item = {item_type: item_subtypes}
 	zone_selector.type = "stockpile"

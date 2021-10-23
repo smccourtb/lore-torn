@@ -15,11 +15,11 @@ var ignore_reverse: bool = false
 
 
 
-func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
+func _pre_tick(agent: CharacterController, blackboard: Blackboard) -> void:
 	verified = true
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	if reverse and not ignore_reverse:
 		verified = not verified
 	
@@ -28,5 +28,5 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	return fail()
 
 
-func _post_tick(agent: Node, blackboard: Blackboard, result: bool) -> void:
+func _post_tick(agent: CharacterController, blackboard: Blackboard, result: bool) -> void:
 	pass

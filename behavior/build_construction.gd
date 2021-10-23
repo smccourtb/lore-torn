@@ -1,7 +1,7 @@
 extends BTLeaf
 
 
-func _tick(_agent: Node, blackboard: Blackboard) -> bool:
+func _tick(_agent: CharacterController, blackboard: Blackboard) -> bool:
 	# call the build method on construction
 	blackboard.get_data("construction").build()
 	# then erase it from the dictionary. returns true if found and erased

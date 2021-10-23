@@ -8,7 +8,7 @@ extends BTWait
 
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	if !wait_time || wait_time == 0:
 		wait_time = rand_range(.2, 1.5)
 		

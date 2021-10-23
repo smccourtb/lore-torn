@@ -30,7 +30,7 @@ func set_data(key: String, value) -> void:
 
 func get_data(key: String):
 	if data.has(key):
-		var value = data[key]
+		var value = data.get(key)
 		if value is NodePath:
 			if value.is_empty() or not get_tree().get_root().has_node(value):
 				data[key] = null

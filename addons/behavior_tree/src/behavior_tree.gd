@@ -12,7 +12,7 @@ export(bool) var debug = false
 
 var tick_result
 
-onready var agent = get_node(_agent) as Node
+onready var agent = get_node(_agent) as KinematicBody2D
 onready var blackboard = get_node(_blackboard) as Blackboard
 onready var bt_root = get_child(0) as BTNode
 

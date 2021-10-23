@@ -4,6 +4,6 @@ extends BTSequence
 # Just like a BTSequence, but the children are executed in random order.
 
 
-func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
+func _pre_tick(agent: CharacterController, blackboard: Blackboard) -> void:
 	randomize()
 	children.shuffle()

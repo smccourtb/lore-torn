@@ -10,7 +10,7 @@ onready var expected_result = bool(until_what)
 
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	var result = not expected_result
 	
 	while result != expected_result:

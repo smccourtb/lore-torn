@@ -3,7 +3,7 @@ extends BTConditional
 
 var have_materials: int = 0
 
-func _pre_tick(agent: Node, _blackboard: Blackboard) -> void:
+func _pre_tick(agent: CharacterController, _blackboard: Blackboard) -> void:
 	verified = false
 	
 	# dictionary of needed materials with type being the keys and amount being the value

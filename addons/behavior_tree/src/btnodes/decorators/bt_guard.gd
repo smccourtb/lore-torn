@@ -67,13 +67,13 @@ func check_lock(current_locker: BTNode):
 		lock()
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	if locked:
 		return fail()
 	return ._tick(agent, blackboard)
 
 
-func _post_tick(agent: Node, blackboard: Blackboard, result: bool) -> void:
+func _post_tick(agent: CharacterController, blackboard: Blackboard, result: bool) -> void:
 	if not locker:
 		check_lock(bt_child)
 

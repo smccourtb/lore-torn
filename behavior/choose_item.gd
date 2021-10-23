@@ -2,7 +2,7 @@ extends BTLeaf
 
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	# store reference in a variable to shorten things
 	var material_list: Array = blackboard.get_data("material_list")
 	# check if empty
@@ -12,7 +12,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 		var item = []
 		# check for subtype specification
 		if item_choice.values()[0].empty():
-			item = item_choice.keys()[0]
+			item = item_choice.keys()
 			blackboard.set_data("item_choice", item)
 			return succeed()
 		item.append(item_choice.keys()[0])

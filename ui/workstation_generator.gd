@@ -4,7 +4,7 @@ extends Control
 const CARPENTERS_WORKBENCH = "res://assets/props/carpenters_workbench.tres"
 
 var workstation_node = load("res://resource/workstations/Workstation.tscn")
-var generated_workstation
+var generated_workstation: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,8 +16,6 @@ func generate_workstation(w_name: String):
 	workstation.data = load_workstation_data(w_name)
 	workstation.get_node("Sprite").set_modulate(Color(1,1,1,.25))
 	get_tree().get_root().add_child(workstation)
-	
-	
 	return workstation
 	
 func load_workstation_data(w_name):

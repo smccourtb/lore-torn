@@ -12,7 +12,7 @@ func _ready():
 	assert(get_child_count() == 1, "A BTDecorator can only have one child.")
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	var result = bt_child.tick(agent, blackboard)
 	
 	if result is GDScriptFunctionState:

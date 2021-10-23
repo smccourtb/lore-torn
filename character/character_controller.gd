@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name CharacterController
 
 var data: Character
 
@@ -14,11 +15,14 @@ onready var path_line = get_node("Line2D")
 onready var movement = AIMovement.new(self)
 # TEMP VARIABLES END 
 var velocity: Vector2 = Vector2.ZERO
-var path: Array
+var path: Array # of Vector2s
 var target_direction: Vector2
-var target_position
+var target_position # Vector2 or null
 onready var pathfinding = get_parent().get_node("Pathfinding")
 
+func get_character_data() -> Character:
+	return data
+	
 func get_neighbors() -> Array:
 	return detect.get_overlapping_bodies()
 
@@ -36,16 +40,9 @@ func pickup(object):
 	object.get_parent().remove_child(object)
 	data.inventory.add_item(object)
 
-func find_closest_item(items=Global.items.keys()):
-	return find_closest(position, items)
-
 # Returns the stockpile reference that the item is located in or false
 func check_for_stored_item(item_type: String, item_subtype: String = "") -> Dictionary:
-	var stockpiles_to_search: Dictionary
-	if !item_subtype:
-		stockpiles_to_search = find_applicable_stockpiles(item_type)
-	else:
-		stockpiles_to_search = find_applicable_stockpiles(item_type, item_subtype)
+	var stockpiles_to_search: Dictionary = find_applicable_stockpiles(item_type, item_subtype)
 	while !stockpiles_to_search.empty():
 		var closest = find_closest(position, stockpiles_to_search.keys()).values()[0]
 		for i in stockpiles_to_search.values():
@@ -59,12 +56,8 @@ func check_for_stored_item(item_type: String, item_subtype: String = "") -> Dict
 func find_applicable_stockpiles(item_type: String, item_subtype: String = "") -> Dictionary:
 	# Returns a dictionary stockpiles {starting_position_of_stockpile: stockpile}
 	var applicable: = {}
-	# for each stockpile
 	for i in Global.stockpiles:
-		# check if there is a key that matches item_type
 		if i.allowed.has(item_type):
-			# if no subtype provided than add 
-			# {start_pos of stockpile (grid coord): stockpile reference}
 			if !item_subtype:
 				applicable[i.get_start_coord()] = i
 			else:
@@ -105,63 +98,23 @@ func find_closest(starting_position:Vector2, array_to_search: Array):
 		return {closest_object: dic[closest_object]}
 	return {}
 
+func find_closest_item(items=Global.items.keys()):
+	return find_closest(position, items)
 
-# generates an arry of strings that represent object types from a dictionary of materials and their amounts
-func convert_material_list(material_dict):
-	var material_list = []
-	for i in material_dict.keys():
-		for _j in range(material_dict[i]):
-			material_list.append(i)
-	print("MATERIAL LIST: ", material_list)
-	return material_list
+func move_to(pos: Vector2) -> bool:
+	path = pathfinding.get_new_path(position, pos)
+	set_path_line(path)
+	if path.size() > 1:
+		var desired_velocity = movement.get_pursue_velocity(path[1],0,0)
+		velocity = velocity.linear_interpolate(desired_velocity, .1)
+	if position.distance_to(pos) < 8:
+		velocity = Vector2.ZERO
+		return true
+	velocity = move_and_slide(velocity)
+	return false
 
+func get_target_position():
+	return target_position
 
-###########################33
-
-#const N = 1
-#const E = 2
-#const S = 4
-#const W = 8
-## Used for check_neighbor() function
-#var cell_walls = {Vector2(0, -1): N, Vector2(1, 0): E, 
-#				  Vector2(0, 1): S, Vector2(-1, 0): W}
-#
-#func check_neighbors(cell, unvisited):
-#	# returns an array of cell's unvisited neighbors
-#	var list = []
-#	for n in cell_walls.keys():
-#		if cell + n in unvisited:
-#			list.append(cell + n)
-#	return list
-
-
-#func find_nodes(starting_position: Vector2, item_type: String):
-##	populates unvisited array by looping through entire map
-#
-#	var closest_object:= {}
-#	var unvisited = []  # array of unvisited tiles
-#	var stack = []
-#	for x in range(Global.chunk_grid.size.x):
-#		for y in range(Global.chunk_grid.size.y):
-#			unvisited.append(Vector2(x, y))
-#	var current = Global.chunk_grid.calculate_grid_coordinates(starting_position)
-#	unvisited.erase(current)
-##
-##	# execute recursive backtracker algorithm
-#	while !closest_object:
-#		if closest_object.empty():
-#			closest_object = search_chunk(starting_position, current, item_type)
-#		var d = search_chunk(starting_position, current, item_type)
-#		if !d.empty():
-#			if d.keys()[0] < closest_object.keys()[0]:
-#				closest_object = d
-#		var neighbors = check_neighbors(current, unvisited)
-#		if neighbors.size() > 0:
-#			var next = neighbors[randi() % neighbors.size()]
-#			stack.append(current)
-#			current = next
-#			unvisited.erase(current)
-#		elif stack:
-#			current = stack.pop_back()
-#
-#	return closest_object.values()[0]
+func set_target_position(pos: Vector2) -> void:
+	self.target_position = pos

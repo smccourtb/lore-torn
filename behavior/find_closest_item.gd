@@ -1,7 +1,7 @@
 extends BTLeaf
 
 
-func _tick(agent: Node, _blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, _blackboard: Blackboard) -> bool:
 	var items_on_ground = Global.items.duplicate()
 	while !items_on_ground.empty():
 		# get the pos of the closest item in a copy of Global.items

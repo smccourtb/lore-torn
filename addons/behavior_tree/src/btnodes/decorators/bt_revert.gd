@@ -3,7 +3,7 @@ extends BTDecorator
 
 # Succeeds if the child fails and viceversa.
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	var result = bt_child.tick(agent, blackboard)
 	
 	if result is GDScriptFunctionState:

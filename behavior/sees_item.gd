@@ -8,13 +8,13 @@ extends BTConditional
 # during _pre_tick().
 
 
-func _pre_tick(_agent: Node, _blackboard: Blackboard) -> void:
+func _pre_tick(_agent: CharacterController, _blackboard: Blackboard) -> void:
 	verified = false
 	if !Global.items.empty():
 		verified = true
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	if reverse and not ignore_reverse:
 		verified = not verified
 	
@@ -23,6 +23,6 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	return fail()
 
 
-func _post_tick(_agent: Node, _blackboard: Blackboard, _result: bool) -> void:
+func _post_tick(_agent: CharacterController, _blackboard: Blackboard, _result: bool) -> void:
 	pass
 

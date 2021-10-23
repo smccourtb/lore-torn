@@ -1,15 +1,15 @@
 extends BTLeaf
 
 
-func _tick(agent: Node, _blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	# pull the most recent construction and set it to target so nobody else
 	# can choose the same construction
-	var target = Global.pending_constructions.pop_back()
+	var target: Node2D = Global.pending_constructions.pop_back()
 	# make sure target is not null
 	if target:
 		# save the construction object reference so we can build it when we get
 		# its set position
-		_blackboard.data["construction"] = target
+		blackboard.set_data("construction", target)
 		
 		# set the characters target position to the constructions position
 		agent.target_position = target.position

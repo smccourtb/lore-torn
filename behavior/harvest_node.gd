@@ -3,7 +3,7 @@ extends BTLeaf
 var target_node: Vector2
 var node_type: String
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	target_node = Global.map_grid.calculate_map_position(blackboard.get_data("target_node"))
 	node_type = blackboard.get_data("target_node_type")
 	# Erase from resource node dictionary

@@ -5,7 +5,7 @@ extends BTComposite
 # Successful if ALL the children are successful.
 # Fails if ANY of the children fails.
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	var result
 	
 	for c in children:

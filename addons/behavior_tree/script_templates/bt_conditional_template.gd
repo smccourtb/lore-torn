@@ -5,7 +5,7 @@ extends BTConditional
 
 
 # The condition is checked BEFORE ticking. So it should be in _pre_tick.
-func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
+func _pre_tick(agent: CharacterController, blackboard: Blackboard) -> void:
 	if not blackboard.get_data("my_key"):
 		verified = false
 		ignore_reverse = true # This is to ignore the reverse condition flag
@@ -20,5 +20,5 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 
 
 # (OPTIONAL) Do something after tick result is returned.
-func _post_tick(agent: Node, blackboard: Blackboard, result: bool) -> void:
+func _post_tick(agent: CharacterController, blackboard: Blackboard, result: bool) -> void:
 	blackboard.set_data("last_result", result)

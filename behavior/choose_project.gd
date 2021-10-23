@@ -1,7 +1,7 @@
 extends BTLeaf
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	# reference to all carpenter's workbenches {carpenters_workbench: {instance id: [projects, ...}, {..}, }
 	var orders: Dictionary = Global.workstation_orders.carpenters_workbench
 	# get the instance id to an active workstation (carpenters workbench for now)

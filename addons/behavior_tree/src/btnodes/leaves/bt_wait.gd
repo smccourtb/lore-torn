@@ -10,7 +10,7 @@ export(String) var time_in_bb: String
 
 
 
-func _tick(agent: Node, blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	if time_in_bb:
 		wait_time = blackboard.get_data(time_in_bb)
 	

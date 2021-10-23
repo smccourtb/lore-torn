@@ -1,7 +1,7 @@
 extends BTLeaf
 
 
-func _tick(agent: Node, _blackboard: Blackboard) -> bool:
+func _tick(agent: CharacterController, _blackboard: Blackboard) -> bool:
 	var create_item = agent.data.current_project.created_item
 	var new_item = load("res://resource/items/Item.tscn").instance()
 	new_item.data = create_item
