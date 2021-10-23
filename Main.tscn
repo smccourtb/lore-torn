@@ -12,6 +12,7 @@
 [ext_resource path="res://resource/grid/cell_grid.tres" type="Resource" id=11]
 
 [node name="Main" type="Node2D"]
+pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -22,6 +23,7 @@ pause_mode = 2
 [node name="Pathfinding" parent="." instance=ExtResource( 1 )]
 
 [node name="TileMap" type="TileMap" parent="."]
+pause_mode = 1
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 8, 8 )
 format = 1

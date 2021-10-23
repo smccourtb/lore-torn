@@ -8,7 +8,9 @@ var max_slots: int
 
 func _init(size) -> void:
 	self.max_slots = size
+	# make sure items is empty
 	self.items = []
+	# fill inventory slots with null as placeholders
 	for _i in range(max_slots):
 		self.items.append(null)
 	
@@ -39,9 +41,3 @@ func get_item_index(type: String, subtype: String = "") -> int:
 			return index
 		index += 1
 	return -1
-
-func check_if_full() -> bool:
-	var check_null = self.items.find(null , 0)
-	if check_null < 0:
-		return true
-	return false

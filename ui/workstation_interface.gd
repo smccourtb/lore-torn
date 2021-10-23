@@ -30,7 +30,7 @@ func _on_Button_pressed(project, ref) -> void:
 	queue_free()
 	
 	
-func check_if_available_materials(project):
+func check_if_available_materials(project) -> bool:
 	var material_pos: = {}
 	var item_pos = []
 	var total_need: int = 0

@@ -5,7 +5,6 @@ var allowed: = {}
 var grid: Grid = Global.map_grid
 var slot_coords: Array # grid coordinates (tile)
 var rect: Rect2
-var excluded_coords: Array
 var color: Color
 
 func _init(allowed_items: Dictionary, rectangle).(rectangle.size.x * rectangle.size.y) -> void:
@@ -16,7 +15,7 @@ func _init(allowed_items: Dictionary, rectangle).(rectangle.size.x * rectangle.s
 	self.rect = rectangle
 	slot_coords = get_slot_coordinates(rectangle.size)
 	update_map_data()
-	remove_occupied_tiles()
+	
 	set_color()
 	
 func get_slot_coordinates(size):
@@ -34,11 +33,12 @@ func action(character, held_item):
 	held_item.position = grid.calculate_map_position(slot_coords[x])
 	character.get_parent().add_child(held_item)
 
-func remove_occupied_tiles():
-	for i in excluded_coords:
+func remove_occupied_tiles(tiles: Array) -> void:
+	for i in tiles:
 		slot_coords.erase(Global.map_grid.calculate_grid_coordinates(i))
 
 func update_map_data():
+	var excluded_coords: Array = []
 	# also finds cells in stockpile that are already occupied
 	for i in slot_coords:
 		var convert_to_map = grid.calculate_map_position(i)
@@ -54,6 +54,7 @@ func update_map_data():
 			excluded_coords.append(converted_i)
 		if Global.map_data[chunk_pos].nodes.plant.get(converted_i, null):
 			excluded_coords.append(converted_i)
+		remove_occupied_tiles(excluded_coords)
 
 func set_color():
 	if "wood" in allowed.keys():
@@ -62,3 +63,5 @@ func set_color():
 func find_empty_slot() -> int: # if -1 then stockpile is full
 	return self.items.find(null , 0)
 	
+func get_start_coord() -> Vector2:
+	return rect.position

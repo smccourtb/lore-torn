@@ -19,13 +19,6 @@ var target_direction: Vector2
 var target_position
 onready var pathfinding = get_parent().get_node("Pathfinding")
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.is_pressed():
-		if event.get_scancode() == KEY_SPACE:
-			print(check_for_stored_item("wood"))
-func _ready() -> void:
-	pass
-
 func get_neighbors() -> Array:
 	return detect.get_overlapping_bodies()
 
@@ -33,57 +26,21 @@ func get_move_speed() -> float:
 	return 3.0 * run_speed
 	
 func set_path_line(points: Array):
+	# Used for debug purposes
 	var local_points:= []
 	for point in points:
 		local_points.append(point - global_position)
 	path_line.points = local_points
 
-
-func pickup_object(object_type):
-	var nearest = find_nearest_object(object_type, Global.items[object_type])
-	if nearest.object == null:
-		return false
-	pickup(nearest.object)
-	return true
-
 func pickup(object):
 	object.get_parent().remove_child(object)
 	data.inventory.add_item(object)
-#	held = object
-
-# Actions for GOAP
-
-func pickup_nearest_object(object_type):
-	var object = find_nearest_object(object_type, Global.items[object_type]).object
-	if object == null:
-		return false
-	return pickup_object(object_type)
-
-func use_nearest_object(object_type: String):
-	var object = find_nearest_object(object_type, Global.resource_nodes[object_type]).object
-	if object == null:
-		return false
-	return object.action(self)
-
-
-# Used for finding item on the ground to haul to stockpiles (Global.items = {pos: instance_id})
-func find_nearest_object(object_type = null, arr:= []):
-	var nearest_distance = 10000000
-	var nearest_object = null
-	# TODO: look to global list of OBJECT_TYPE
-	for o in arr:
-		var distance = position.distance_to(o.position)
-		if !(o is KinematicBody2D) || o is Item:
-			if o != self and o.get_script() != null and (object_type == null or o.get_object_type() == object_type) and distance < nearest_distance:
-				nearest_distance = distance
-				nearest_object = o
-	return { object=nearest_object, distance=nearest_distance }
 
 func find_closest_item(items=Global.items.keys()):
 	return find_closest(position, items)
 
 # Returns the stockpile reference that the item is located in or false
-func check_for_stored_item(item_type: String, item_subtype: String = ""):
+func check_for_stored_item(item_type: String, item_subtype: String = "") -> Dictionary:
 	var stockpiles_to_search: Dictionary
 	if !item_subtype:
 		stockpiles_to_search = find_applicable_stockpiles(item_type)
@@ -97,19 +54,23 @@ func check_for_stored_item(item_type: String, item_subtype: String = ""):
 				stockpiles_to_search.erase(i)
 				if search:
 					return {search: i} 
-	return false
+	return {}
 		
-func find_applicable_stockpiles(item_type: String, item_subtype: String = ""):
+func find_applicable_stockpiles(item_type: String, item_subtype: String = "") -> Dictionary:
 	# Returns a dictionary stockpiles {starting_position_of_stockpile: stockpile}
-	var applicable = {}
+	var applicable: = {}
+	# for each stockpile
 	for i in Global.stockpiles:
+		# check if there is a key that matches item_type
 		if i.allowed.has(item_type):
+			# if no subtype provided than add 
+			# {start_pos of stockpile (grid coord): stockpile reference}
 			if !item_subtype:
-				#if !i.check_if_full():
-				applicable[i.rect.position] = i
+				applicable[i.get_start_coord()] = i
 			else:
-				if item_subtype in i.allowed[item_type] or i.allowed[item_type].empty():
-					applicable[i.rect.position] = i
+				# check if subtype is allowed in stockpile or if its an empty array
+				if i.allowed[item_type].empty() || item_subtype in i.allowed[item_type]:
+					applicable[i.get_start_coord()] = i
 	return applicable
 
 func check_stockpile_for_item(item_type: String, stockpile: Stockpile, item_subtype: String = ""):

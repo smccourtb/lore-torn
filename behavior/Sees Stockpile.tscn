@@ -2,10 +2,10 @@
 
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_sequence.gd" type="Script" id=1]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/decorators/bt_repeat_until.gd" type="Script" id=2]
-[ext_resource path="res://behavior/sees_wood.gd" type="Script" id=4]
+[ext_resource path="res://behavior/sees_item.gd" type="Script" id=4]
 [ext_resource path="res://behavior/walk_to_wood.gd" type="Script" id=5]
 [ext_resource path="res://behavior/walk_to_stockpile.gd" type="Script" id=6]
-[ext_resource path="res://behavior/store_wood.gd" type="Script" id=7]
+[ext_resource path="res://behavior/store_item.gd" type="Script" id=7]
 [ext_resource path="res://behavior/pickup_wood.gd" type="Script" id=8]
 [ext_resource path="res://behavior/find_closest_item.gd" type="Script" id=9]
 
@@ -37,6 +37,6 @@ until_what = 1
 script = ExtResource( 6 )
 debug = true
 
-[node name="Store Wood" type="Node" parent="BTSequence"]
+[node name="Store Item" type="Node" parent="BTSequence"]
 script = ExtResource( 7 )
 debug = true

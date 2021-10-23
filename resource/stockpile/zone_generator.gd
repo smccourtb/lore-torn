@@ -38,6 +38,7 @@ func _unhandled_input(event):
 				var rect = Rect2(start, (end-start) + Vector2(1,1))
 				var x = Stockpile.new(item, rect)
 				Global.stockpiles.append(x)
+				# TODO: tie into a function that sets the tile coord data in map_data
 				SignalBus.emit_signal("stockpile_created", x)
 				
 			queue_free()

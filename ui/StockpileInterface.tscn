@@ -39,7 +39,7 @@ margin_bottom = 26.0
 [node name="Return" type="Button" parent="MarginContainer/HBoxContainer"]
 visible = false
 margin_left = 46.0
-margin_right = 100.0
+margin_right = 92.0
 margin_bottom = 26.0
 text = "Return"
 

@@ -34,7 +34,6 @@ func _ready() -> void:
 		add_child(new_character)
 		# and finally set the position
 		new_character.position = Vector2(Util.randi_range(0, 300), Util.randi_range(0, 300))
-
 func _process(_delta: float) -> void:
 #	time.advance(_delta) # Start the clock
 #	print(time.get_time_as_dictionary())
@@ -62,7 +61,8 @@ func _input(event: InputEvent) -> void:
 			$CanvasLayer.add_child(workstation_generator)
 		if event.get_scancode() == KEY_ESCAPE:
 			$Cursor2.visible = !$Cursor2.visible
-			
+		if event.get_scancode() == KEY_SPACE:
+			get_tree().paused = !get_tree().paused
 				
-	
+		
 

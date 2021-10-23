@@ -1,9 +1,6 @@
 extends Control
 
-var show_stockpiles: bool = false
 var chunk_cell: Vector2
-var edit_mode:bool = false
-var stockpile_selected: Stockpile
 onready var create_stockpile_button = preload("res://ui/CreateStockpile.tscn")
 
 func _ready() -> void:

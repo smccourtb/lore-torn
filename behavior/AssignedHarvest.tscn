@@ -34,4 +34,3 @@ wait_time = 2.0
 
 [node name="Harvest Node" type="Node" parent="Sees Node\?/BTSequence"]
 script = ExtResource( 7 )
-debug = true

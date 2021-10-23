@@ -16,7 +16,7 @@ var walkable_cells = []
 var map_data: = {}
 # map_data = {chunks:
 #				cells:{tile: { tile_id:___, walkable:____}}
-#				nodes:{ tree: {pos, data}, mineral: {pos, data}, plant: {pos, data}}
+#				nodes:{ tree: {pos: node}, mineral: {pos, node}, plant: {pos, node}}
 
 
 var pending_constructions = []

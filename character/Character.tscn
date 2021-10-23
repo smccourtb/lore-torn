@@ -22,6 +22,7 @@ radius = 3.58041
 height = 1.55687
 
 [node name="Character" type="KinematicBody2D"]
+pause_mode = 1
 collision_layer = 0
 script = ExtResource( 2 )
 
@@ -83,3 +84,4 @@ script = ExtResource( 10 )
 [editable path="BehaviorTree/BTSelector/Any Constructions?"]
 [editable path="BehaviorTree/BTSelector/Assigned Carpenter?"]
 [editable path="BehaviorTree/BTSelector/Sees Stockpile?"]
+[editable path="BehaviorTree/BTSelector/Assigned Harvest?"]

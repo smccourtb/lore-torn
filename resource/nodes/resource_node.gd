@@ -32,7 +32,8 @@ func get_name() -> String:
 	return data.name
 	
 func action(character):
-	
+	#TODO: route this to a function that removes itself from the map data and resource nodes dictionaries 
+	# instead of doing it in the behavior trees
 	SignalBus.emit_signal("resource_removed", get_object_type(), position)
 	character.data.energy_level -= 1 # just testing #TODO: decrease by (size of tree, strength, skill)
 	drop_items()

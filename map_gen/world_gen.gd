@@ -275,7 +275,7 @@ class Chunk:
 					map.set_cellv(tilepos, id)
 					map.update_bitmask_area(tilepos)
 				
-				cells[tilepos] = {"id":id, "chunk":pos}
+				cells[tilepos] = {"id":id}
 				
 				if node_present:
 					# add resource node to map_data node dictionary
