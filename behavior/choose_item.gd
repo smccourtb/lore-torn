@@ -1,12 +1,11 @@
 extends BTLeaf
 
 
-
 func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	# store reference in a variable to shorten things
 	var material_list: Array = blackboard.get_data("material_list")
 	# check if empty
-	if !material_list.empty():
+	if not material_list.empty():
 		# pull the last item and store it
 		var item_choice: Dictionary = material_list.pop_back()
 		var item = []

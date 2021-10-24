@@ -5,7 +5,7 @@ func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	# reference to all carpenter's workbenches {carpenters_workbench: {instance id: [projects, ...}, {..}, }
 	var orders: Dictionary = Global.workstation_orders.carpenters_workbench
 	# get the instance id to an active workstation (carpenters workbench for now)
-	# there could be multiple workstations in this list so we just pull thie last
+	# there could be multiple workstations in this list so we just pull the last
 	# out.
 	var workstation: int = orders.keys().back()
 	# check if it has any projects

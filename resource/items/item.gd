@@ -1,7 +1,6 @@
 extends KinematicBody2D
 class_name Item
 
-onready var sprite = $Sprite
 # Timer to delay pickup to allow them a moment to spawn and the player to see them
 var data: Resource
 var type: String
@@ -15,7 +14,7 @@ func _ready():
 	id = get_instance_id()
 	
 func setup_node(item_data) -> void:
-	$Sprite.texture = item_data.texture
+	($Sprite as Sprite).set_texture(item_data.texture)
 	type = item_data.type
 	subtype = item_data.subtype
 	data = null
@@ -33,3 +32,12 @@ func spawn(at : Vector2):
 
 func get_class():
 	return "Item"
+
+func get_id() -> int:
+	return self.id
+
+func get_selected() -> bool:
+	return selected
+
+func set_selected(to: bool):
+	self.selected = to

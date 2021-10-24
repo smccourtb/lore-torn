@@ -12,6 +12,6 @@ script = ExtResource( 1 )
 texture = SubResource( 1 )
 name = "oak_log"
 type = "wood"
-subtype = "hickory"
+subtype = "oak"
 unique = false
 ingredients = [  ]

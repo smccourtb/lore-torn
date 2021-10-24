@@ -8,7 +8,7 @@ extends Resource
 export var size : Vector2
 # The size of a cell in pixels.
 export var cell_size : Vector2
-var _half_cell_size
+var _half_cell_size: Vector2
 func _init():
 	set_half_cell_size()
 #	self.size = Vector2(abs(map_size.x), abs(map_size.y))

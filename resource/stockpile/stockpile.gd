@@ -7,7 +7,7 @@ var slot_coords: Array # grid coordinates (tile)
 var rect: Rect2
 var color: Color
 
-func _init(allowed_items: Dictionary, rectangle).(rectangle.size.x * rectangle.size.y) -> void:
+func _init(allowed_items: Dictionary, rectangle: Rect2).(rectangle.size.x * rectangle.size.y) -> void:
 	self.allowed = allowed_items
 	if rectangle.size < Vector2(0,0):
 		rectangle.position += rectangle.size
@@ -18,8 +18,8 @@ func _init(allowed_items: Dictionary, rectangle).(rectangle.size.x * rectangle.s
 	
 	set_color()
 	
-func get_slot_coordinates(size):
-	var stockpile_coords = []
+func get_slot_coordinates(size: Vector2) -> Array:
+	var stockpile_coords: = []
 	for y in size.y:
 		for x in size.x:
 			stockpile_coords.append(rect.position + Vector2(x, y))
@@ -28,10 +28,11 @@ func get_slot_coordinates(size):
 #									Vector2(x * grid.cell_size.x, y * grid.cell_size.y))
 	return stockpile_coords
 
-func action(character, held_item):
-	var x = .add_item(held_item)
-	held_item.position = grid.calculate_map_position(slot_coords[x])
-	character.get_parent().add_child(held_item)
+func store_item(character: KinematicBody2D, item: Item):
+	var index: int = .add_item(item)
+	var pos: Vector2 = grid.calculate_map_position(slot_coords[index])
+	item.set_position(pos)
+	character.get_parent().add_child(item)
 
 func remove_occupied_tiles(tiles: Array) -> void:
 	for i in tiles:
@@ -60,8 +61,11 @@ func set_color():
 	if "wood" in allowed.keys():
 		color =  Color( 0.52, 0.41, 0.12, 1 )
 
-func find_empty_slot() -> int: # if -1 then stockpile is full
-	return self.items.find(null , 0)
-	
 func get_start_coord() -> Vector2:
 	return rect.position
+
+func get_stored_item(index) -> Item:
+	var item = items[index]
+	if item:
+		return items
+	return null

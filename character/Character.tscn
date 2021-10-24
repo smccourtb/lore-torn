@@ -63,7 +63,22 @@ debug = true
 [node name="Choose Project" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence" index="0"]
 debug = true
 
+[node name="Choose Item" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence" index="0"]
+debug = true
+
+[node name="Walk to Item" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence/BTRepeatUntil" index="0"]
+debug = true
+
+[node name="Pickup Item" parent="BehaviorTree/BTSelector/Assigned Carpenter\?/Any Work Orders\?/BTSequence/BTRepeatUntil2/BTSequence" index="2"]
+debug = true
+
 [node name="Sees Stockpile\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 7 )]
+
+[node name="Walk To Item" parent="BehaviorTree/BTSelector/Sees Stockpile\?/BTSequence/BTRepeatUntil" index="0"]
+debug = false
+
+[node name="Walk To Stockpile" parent="BehaviorTree/BTSelector/Sees Stockpile\?/BTSequence/BTRepeatUntil2" index="0"]
+debug = false
 
 [node name="Assigned Harvest\?" parent="BehaviorTree/BTSelector" instance=ExtResource( 6 )]
 

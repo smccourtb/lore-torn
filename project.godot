@@ -888,6 +888,11 @@ _global_script_classes=[ {
 "class": "_TestSuiteScanner",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/_TestSuiteScanner.gd"
+}, {
+"base": "GdUnitTestSuite",
+"class": "globalTest",
+"language": "GDScript",
+"path": "res://test/globalTests/globalTest.gd"
 } ]
 _global_script_class_icons={
 "AIContext": "",
@@ -1065,7 +1070,8 @@ _global_script_class_icons={
 "Workstation": "",
 "WorkstationTemplate": "",
 "_TestCase": "",
-"_TestSuiteScanner": ""
+"_TestSuiteScanner": "",
+"globalTest": ""
 }
 
 [application]
