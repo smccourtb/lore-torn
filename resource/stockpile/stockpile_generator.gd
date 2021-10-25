@@ -1,6 +1,6 @@
 extends MarginContainer
 
-
+onready var custom = preload("res://CustomStockpileInterface.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -29,8 +29,15 @@ func _on_Furniture_pressed() -> void:
 func _on_Food_pressed() -> void:
 	create_stockpile("food", [])
 
+func _on_Custom_pressed() -> void:
+	var menu: Control = custom.instance()
+	get_parent().add_child(menu)
+	
 func create_stockpile(item_type: String, item_subtypes: Array):
 	var zone_selector: Node2D = load("res://resource/stockpile/ZoneGenerator.tscn").instance()
 	get_tree().get_root().add_child(zone_selector)
 	zone_selector.item = {item_type: item_subtypes}
 	zone_selector.type = "stockpile"
+
+
+

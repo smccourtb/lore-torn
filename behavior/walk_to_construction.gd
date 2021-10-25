@@ -15,4 +15,3 @@ func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
 	if agent.move_to(target_pos):
 		return succeed()
 	return fail()
-	

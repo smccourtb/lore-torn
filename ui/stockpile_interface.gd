@@ -2,6 +2,7 @@ extends Control
 
 var chunk_cell: Vector2
 onready var create_stockpile_button = preload("res://ui/CreateStockpile.tscn")
+onready var custom = preload("res://CustomStockpileInterface.tscn")
 
 func _ready() -> void:
 	SignalBus.connect("chunk_pressed", self, "_onChunkGrid")
@@ -30,6 +31,9 @@ func _on_CreateStockpile_pressed() -> void:
 func _on_Button_pressed(toggled, s):
 	if toggled:
 		show_stockpile(s)
+		var menu = custom.instance()
+		menu.stockpile = s
+		add_child(menu)
 	else:
 		hide_stockpile_border()
 		
@@ -72,8 +76,18 @@ func build_user_stockpile_buttons():
 		button.toggle_mode = true
 		button.connect("toggled", self, "_on_Button_pressed", [i])
 		$MarginContainer/HBoxContainer.add_child(button)
+	
 
 func hide_stockpile_border():
 	var piles_to_remove = get_tree().get_nodes_in_group("stockpiles")
 	for i in piles_to_remove:
 		i.queue_free()
+
+func create_custom_button():
+	var button: Button = Button.new()
+	button.set_text("Custom")
+	button.set_toggle_mode(true)
+	button.connect("toggled", self, "_on_Button_pressed")
+	$MarginContainer/HBoxContainer.add_child(button)
+	
+	

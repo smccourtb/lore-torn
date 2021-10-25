@@ -40,7 +40,6 @@ func pickup(object):
 
 # Returns the stockpile reference that the item is located in or false
 func check_for_stored_item(item_type: String, item_subtype: String = "") -> Dictionary:
-	
 	var stockpiles_to_search: Dictionary = find_applicable_stockpiles(item_type, item_subtype)
 	while not stockpiles_to_search.empty():
 		var closest = find_closest(position, stockpiles_to_search.keys()).values()[0]

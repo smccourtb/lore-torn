@@ -35,6 +35,7 @@ margin_right = 320.0
 margin_bottom = 26.0
 
 [node name="CreateStockpile" parent="MarginContainer/HBoxContainer" instance=ExtResource( 3 )]
+margin_right = 54.0
 
 [node name="Return" type="Button" parent="MarginContainer/HBoxContainer"]
 visible = false

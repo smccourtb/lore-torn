@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://checkbox_unactive.tres" type="StyleBox" id=1]
+[ext_resource path="res://stockpile_checkbox.gd" type="Script" id=2]
+[ext_resource path="res://checkbox_active.tres" type="StyleBox" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="MarginContainer" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -237.0
+margin_bottom = -84.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 59.0
+margin_bottom = 25.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_constants/separation = 0
+
+[node name="CheckBox" type="Button" parent="HBoxContainer"]
+margin_right = 16.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 16, 16 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+toggle_mode = true
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_left = 16.0
+margin_right = 59.0
+margin_bottom = 25.0
+text = "Oak"

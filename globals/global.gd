@@ -25,7 +25,8 @@ func chunk_pos(position):
 
 func _ready():
 	SignalBus.connect("resource_removed", self, "_on_resource_Removed")
-	
+	var x = [{"type":'hi', "subtype": 'ho', "index":1, "id": 2}]
+
 func _on_resource_Removed(ref, pos):
 	print(ref, "has been removed at ", pos)
 

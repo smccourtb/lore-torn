@@ -14,5 +14,4 @@ name = "Carpenter's Workbench"
 texture = SubResource( 1 )
 project_options = [ ExtResource( 1 ) ]
 materials = {
-"wood": 2
 }
