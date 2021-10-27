@@ -13,5 +13,3 @@ texture = SubResource( 1 )
 name = "strawberry"
 type = "food"
 subtype = "strawberry"
-unique = false
-ingredients = [  ]

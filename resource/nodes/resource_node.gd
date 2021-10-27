@@ -58,7 +58,7 @@ func drop_items():
 		item = item.instance()
 		
 		var x = Util.choose(drops)
-		item.data = x
+		item.setup_node(x)#data = x
 		get_parent().add_child(item)
 		
 		item.spawn(at)

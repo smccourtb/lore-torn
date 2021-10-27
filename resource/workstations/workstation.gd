@@ -15,21 +15,6 @@ func setup_node(resource_data: WorkstationTemplate):
 	($Sprite as Sprite).set_texture(resource_data.get_texture())
 	projects = resource_data.project_options
 	id = get_instance_id()
-	
-func action(character):
-	# we need what we want to craft
-	# we need the mats for said goal
-	# we need to check if those mats are in character inventory
-		# OR maybe in its own little inventory that the character deposits
-		# would need to check if all mats are available before beginning such a task
-	# delete mats
-	# return crafted item
-	# or put in characters inventory
-	# OR check if available stockpile
-		# if yes go drop it off there
-		# if no then drop it in one of the 9 squares or however many around the workstation
-			# if there are none available the area is cluttered and you need to resolve it before that workstation can be used again.
-	pass
 
 func build():
 	status = true

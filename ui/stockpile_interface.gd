@@ -65,8 +65,8 @@ func _on_StockpileCreated(stockpile):
 func _on_Return_pressed() -> void:
 	get_node("MarginContainer/HBoxContainer/MarginContainer").queue_free()
 	build_user_stockpile_buttons()
-	$MarginContainer/HBoxContainer/Return.visible = false
-	$MarginContainer/HBoxContainer/CreateStockpile.visible = true
+	$MarginContainer/HBoxContainer/Return.set_visible(false)
+	$MarginContainer/HBoxContainer/CreateStockpile.set_visible(true)
 	hide_stockpile_border()
 
 func build_user_stockpile_buttons():
