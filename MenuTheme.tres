@@ -3,25 +3,25 @@
 [ext_resource path="res://assets/font/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/ui/checkboxes-and-radiobuttons-original.png" type="Texture" id=2]
 
-[sub_resource type="StyleBoxTexture" id=11]
+[sub_resource type="StyleBoxTexture" id=1]
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 1 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
 region = Rect2( 144, 16, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
 region = Rect2( 112, 16, 16, 16 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=5]
 size = 8
 font_data = ExtResource( 1 )
 
 [resource]
-default_font = SubResource( 10 )
+default_font = SubResource( 5 )
 Button/colors/font_color = Color( 0, 0, 0, 1 )
 Button/colors/font_color_disabled = Color( 0, 0, 0, 1 )
 Button/colors/font_color_hover = Color( 0, 0, 0, 1 )
@@ -31,7 +31,7 @@ Button/fonts/font = null
 Button/styles/disabled = null
 Button/styles/focus = null
 Button/styles/hover = null
-Button/styles/normal = SubResource( 11 )
+Button/styles/normal = SubResource( 1 )
 Button/styles/pressed = null
 CheckBox/colors/font_color = Color( 0, 0, 0, 1 )
 CheckBox/colors/font_color_disabled = Color( 0, 0, 0, 1 )
@@ -40,11 +40,11 @@ CheckBox/colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
 CheckBox/colors/font_color_pressed = Color( 0, 0, 0, 1 )
 CheckBox/constants/check_vadjust = 9
 CheckBox/constants/hseparation = -5
-CheckBox/fonts/font = SubResource( 6 )
-CheckBox/icons/checked = SubResource( 7 )
+CheckBox/fonts/font = SubResource( 2 )
+CheckBox/icons/checked = SubResource( 3 )
 CheckBox/icons/radio_checked = null
 CheckBox/icons/radio_unchecked = null
-CheckBox/icons/unchecked = SubResource( 9 )
+CheckBox/icons/unchecked = SubResource( 4 )
 CheckBox/styles/disabled = null
 CheckBox/styles/focus = null
 CheckBox/styles/hover = null

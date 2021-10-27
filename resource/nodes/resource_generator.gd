@@ -4,7 +4,7 @@ extends Resource
 var resource_node: PackedScene = preload("res://resource/nodes/ResourceNode.tscn")
 var tree: Dictionary = {"oak": "res://resource/nodes/trees/oak_tree.tres"}
 var mineral: Dictionary = {"stone": "res://resource/nodes/minerals/stone.tres"}
-var plant: Dictionary
+var plant: Dictionary = {"strawberry": "res://resource/nodes/plants/strawberry_bush.tres"}
 
 
 func generate_tree(type: String):

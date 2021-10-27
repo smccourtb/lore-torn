@@ -275,7 +275,7 @@ custom_constants/margin_top = 10
 
 [node name="HBoxContainer" parent="Panel/HBoxContainer/Food/MarginContainer" index="0"]
 margin_top = 10.0
-margin_right = 30.0
+margin_right = 47.0
 margin_bottom = 26.0
 
 [node name="CheckBox" parent="Panel/HBoxContainer/Food/MarginContainer/HBoxContainer" index="0"]
@@ -283,12 +283,11 @@ margin_bottom = 16.0
 
 [node name="Label" parent="Panel/HBoxContainer/Food/MarginContainer/HBoxContainer" index="1"]
 margin_top = 4.0
-margin_right = 30.0
+margin_right = 47.0
 margin_bottom = 11.0
-text = "Apple"
+text = "Strawberry"
 
 [connection signal="toggled" from="Panel/HBoxContainer/Wood/Oak/HBoxContainer/CheckBox" to="." method="_on_CheckBox_toggled" binds= [ "wood", "oak" ]]
-[connection signal="toggled" from="Panel/HBoxContainer/Wood/Oak/HBoxContainer/CheckBox" to="." method="_on_OakWood_toggled"]
 [connection signal="toggled" from="Panel/HBoxContainer/Wood/Hickory/HBoxContainer/CheckBox" to="." method="_on_CheckBox_toggled" binds= [ "wood", "hickory" ]]
 [connection signal="toggled" from="Panel/HBoxContainer/Wood/Willow/HBoxContainer/CheckBox" to="." method="_on_CheckBox_toggled" binds= [ "wood", "willow" ]]
 [connection signal="toggled" from="Panel/HBoxContainer/Wood/Birch/HBoxContainer/CheckBox" to="." method="_on_CheckBox_toggled" binds= [ "wood", "birch" ]]

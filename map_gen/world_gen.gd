@@ -250,7 +250,7 @@ class Chunk:
 				var id = map.TileAtPos(tilepos.x, tilepos.y, biome)
 				
 				var node_present: bool = false # Used to indicate whether a resource node is present in the cell
-				var node_choice = Util.choose([["mineral", "stone"], ["tree", "oak"]])
+				var node_choice = Util.choose([["mineral", "stone"], ["tree", "oak"], ["plant", "strawberry"]])
 				var node
 				if id == tiles.ForgottenPlains_Grass:
 					map.set_cellv(tilepos, 0)
