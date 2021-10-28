@@ -1,11 +1,8 @@
-extends Item
-class_name Furniture
+extends Node2D
 
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
+onready var item = preload("res://resource/items/Item.tscn")
+var starting_items = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

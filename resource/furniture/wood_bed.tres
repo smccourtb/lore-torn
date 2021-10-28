@@ -13,5 +13,3 @@ texture = SubResource( 1 )
 name = "bed"
 type = "furniture"
 subtype = "bed"
-unique = false
-ingredients = [  ]

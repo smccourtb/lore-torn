@@ -63,6 +63,9 @@ func _input(event: InputEvent) -> void:
 			$Cursor2.visible = !$Cursor2.visible
 		if event.get_scancode() == KEY_SPACE:
 			get_tree().paused = !get_tree().paused
+		if event.get_scancode() == KEY_C:
+			var construction_generator = load("res://ConstructionInterface.tscn").instance()
+			$CanvasLayer.add_child(construction_generator)
 				
 		
 

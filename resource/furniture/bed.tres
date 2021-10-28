@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://resource/workstations/furniture_template.gd" type="Script" id=1]
+[ext_resource path="res://resource/furniture/wood_bed.tres" type="Resource" id=2]
+[ext_resource path="res://assets/props/AdventurersCampsite.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 24, 128, 16, 16 )
+
+[resource]
+script = ExtResource( 1 )
+name = "bed"
+texture = SubResource( 1 )
+materials = {
+"furniture": "bed"
+}
+type = "bed"
+components = [ ExtResource( 2 ) ]

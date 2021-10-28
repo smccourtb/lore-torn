@@ -1,10 +1,12 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://resource/items/furniture/furniture.gd" type="Script" id=1]
+[ext_resource path="res://resource/items/weapon.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5, 5 )
 
-[node name="Furniture" type="StaticBody2D"]
+[node name="Weapon" type="KinematicBody2D"]
+collision_layer = 0
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
