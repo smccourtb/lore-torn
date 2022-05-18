@@ -107,11 +107,11 @@ static func error_is_instanceof(current: Result, expected :Result) -> String:
 		_expected(expected.or_else(null)), _current(current.or_else(null))]
 
 # -- Boolean Assert specific messages -----------------------------------------------------
-static func error_is_true() -> String:
-	return "%s %s but is %s" % [_error("Expecting:"), _expected(true), _current(false)]
+static func error_is_true(current) -> String:
+	return "%s %s but is %s" % [_error("Expecting:"), _expected(true), _current(current)]
 
-static func error_is_false() -> String:
-	return "%s %s but is %s" % [_error("Expecting:"), _expected(false), _current(true)]
+static func error_is_false(current) -> String:
+	return "%s %s but is %s" % [_error("Expecting:"), _expected(false), _current(current)]
 
 
 
@@ -183,23 +183,24 @@ static func error_ends_with(current, expected) -> String:
 	return "%s\n %s\n to end with\n %s" % [_error("Expecting:"), _current(current), _expected(expected)]
 
 static func error_has_length(current, expected: int, compare_operator) -> String:
+	var current_length = current.length() if current != null else null
 	match compare_operator:
 		Comparator.EQUAL:
-			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size:"), _expected(expected), _nerror(current.length()), _current(current)]
+			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size:"), _expected(expected), _nerror(current_length), _current(current)]
 		Comparator.LESS_THAN:
-			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size to be less than:"), _expected(expected), _nerror(current.length()), _current(current)]
+			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size to be less than:"), _expected(expected), _nerror(current_length), _current(current)]
 		Comparator.LESS_EQUAL:
-			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size to be less than or equal:"), _expected(expected), _nerror(current.length()), _current(current)]
+			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size to be less than or equal:"), _expected(expected), _nerror(current_length), _current(current)]
 		Comparator.GREATER_THAN:
-			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size to be greater than:"), _expected(expected), _nerror(current.length()), _current(current)]
+			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size to be greater than:"), _expected(expected), _nerror(current_length), _current(current)]
 		Comparator.GREATER_EQUAL:
-			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size to be greater than or equal:"), _expected(expected), _nerror(current.length()), _current(current)]
+			return "%s\n %s but was '%s' in\n %s" % [_error("Expecting size to be greater than or equal:"), _expected(expected), _nerror(current_length), _current(current)]
 	return "TODO create expected message"
 
 
 
 # - ArrayAssert specific messgaes ---------------------------------------------------
-static func error_arr_contains(current :Array, expected :Array, not_expect :Array, not_found :Array) -> String:
+static func error_arr_contains(current, expected :Array, not_expect :Array, not_found :Array) -> String:
 	var error := "%s\n %s\n do contains (in any order)\n %s" % [_error("Expecting contains elements:"), _current(current, ", "), _expected(expected, ", ")]
 	if not not_expect.empty():
 		error += "\nbut some elements where not expected:\n %s" % _expected(not_expect, ", ")
@@ -208,7 +209,7 @@ static func error_arr_contains(current :Array, expected :Array, not_expect :Arra
 		error += "\n%s could not find elements:\n %s" % [prefix, _expected(not_found, ", ")]
 	return error
 
-static func error_arr_contains_exactly(current :Array, expected :Array, not_expect :Array, not_found :Array) -> String:
+static func error_arr_contains_exactly(current, expected :Array, not_expect :Array, not_found :Array) -> String:
 	if not_expect.empty() and not_found.empty():
 		var diff := _find_first_diff(current, expected)
 		return "%s\n %s\n do contains (in same order)\n %s\n but has different order %s"  % [_error("Expecting contains exactly elements:"), _current(current, ", "), _expected(expected, ", "), diff]
@@ -221,7 +222,7 @@ static func error_arr_contains_exactly(current :Array, expected :Array, not_expe
 		error += "\n%s could not find elements:\n %s" % [prefix, _expected(not_found, ", ")]
 	return error
 
-static func error_arr_contains_exactly_in_any_order(current :Array, expected :Array, not_expect :Array, not_found :Array) -> String:
+static func error_arr_contains_exactly_in_any_order(current, expected :Array, not_expect :Array, not_found :Array) -> String:
 	var error := "%s\n %s\n do contains exactly (in any order)\n %s" % [_error("Expecting contains exactly elements:"), _current(current, ", "), _expected(expected, ", ")]
 	if not not_expect.empty():
 		error += "\nbut some elements where not expected:\n %s" % _expected(not_expect, ", ")
@@ -264,6 +265,8 @@ static func error_result_is_value(current, expected) -> String:
 	return "%s\n %s\n but was\n %s." % [_error("Expecting to contain same value:"), _expected(expected), _current(current)]
 
 static func _result_error_message(current :Result, expected_type :int) -> String:
+	if current == null:
+		return _error("Expecting the result must be a %s but was Null." % result_type(expected_type))
 	if current.is_success():
 		return _error("Expecting the result must be a %s but was SUCCESS." % result_type(expected_type))
 	var error = "Expecting the result must be a %s but was %s:" % [result_type(expected_type), result_type(current._state)]
@@ -340,20 +343,22 @@ static func _find_first_diff( left :Array, right :Array) -> String:
 			return "at position %s\n %s vs %s" % [_current(index), _current(l), _expected(r)]
 	return ""
 
-static func error_has_size(current: int, expected: int) -> String:
-	return "%s\n %s\n but was\n %s" % [_error("Expecting size:"), _expected(expected), _current(current)]
+static func error_has_size(current, expected: int) -> String:
+	var current_size = null if current == null else current.size()
+	return "%s\n %s\n but was\n %s" % [_error("Expecting size:"), _expected(expected), _current(current_size)]
 
 static func error_contains_exactly(current: Array, expected: Array) -> String:
 	return "%s\n %s\n but was\n %s" % [_error("Expecting exactly equal:"), _expected(expected), _current(current)]
 
 const SUB_COLOR :=  Color.red
 const ADD_COLOR :=  Color.green
-static func colorDiff(value:String) -> String:
+static func colorDiff(value :String) -> String:
 	var result = PoolByteArray()
 	var characters := value.to_ascii()
 	var index = 0
 	var missing_chars := PoolByteArray()
 	var additional_chars := PoolByteArray()
+	
 	while index < characters.size():
 		var character = characters[index]
 		match character:
@@ -380,17 +385,16 @@ static func format_chars(characters :PoolByteArray, type :Color) -> PoolByteArra
 	var result := PoolByteArray()
 	if characters.size() == 0:
 		return result
-		
 	if characters.size() == 1 and characters[0] == 10:
 		if type == ADD_COLOR:
-			result.append_array(("[color=#%s]\n<--empty line-->[/color]" % [type.to_html()]).to_utf8())
+			result.append_array(("[bg color=#%s]\n<--empty line-->[/bg]" % [type.to_html()]).to_utf8())
 		else:
-			result.append_array(("[color=#%s][s]\n<--empty line-->[/s][/color]" % type.to_html()).to_utf8())
+			result.append_array(("[bg color=#%s][s]\n<--empty line-->[/s][/bg]" % type.to_html()).to_utf8())
 		return result
 	if type == ADD_COLOR:
-		result.append_array(("[color=#%s]%s[/color]" % [type.to_html(), characters.get_string_from_ascii()]).to_utf8())
+		result.append_array(("[bg color=#%s]%s[/bg]" % [type.to_html(), characters.get_string_from_ascii()]).to_utf8())
 	else:
-		result.append_array(("[color=#%s][s]%s[/s][/color]" % [type.to_html(), characters.get_string_from_ascii()]).to_utf8())
+		result.append_array(("[bg color=#%s]%s[/bg]" % [type.to_html(), characters.get_string_from_ascii()]).to_utf8())
 	return result
 
 static func humanized(value :String) -> String:

@@ -1,9 +1,12 @@
 class_name GdUnitTestSuiteReport
 extends GdUnitReportSummary
 
+var _time_stamp :int
+
 func _init(resource_path :String, name :String):
 	_resource_path = resource_path
 	_name = name
+	_time_stamp = OS.get_unix_time()
 
 func create_record(report_link :String) -> String:
 	return GdUnitHtmlPatterns.build(GdUnitHtmlPatterns.TABLE_RECORD_TESTSUITE, self, report_link)
@@ -40,15 +43,21 @@ func write(report_dir :String) -> String:
 func set_duration(duration :int) -> void:
 	_duration = duration
 
+func time_stamp() -> int:
+	return _time_stamp
+
 func duration() -> int:
 	return _duration
 
 func set_skipped(skipped :int) -> void:
 	_skipped_count = skipped
-	_test_count += skipped
 
 func set_orphans(orphans :int) -> void:
 	_orphan_count = orphans
+
+func set_failed(failed :bool) -> void:
+	if failed:
+		_failure_count += 1
 
 func update(test_report :GdUnitTestCaseReport) -> void:
 	for report in _reports:

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://character/personality/feeling/feeling_template.gd" type="Script" id=1]
+[ext_resource path="res://character/personality/emotion/uncomfortable.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+id = 101
+title = "Very Hungry"
+time = 30
+emotion_granted = ExtResource( 2 )
+emotion_points = 40
+need_modifier = {
+}
+skill_modifier = {
+}

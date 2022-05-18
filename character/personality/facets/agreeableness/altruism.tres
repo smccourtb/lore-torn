@@ -1,8 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=2]
-
-[ext_resource path="res://character/personality/facet_template.gd" type="Script" id=1]
-
-[resource]
-script = ExtResource( 1 )
-name = "altruism"
-descriptions = PoolStringArray( "is truly fulfilled by assisting those in need", "finds helping others very emotionally rewarding", "finds helping others emotionally rewarding", "", "does not go out of [his/her] way to help others", "dislikes helping others", "feels helping others is an imposition on [his/her] time" )

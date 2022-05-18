@@ -9,7 +9,7 @@ onready var _tree :Tree = $Panel/Tree
 onready var _report_list :Node = $report/ScrollContainer/list
 onready var _report_template :RichTextLabel = $report/report_template
 
-onready var _context_menu := $contextMenu
+onready var _context_menu :PopupPanel = $contextMenu
 onready var _context_menu_run := $contextMenu/items/run
 onready var _context_menu_debug := $contextMenu/items/debug
 
@@ -38,7 +38,8 @@ enum STATE {
 	WARNING,
 	FAILED,
 	ERROR,
-	ABORDED
+	ABORDED,
+	SKIPPED
 }
 const META_GDUNIT_NAME := "gdUnit_name"
 const META_GDUNIT_STATE := "gdUnit_state"
@@ -53,8 +54,24 @@ const META_LINE_NUMBER := "line_number"
 var _editor :EditorPlugin
 var _tree_root :TreeItem
 var _current_failures := Array()
+var _item_hash := Dictionary()
 
-static func find_item(parent :TreeItem, resource_path :String, test_case :String = "") -> TreeItem:
+
+func _build_cache_key(resource_path :String, test_name :String) -> Array:
+	return [resource_path, test_name]
+
+func get_tree_item(event :GdUnitEvent) -> TreeItem:
+	var key := _build_cache_key(event.resource_path(), event.test_name())
+	return _item_hash.get(key, null)
+
+func add_tree_item_to_cache(resource_path :String, test_name :String, item :TreeItem) -> void:
+	var key := _build_cache_key(resource_path, test_name)
+	_item_hash[key] = item
+
+func clear_tree_item_cache() -> void:
+	_item_hash.clear()
+
+static func _find_item(parent :TreeItem, resource_path :String, test_case :String = "") -> TreeItem:
 	var item = _find_by_resource_path(parent, resource_path)
 	if not item:
 		return null
@@ -123,6 +140,7 @@ func init_tree() -> void:
 
 func cleanup_tree() -> void:
 	clear_failures()
+	clear_tree_item_cache()
 	if not _tree_root:
 		return
 	var parent := _tree_root.get_children()
@@ -162,6 +180,13 @@ func set_state_succeded(item :TreeItem) -> void:
 	item.set_custom_color(0, Color.green)
 	item.set_icon(0, ICON_TEST_SUCCESS)
 	item.collapsed = true
+
+func set_state_skipped(item :TreeItem) -> void:
+	item.set_meta(META_GDUNIT_STATE, STATE.SKIPPED)
+	item.set_custom_color(0, Color.lightgray)
+	item.set_suffix(0, "(skipped)")
+	item.set_icon(0, ICON_TEST_SUCCESS)
+	item.collapsed = false
 
 func set_state_warnings(item :TreeItem) -> void:
 	item.set_meta(META_GDUNIT_STATE, STATE.WARNING)
@@ -204,20 +229,22 @@ func set_state_orphan(item :TreeItem, event: GdUnitEvent) -> void:
 	item.set_tooltip(0, "Total <%d> orphan nodes detected." % orphan_count)
 	if is_state_warning(item):
 		item.set_icon(0, ICON_TEST_SUCCESS_ORPHAN)
-	if is_state_failed(item):
+	elif is_state_failed(item):
 		item.set_icon(0, ICON_TEST_FAILED_ORPHAN)
-	if is_state_error(item):
+	elif is_state_error(item):
 		item.set_icon(0, ICON_TEST_ERRORS_ORPHAN)
 
 func update_state(item: TreeItem, event :GdUnitEvent) -> void:
 	if is_state_running(item) and event.is_success():
 		set_state_succeded(item)
 	else:
-		if event.is_warning():
+		if event.is_skipped():
+			set_state_skipped(item)
+		elif event.is_warning():
 			set_state_warnings(item)
-		if event.is_failed():
+		elif event.is_failed():
 			set_state_failed(item)
-		if event.is_error():
+		elif event.is_error():
 			set_state_error(item)
 		for report in event.reports():
 			add_report(item, report)
@@ -258,10 +285,15 @@ func collect_failures_and_errors() -> Array:
 	var parent := _tree_root.get_children()
 	while parent != null:
 		if is_state_failed(parent) or is_state_error(parent):
+			_current_failures.append(parent)
 			var item :=  parent.get_children()
 			while item != null:
 				if is_state_failed(item) or is_state_error(item):
 					_current_failures.append(item)
+					# we remove the test_suite to enforce test case select
+					var index = _current_failures.find(parent)
+					if index != -1:
+						_current_failures.remove(index)
 				item = item.get_next()
 		parent = parent.get_next()
 	return _current_failures
@@ -315,10 +347,10 @@ func show_failed_report(selected_item :TreeItem) -> void:
 	# add new reports
 	for r in selected_item.get_meta(META_GDUNIT_REPORT):
 		var report := r as GdUnitReport
-		var reportNode = _report_template.duplicate(true)
-		reportNode.visible = true
-		reportNode.set_bbcode(report.to_string())
+		var reportNode = _report_template.duplicate()
 		_report_list.add_child(reportNode)
+		reportNode.set_bbcode(report.to_string())
+		reportNode.visible = true
 
 func update_test_suite(event :GdUnitEvent) -> void:
 	var item := _find_by_resource_path(_tree_root, event.resource_path())
@@ -333,7 +365,7 @@ func update_test_suite(event :GdUnitEvent) -> void:
 	update_state(item, event)
 
 func update_test_case(event :GdUnitEvent) -> void:
-	var item := find_item(_tree_root, event.resource_path(), event.test_name())
+	var item := get_tree_item(event)
 	if not item:
 		push_error("Internal Error: Can't find test case %s:%s" % [event.suite_name(), event.test_name()])
 		return
@@ -343,8 +375,8 @@ func update_test_case(event :GdUnitEvent) -> void:
 	if event.type() == GdUnitEvent.TESTCASE_AFTER:
 		set_elapsed_time(item, event.elapsed_time())
 		
-		if event.is_success():
-			_update_test_suite_with_successful_case(event.resource_path())
+	if event.is_success():
+		_update_test_suite_with_successful_case(event.resource_path())
 	update_state(item, event)
 
 func add_test_suite(test_suite :GdUnitTestSuiteDto) -> void:
@@ -393,14 +425,14 @@ func add_test_case(parent :TreeItem, test_case :GdUnitTestCaseDto) -> void:
 	item.set_meta(META_GDUNIT_TYPE, GdUnitType.TEST_CASE)
 	item.set_meta(META_RESOURCE_PATH, parent.get_meta(META_RESOURCE_PATH))
 	item.set_meta(META_LINE_NUMBER, test_case.line_number())
-
+	add_tree_item_to_cache(parent.get_meta(META_RESOURCE_PATH), test_name, item)
 
 ################################################################################
 # Tree signal receiver
 ################################################################################
 func _on_Tree_item_rmb_selected(position :Vector2) -> void:
 	_context_menu.rect_position = position + _tree.get_global_position()
-	_context_menu.show()
+	_context_menu.popup()
 
 func _on_run_pressed(run_debug :bool) -> void:
 	_context_menu.hide()
@@ -476,7 +508,6 @@ func _on_event(event:GdUnitEvent) -> void:
 			update_test_suite(event)
 		GdUnitEvent.TESTSUITE_AFTER:
 			update_test_suite(event)
-
 
 func _on_Monitor_jump_to_orphan_nodes():
 	select_first_orphan()

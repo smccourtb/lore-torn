@@ -18,6 +18,9 @@ func name() -> String:
 func path() -> String:
 	return _resource_path.get_base_dir().replace("res://", "")
 
+func resource_path() -> String:
+	return _resource_path
+
 func suite_count() -> int:
 	return _reports.size()
 
@@ -56,6 +59,9 @@ func duration() -> int:
 	for report in _reports:
 		count += report.duration()
 	return count
+
+func reports() -> Array:
+	return _reports
 
 func add_report(report :GdUnitReportSummary) -> void:
 	_reports.append(report)

@@ -1,8 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=2]
-
-[ext_resource path="res://character/personality/facet_template.gd" type="Script" id=1]
-
-[resource]
-script = ExtResource( 1 )
-name = "modesty"
-descriptions = PoolStringArray( "always presents [him/her]self as extravagantly as possible, displaying a magnificent image to the world", "likes to present [him/her]self boldly, even if it would offend an average sense of modesty", "doesn\'t mind wearing something special now and again", "", " prefers to present [him/her]self modestly", "presents [him/her]self modestly and frowns on any flashy accoutrements", "cleaves to an austere lifestyle, disdaining even minor immodesties in appearance" )

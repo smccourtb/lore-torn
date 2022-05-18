@@ -3,6 +3,7 @@ class_name CharacterController
 
 var data: Character
 
+# TODO: should be based on genetics and energy; Make it dynamic
 export(float) var run_speed = 15.0
 
 onready var timer = get_parent().get_node("Timer")
@@ -14,6 +15,17 @@ var path: Array # of Vector2s
 var target_direction: Vector2
 var target_position # Vector2 or null
 onready var pathfinding = get_parent().get_node("Pathfinding")
+
+# Things I need to know - personality stuff
+# what objects are in my proximity
+var objects_near_me: Array
+	# various attributes of those objects to see their quality and stuff
+# what characters are in my proximity
+var characters_near_me: Array
+	# what emotion those characters are in
+	# what traits those characters have
+# tile im on / whats in my area -> for a character that gets in a good mood for standing on grass
+# running controller of interactions I can have and the ones ive had
 
 func get_character_data() -> Character:
 	return data
@@ -32,6 +44,7 @@ func set_path_line(points: Array):
 	path_line.points = local_points
 
 func pickup(object):
+#	pathfinding.update_navigation_map([Global.map_grid.calculate_grid_coordinates(object.position)])
 	Global.items.erase(Global.map_grid.calculate_grid_coordinates(object.position))
 	object.get_parent().remove_child(object)
 	data.inventory.add_item(object)
@@ -103,3 +116,23 @@ func get_target_position():
 
 func set_target_position(pos: Vector2) -> void:
 	self.target_position = pos
+
+
+func _on_ProximityDetector_body_entered(body: Node) -> void:
+	if body is StaticBody2D:
+		objects_near_me.push_back(body)
+		return
+	if body != self and body is KinematicBody2D:
+		characters_near_me.push_back(body)
+	# Check a master list if i care about anything about this object
+
+
+func _on_ProximityDetector_body_exited(body: Node) -> void:
+	if body is StaticBody2D:
+		var object_index: int = objects_near_me.find(body)
+		if object_index >= 0:
+			objects_near_me.remove(object_index)
+		return
+	var character_index: int = characters_near_me.find(body)
+	if character_index >= 0:
+		characters_near_me.remove(character_index)

@@ -21,7 +21,7 @@ enum  {
 	TESTCASE_AFTER,
 }
 
-var _event_type
+var _event_type :int
 var _resource_path :String
 var _suite_name :String
 var _test_name :String
@@ -62,7 +62,7 @@ func test_after(resource_path :String, suite_name :String, test_name :String, st
 	_reports = reports
 	return self
 
-func type():
+func type() -> int:
 	return _event_type
 
 func suite_name() -> String:
@@ -82,6 +82,9 @@ func statistic(type :String) -> int:
 
 func total_count() -> int:
 	return _total_count
+
+func success_count() -> int:
+	return total_count() - error_count() - failed_count() - skipped_count()
 
 func error_count() -> int:
 	return _statistics.get(ERROR_COUNT, 0)
@@ -128,14 +131,14 @@ func serialize() -> Dictionary:
 	serialized["reports"] = _serialize_TestReports()
 	return serialized
 
-func deserialize(serialized:Dictionary) -> GdUnitEvent:
-	_event_type    = serialized["type"]
-	_resource_path = serialized["resource_path"]
-	_suite_name    = serialized["suite_name"]
-	_test_name     = serialized["test_name"]
-	_total_count   = serialized["total_count"]
-	_statistics     = serialized["statistics"]
-	_reports       = _deserialize_reports(serialized["reports"])
+func deserialize(serialized :Dictionary) -> GdUnitEvent:
+	_event_type    = serialized.get("type", null)
+	_resource_path = serialized.get("resource_path", null)
+	_suite_name    = serialized.get("suite_name", null)
+	_test_name     = serialized.get("test_name", "unknown")
+	_total_count   = serialized.get("total_count", 0)
+	_statistics     = serialized.get("statistics", Dictionary())
+	_reports       = _deserialize_reports(serialized.get("reports",[]))
 	return self
 
 func _serialize_TestReports() -> Array:
@@ -144,7 +147,7 @@ func _serialize_TestReports() -> Array:
 		serialized_reports.append(report.serialize())
 	return serialized_reports
 
-func _deserialize_reports(reports:Array) -> Array:
+func _deserialize_reports(reports :Array) -> Array:
 	var deserialized_reports := Array()
 	for report in reports:
 		var test_report := GdUnitReport.new().deserialize(report)

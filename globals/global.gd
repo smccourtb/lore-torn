@@ -1,5 +1,7 @@
 extends Node
-
+tool
+onready var main = get_node("/root/Main")
+export var DEBUG: bool = false
 const map_grid = preload("res://resource/grid/map_grid.tres")
 const chunk_grid = preload("res://resource/grid/chunk_grid.tres")
 # we need to hold all the characters in the 'tribe'
@@ -20,6 +22,7 @@ var workstation_position
 
 func _ready():
 	SignalBus.connect("resource_removed", self, "_on_resource_Removed")
+	SignalBus.connect("item_on_world_map", self, "_on_item_SpawnedOnMap")
 
 func chunk_pos(position: Vector2):
 	return chunk_grid.calculate_grid_coordinates(position)
@@ -41,6 +44,7 @@ func set_resource_node(type: String, key: Vector2, value: ResourceNode) -> void:
 
 func remove_resource_node(type: String, key: Vector2) -> bool:
 	return resource_nodes[type].erase(key)
+	
 
 func _on_resource_Removed(ref, pos) -> void:
 	print(ref, " has been removed at ", pos)
@@ -48,5 +52,10 @@ func _on_resource_Removed(ref, pos) -> void:
 
 func get_walkable_cells() -> Array:
 	return walkable_cells
-
-
+	
+func _on_item_SpawnedOnMap(item_pos: Vector2, item_ref: int):
+		items[item_pos] = item_ref
+		walkable_cells.append(item_pos)
+#		print("updating nav map")
+#		main.pathfinder.update_navigation_map(get_walkable_cells())
+		

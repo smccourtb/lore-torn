@@ -3,9 +3,10 @@
 [ext_resource path="res://ui/job_assigner_row.gd" type="Script" id=1]
 
 [node name="VBoxContainer" type="VBoxContainer"]
-margin_top = 18.0
-margin_right = 320.0
-margin_bottom = 42.0
+anchor_right = 1.0
+margin_bottom = 25.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -13,10 +14,12 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 320.0
-margin_bottom = 14.0
+margin_bottom = 25.0
+custom_constants/separation = -17
 
 [node name="Label" type="Label" parent="HBoxContainer"]
-margin_right = 150.0
-margin_bottom = 14.0
+margin_right = 171.0
+margin_bottom = 25.0
 rect_min_size = Vector2( 150, 0 )
 text = "character name"
+valign = 1

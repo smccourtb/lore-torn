@@ -1,7 +1,6 @@
 extends Node
-class_name Time
 
-signal updated(time_hash)
+
 
 # Used to define time segments in methods
 const MINUTE = 0
@@ -29,8 +28,9 @@ const TIME_MULTIPLIERS = {
 	"year" : 60 * 24 * 28 * 4,
 }
 
-var time_scale = TIME_MULTIPLIERS["month"] / 60.0 # 1 irl min == TIME_MULTIPLIERS["segment of time"]
+#var time_scale = TIME_MULTIPLIERS["month"] / 60.0 # 1 irl min == TIME_MULTIPLIERS["segment of time"]
 #var time_scale = TIME_MULTIPLIERS["hour"] / 60.0 # 1 irl sec == TIME_MULTIPLIERS["segment of time"]
+var time_scale = TIME_MULTIPLIERS["hour"] / 30.0 # 1 irl sec == TIME_MULTIPLIERS["segment of time"]
 var value = 0 # stores the actual time, represents minutes in game
 var tick = 0 # time delta, will roll over into minutes
 
@@ -48,7 +48,7 @@ func advance(delta):
 	value += int(tick)
 	tick -= int(tick)
 	if value != prev_value:
-		emit_signal("updated")
+		SignalBus.emit_signal("updated", value)
 
 # Accepts dictionary values to set the time values. This will only adjust time
 # for which values are passed in. Will need modifying if this behavior is desired.
@@ -60,7 +60,7 @@ func set_time(time_modification : Dictionary):
 			value -= get_segment_value(i) * TIME_MULTIPLIERS[key]
 			# Then add the value we want so that it gets set
 			value += time_modification[key] * TIME_MULTIPLIERS[key]
-	emit_signal("updated")
+	SignalBus.emit_signal("updated", value)
 
 # Returns the value of a section of time (ie year, month, day)
 func get_segment_value(value_id : int) -> int:

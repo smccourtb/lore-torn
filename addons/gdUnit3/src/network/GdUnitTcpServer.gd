@@ -17,6 +17,7 @@ class TcpConnection extends Node:
 	
 	func _init(server :TCP_Server):
 		_stream = server.take_connection()
+		_stream.set_big_endian(true)
 		_id = _stream.get_instance_id()
 		rpc_send(RPCClientConnect.new().with_id(_id))
 	
@@ -37,14 +38,24 @@ class TcpConnection extends Node:
 	func _process(_delta):
 		if _stream.get_status() != StreamPeerTCP.STATUS_CONNECTED:
 			return null
-		if _stream.get_available_bytes() > 0: # we received some data
-			var data_received = _stream.get_var(true)
-			if data_received == null:
+		var available_bytes := _stream.get_available_bytes()
+		if available_bytes > 0:
+			var data := _stream.get_partial_data(available_bytes)
+			# Check for read error.
+			if data[0] != OK:
+				push_error("Error getting data from stream: %s " % data[0])
 				return
-			var rpc = RPC.deserialize(data_received)
-			if rpc is RPCClientDisconnect:
-				close()
-			get_parent().emit_signal("rpc_data", rpc)
+			else:
+				var data_package :PoolByteArray = data[1]
+				var json_array := data_package.get_string_from_ascii().split("|")
+				for json in json_array:
+					# ignore empty jsons
+					if json.empty():
+						continue
+					var rpc = RPC.deserialize(json)
+					if rpc is RPCClientDisconnect:
+						close()
+					get_parent().emit_signal("rpc_data", rpc)
 
 func _ready():
 	_server = TCP_Server.new()

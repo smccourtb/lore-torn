@@ -3,6 +3,7 @@ class_name Ancestor
 
 
 func _init(data: Resource, gender=null) -> void:
+	print("Generating Ancestor")
 	assert(data, "Need to provide race_data.")
 	.set_race_data(data)
 	.set_race(determine_race())
@@ -12,7 +13,7 @@ func _init(data: Resource, gender=null) -> void:
 	determine_genes()
 	.set_weight(determine_weight())
 	.set_height(determine_height())	
-	
+	print("Done Generating Ancestor")
 
 func determine_gender(gender=null):
 	# Not in love with this implementation

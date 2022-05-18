@@ -13,5 +13,3 @@ texture = SubResource( 1 )
 name = "pine_log"
 type = "log"
 subtype = "pine"
-unique = false
-ingredients = [  ]

@@ -13,5 +13,3 @@ texture = SubResource( 1 )
 name = "hickory_log"
 type = "wood"
 subtype = "hickory"
-unique = false
-ingredients = [  ]

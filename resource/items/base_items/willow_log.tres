@@ -13,5 +13,3 @@ texture = SubResource( 1 )
 name = "willow_log"
 type = "log"
 subtype = "willow"
-unique = false
-ingredients = [  ]

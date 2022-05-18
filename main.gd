@@ -1,5 +1,4 @@
 extends Node2D
-
 onready var character_generator: Resource = CharacterGenerator.new()
 onready var character: PackedScene = preload("res://character/Character.tscn")
 
@@ -11,32 +10,41 @@ onready var pathfinder = get_node("Pathfinding")
 onready var world_map = get_node("TileMap")
 onready var cursor1 = get_node("Cursor")
 onready var cursor2 = get_node("Cursor2")
-
+onready var character_debug = get_node("CanvasLayer/Control")
 var stockpile_menu: bool = false
 
 var chunk_cell: Vector2
 
 func _ready() -> void:
+	# IDEA: ideally for character generation you would build parts like this:
+	#			- generate physical body
+	#			- generate personality
+	#				- setup behavior
+	#			- attach to controller
+	#			- send it
 	(pathfinder as PathFinding).create_navigation_path(world_map)
-	for _i in range(2):
+	for _i in range(1):
 		# Generates character DATA
-		var x = character_generator.generate_ancestor()
+		var x: Character = character_generator.generate_ancestor()
 		Global.population.append(x)
 		# Instance new CHARACTER NODE
 		var new_character = character.instance()
+		# add it to the tree so you can SEE
+		add_child(new_character)
+		x.personality.set_name("PersonalityController")
+		new_character.add_child(x.personality)
 		# set the character name
 		new_character.name = x.get_name()
 		# set the CHARACTER DATA to CHARACTER NODE 	
 		new_character.data = x
 		
 		new_character.pathfinding = pathfinder
-		# add it to the tree so you can SEE
-		add_child(new_character)
 		# and finally set the position
-		new_character.position = Vector2(Util.randi_range(0, 300), Util.randi_range(0, 300))
+		new_character.set_position(Vector2(Util.randi_range(0, 300), Util.randi_range(0, 300)))
+		character_debug.character = new_character
 func _process(_delta: float) -> void:
-#	time.advance(_delta) # Start the clock
-#	print(time.get_time_as_dictionary())
+	Time.advance(_delta) # Start the clock
+#	print(Time.get_time_as_dictionary())
 	pass
 
 func _input(event: InputEvent) -> void:

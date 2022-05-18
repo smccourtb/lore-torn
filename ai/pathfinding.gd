@@ -7,9 +7,8 @@ var used_rect: Rect2
 var half_cell_size: Vector2
 
 
-
-
 func create_navigation_path(map: TileMap) -> void:
+	print("Creating Navigation Path")
 	self.tilemap = map
 	self.half_cell_size = map.cell_size / 2
 	self.used_rect = map.get_used_rect()

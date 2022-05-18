@@ -13,7 +13,7 @@ var name: String
 var height: int
 var weight: int
 var genes: Dictionary = {}
-var personality: Resource
+var personality: PersonalityController
 var mood_level: Dictionary
 
 var inventory = Inventory
@@ -25,9 +25,11 @@ var hunger_level: int = 100
 # memories
 
 func _init() -> void:
+	print("Generating Character")
 	self.inventory = Inventory.new(10)
 	self.id = get_instance_id()
 	set_personality()
+	print("Done Generating Character")
 
 func set_race_data(new_race_data: Resource) -> void:
 	self.race_data = new_race_data
@@ -121,6 +123,7 @@ func get_description() -> String:
 		self.personality.goals["Goals"], determine_pronoun().subject.capitalize(), self.personality.beliefs.family.description])
 
 func determine_pronoun():
+	# TODO: add gender neutral // change to getter
 	if self.gender == "male":
 		return {"subject": "he", 
 				"possesive": "his",
@@ -186,8 +189,9 @@ func determine_genes():
 func set_personality() -> void:
 	self.personality = determine_personality()
 
-func get_personalty() -> Resource:
+func get_personalty() -> PersonalityController:
 	return self.personality
 	
-func determine_personality() -> Personality:
-	return Personality.new()
+func determine_personality():
+	var resource = load("res://character/personality/base.tres")
+	return PersonalityController.new(resource)

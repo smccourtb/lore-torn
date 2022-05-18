@@ -1,17 +1,27 @@
+tool
+
 extends StaticBody2D
 class_name ResourceNode
 
 # IDEA: If tree or whatever is especially big or special in someway then note it in the history or memorie
-var data: Resource
+export var data: Resource
 var selected: bool = false setget set_selected
 var type: String
 var subtype: String
 var resource_node_name: String
 var drops: Array
 var targeted: bool = false
-# Called when the node enters the scene tree for the first time.
+
+signal resource_node_created(data)
+
+func _process(delta: float) -> void:
+	if Engine.editor_hint:
+		if data:
+			print('calling setup')
+			setup_node(data)
 func _ready() -> void:
 	setup_node(data)
+
 
 func setup_node(resource_node_data):
 	$Sprite.texture = resource_node_data.texture
@@ -20,6 +30,7 @@ func setup_node(resource_node_data):
 	subtype = resource_node_data.subtype
 	resource_node_name = type + "_" + subtype
 	drops = resource_node_data.drops
+	name = resource_node_data.type + " - " + resource_node_data.subtype
 	data = null
 
 func get_object_type() -> String:

@@ -14,6 +14,8 @@
 class_name GdUnitTestSuite
 extends Node
 
+const NO_ARG = GdUnitConstants.NO_ARG
+
 # This function is called before a test suite starts
 # You can overwrite to prepare test data or initalizize necessary variables
 func before() -> void:
@@ -37,6 +39,18 @@ func after_test() -> void:
 # Skip the test-suite from execution, it will be ignored
 func skip(skipped :bool) -> void:
 	set_meta("gd_skipped", skipped)
+
+func is_failure(expected_failure :String = NO_ARG) -> bool:
+	return get_meta(GdUnitAssertImpl.GD_TEST_FAILURE) if has_meta(GdUnitAssertImpl.GD_TEST_FAILURE) else false
+
+# Utility to check if a test has failed in a particular line and if there is an error message
+func assert_failed_at(line_number :int, expected_failure :String) -> bool:
+	var is_failed = is_failure()
+	var last_failure = GdAssertReports.current_failure()
+	var last_failure_line = GdAssertReports.get_last_error_line_number()
+	assert_str(last_failure).is_equal(expected_failure)
+	assert_int(last_failure_line).is_equal(line_number)
+	return is_failed
 
 func is_skipped() -> bool:
 	return get_meta("gd_skipped") if has_meta("gd_skipped") else false
@@ -95,9 +109,37 @@ func resource_as_var(resource_path :String):
 func clear_push_errors() -> void:
 	GdUnitTools.clear_push_errors()
 
-# Creates a new scene runner to allow simulate interactions on a scene
-func scene_runner(scene :Node, verbose := false) -> GdUnitSceneRunner:
-	return auto_free(GdUnitSceneRunner.new(weakref(self), scene, verbose))
+# Waits for given signal is emited by the <source> until a specified timeout to fail
+# source: the object from which the signal is emitted
+# signal_name: signal name
+# args: the expected signal arguments as an array
+# timeout: the timeout in ms, default is set to 2000ms
+func await_signal_on(source :Object, signal_name :String, args :Array = [], timeout :int = 2000) -> GDScriptFunctionState:
+	return yield(GdUnitAwaiter.await_signal_on(weakref(self), source, signal_name, args, timeout), "completed")
+
+# Waits until the next idle frame
+func await_idle_frame() -> GDScriptFunctionState:
+	return yield(GdUnitAwaiter.await_idle_frame(), "completed")
+
+# Waits for for a given amount of milliseconds
+# example:
+#    # waits for 100ms
+#    yield(await_millis(myNode, 100), "completed")
+# use this waiter and not `yield(get_tree().create_timer(), "timeout") to prevent errors when a test case is timed out
+func await_millis(timeout :int) -> GDScriptFunctionState:
+	return yield(GdUnitAwaiter.await_millis(self, timeout), "completed")
+
+# Creates a new scene runner to allow simulate interactions on a scene.
+# The runner will manage the scene instance and release after the runner is released
+# example:
+#    # creates a runner by using a instanciated scene
+#    var scene = load("res://foo/my_scne.tscn").instance() 
+#    var runner := scene_runner(scene)
+#
+#    # or simply creates a runner by using the scene resource path
+#    var runner := scene_runner("res://foo/my_scne.tscn")
+func scene_runner(scene, verbose := false) -> GdUnitSceneRunner:
+	return auto_free(GdUnitSceneRunnerImpl.new(weakref(self), scene, verbose))
 
 # === Mocking  & Spy ===========================================================
 

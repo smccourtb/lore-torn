@@ -11,23 +11,32 @@ onready var _progress :ProgressBar = $v/MarginContainer2/HBoxContainer/ProgressB
 onready var _progress_text :Label = $v/MarginContainer2/HBoxContainer/ProgressBar/Label
 
 onready var _properties_template :Node = $property_template
-onready var _properties_common :Node = $v/MarginContainer/GridContainer/Properties/Common/VBoxContainer
+onready var _properties_common :Node = $v/MarginContainer/GridContainer/Properties/Common/ScrollContainer/VBoxContainer
 onready var _properties_report :Node = $v/MarginContainer/GridContainer/Properties/Report/VBoxContainer
+
+var _font_size :int
 
 func _ready():
 	GdUnit3Version.init_version_label(_version_label)
+	_font_size = Fonts.init_fonts(_version_label)
 	setup_common_properties(_properties_common, GdUnitSettings.COMMON_SETTINGS)
 	setup_common_properties(_properties_report, GdUnitSettings.REPORT_SETTINGS)
 	yield(get_tree(), "idle_frame")
 	popup_centered_ratio(.75)
 
+func _sort_by_key(left :GdUnitProperty, right :GdUnitProperty) -> bool:
+	return left.name() < right.name()
+
 func setup_common_properties(properties_parent :Node, property_category) -> void:
 	var category_properties := GdUnitSettings.list_settings(property_category)
+	# sort by key
+	category_properties.sort_custom(self, "_sort_by_key")
 	var t := Theme.new()
 	t.set_constant("hseparation", "GridContainer", 12)
-	
 	var last_category := "!"
+	var min_size_overall := 0
 	for p in category_properties:
+		var min_size := 0
 		var grid := GridContainer.new()
 		grid.columns = 4
 		grid.theme = t
@@ -36,42 +45,62 @@ func setup_common_properties(properties_parent :Node, property_category) -> void
 		if current_category != last_category:
 			var sub_category :Node = _properties_template.get_child(3).duplicate()
 			sub_category.get_child(0).text = current_category.capitalize()
+			sub_category.rect_size.y = _font_size + 16
+			sub_category.rect_min_size.y = _font_size + 16
 			properties_parent.add_child(sub_category)
 			last_category = current_category
 		# property name
 		var label :Label = _properties_template.get_child(0).duplicate()
 		label.text = _to_human_readable(property.name())
-		label.set_custom_minimum_size(Vector2(300, 0))
+		label.set_custom_minimum_size(Vector2(_font_size * 20, 0))
 		grid.add_child(label)
+		min_size += label.rect_size.x
 		
 		# property reset btn
 		var reset_btn :ToolButton = _properties_template.get_child(1).duplicate()
 		reset_btn.icon = _get_btn_icon("Reload")
 		reset_btn.disabled = property.value() == property.default()
 		grid.add_child(reset_btn)
+		min_size += reset_btn.rect_size.x
 		
 		# property type specific input element
 		var input :Node = _create_input_element(property, reset_btn)
+		input.set_custom_minimum_size(Vector2(_font_size * 15, 0))
 		grid.add_child(input)
+		min_size +=  input.rect_size.x
 		reset_btn.connect("pressed", self, "_on_btn_property_reset_pressed", [property, input, reset_btn])
 		# property help text
 		var info :Node = _properties_template.get_child(2).duplicate()
 		info.text = property.help()
 		grid.add_child(info)
+		min_size += info.text.length() * _font_size
+		if min_size_overall < min_size:
+			min_size_overall = min_size
 		properties_parent.add_child(grid)
+	properties_parent.rect_min_size.x = min_size_overall
 
 func _create_input_element(property: GdUnitProperty, reset_btn :ToolButton) -> Node:
+	if property.is_selectable_value():
+		var options := OptionButton.new()
+		options.align = OptionButton.ALIGN_CENTER
+		var values_set := Array(property.value_set())
+		for value in values_set:
+			options.add_item(value)
+		options.connect("item_selected", self, "_on_option_selected", [property, reset_btn])
+		options.select(property.value())
+		return options
 	if property.type() == TYPE_BOOL: 
 		var check_btn := CheckButton.new()
 		check_btn.connect("toggled", self, "_on_property_text_changed", [property, reset_btn])
 		check_btn.pressed = property.value()
-		check_btn.set_custom_minimum_size(Vector2(100, 0))
 		return check_btn
 	if property.type() in [TYPE_INT, TYPE_STRING]:
 			var input := LineEdit.new()
 			input.connect("text_changed", self, "_on_property_text_changed", [property, reset_btn])
+			input.set_context_menu_enabled(false)
+			input.set_align(LineEdit.ALIGN_CENTER)
+			input.set_expand_to_text_length(true)
 			input.text = str(property.value())
-			input.set_custom_minimum_size(Vector2(100, 0))
 			return input 
 	return Control.new()
 
@@ -147,17 +176,24 @@ func _on_btn_install_examples_pressed():
 func _on_btn_close_pressed():
 	hide()
 
-
 func _on_btn_property_reset_pressed(property: GdUnitProperty, input :Node, reset_btn :ToolButton):
 	if input is CheckButton:
 		input.pressed = property.default()
-	if input is LineEdit:
+	elif input is LineEdit:
 		input.text = str(property.default())
 		# we have to update manually for text input fields because of no change event is emited
 		_on_property_text_changed(property.default(), property, reset_btn)
+	elif input is OptionButton:
+		input.select(0)
+		_on_option_selected(0, property, reset_btn)
 
 func _on_property_text_changed(new_value, property: GdUnitProperty, reset_btn :ToolButton):
 	property.set_value(new_value)
+	reset_btn.disabled = property.value() == property.default()
+	GdUnitSettings.update_property(property)
+
+func _on_option_selected(index :int, property: GdUnitProperty, reset_btn :ToolButton):
+	property.set_value(index)
 	reset_btn.disabled = property.value() == property.default()
 	GdUnitSettings.update_property(property)
 

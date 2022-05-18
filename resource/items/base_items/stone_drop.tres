@@ -13,5 +13,3 @@ texture = SubResource( 1 )
 name = "stone"
 type = "mineral"
 subtype = "stone"
-unique = false
-ingredients = [  ]

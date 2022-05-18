@@ -2,11 +2,11 @@
 
 [ext_resource path="res://character/character_template.gd" type="Script" id=1]
 [ext_resource path="res://resource/names/dwarf_names.tres" type="Resource" id=2]
-[ext_resource path="res://character/traits/eyes/alleles/green_eyes.tres" type="Resource" id=3]
-[ext_resource path="res://character/traits/eyes/alleles/brown_eyes.tres" type="Resource" id=4]
-[ext_resource path="res://character/traits/eyes/alleles/blue_eyes.tres" type="Resource" id=5]
-[ext_resource path="res://character/traits/height/short.tres" type="Resource" id=6]
-[ext_resource path="res://character/traits/height/tall.tres" type="Resource" id=7]
+[ext_resource path="res://character/physical_traits/eyes/alleles/green_eyes.tres" type="Resource" id=3]
+[ext_resource path="res://character/physical_traits/eyes/alleles/brown_eyes.tres" type="Resource" id=4]
+[ext_resource path="res://character/physical_traits/eyes/alleles/blue_eyes.tres" type="Resource" id=5]
+[ext_resource path="res://character/physical_traits/height/short.tres" type="Resource" id=6]
+[ext_resource path="res://character/physical_traits/height/tall.tres" type="Resource" id=7]
 
 [resource]
 script = ExtResource( 1 )

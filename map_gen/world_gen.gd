@@ -1,3 +1,4 @@
+tool
 extends TileMap
 
 const width = 16
@@ -103,6 +104,7 @@ func _ready():
 
 
 func generate_map():
+	print("Generating Map")
 	var pos: Vector2 # Chunk coordinate
 	for y in range(MAP_SIZE.y):
 		for x in range(MAP_SIZE.x):
@@ -146,6 +148,8 @@ func generate_map():
 #			break
 
 # Map Generation begins here
+var biome_map = [[],[]]
+var biome_translator = []
 func TileAtPos(var x, var y, biome):
 	var height = chunkElevationMap.get_noise_2d(x,y)
 	var moisture = chunkMoistureMap.get_noise_2d(x,y)
@@ -227,6 +231,7 @@ class Chunk:
 		chunk_data["nodes"] = nodes
 		chunk_data["cells"] = cells
 		chunk_data["items"] = {}
+		
 	func generate_nodes():
 		pass
 	func generate_objects():
@@ -282,7 +287,7 @@ class Chunk:
 					nodes[node_choice[0]][Global.map_grid.calculate_map_position(tilepos)] = node
 					cells[tilepos]["walkable"] = false
 					# TODO: change to unwalkable_cells or something. Opposite of walkable
-					#Global.walkable_cells.append(Global.map_grid.calculate_map_position(tilepos))
+					Global.walkable_cells.append(Global.map_grid.calculate_map_position(tilepos))
 
 # Used if loading/unloading chunks
 #	func RemoveTiles():

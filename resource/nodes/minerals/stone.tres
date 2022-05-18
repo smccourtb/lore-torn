@@ -13,5 +13,5 @@ script = ExtResource( 1 )
 type = "mineral"
 subtype = "stone"
 texture = SubResource( 1 )
-texture_offset = Vector2( 0, 0 )
+texture_offset = Vector2( 0, 1 )
 drops = [ ExtResource( 3 ) ]

@@ -15,9 +15,9 @@ var TOKEN_FUNCTION_STATIC_DECLARATION := Token.new("staticfunc")
 var TOKEN_FUNCTION_DECLARATION := Token.new("func")
 var TOKEN_FUNCTION := Token.new(".")
 var TOKEN_FUNCTION_RETURN_TYPE := Token.new("->")
+var TOKEN_FUNCTION_END := Token.new("):")
 var TOKEN_ARGUMENT_ASIGNMENT := Token.new("=")
 var TOKEN_ARGUMENT_TYPE_ASIGNMENT := Token.new(":=")
-var TOKEN_TEST_TIMEOUT := Token.new("timeout")
 var TOKEN_FUZZER_ITERATIONS := Token.new("fuzzer_iterations")
 var TOKEN_FUZZER_SEED := Token.new("fuzzer_seed")
 var TOKEN_ARGUMENT_FUZZER_ASIGNMENT1 := regex_token("fuzzer(|[a-z,A-Z,0-9,_]+):Fuzzer=")
@@ -46,7 +46,6 @@ var TOKENS := [
 	TOKEN_ENUM,
 	TOKEN_FUNCTION_STATIC_DECLARATION,
 	TOKEN_FUNCTION_DECLARATION,
-	TOKEN_TEST_TIMEOUT,
 	TOKEN_FUZZER_ITERATIONS,
 	TOKEN_FUZZER_SEED,
 	TOKEN_ARGUMENT_FUZZER_ASIGNMENT1,
@@ -346,21 +345,21 @@ func parse_arguments(row: String) -> Array:
 	var current_index := 0
 	var token :Token = null
 	var bracket := 0
-	var next_tokens : = [TOKEN_FUNCTION_DECLARATION]
+	var in_function := false
 	while current_index < len(input):
 		token = next_token(input, current_index)
 		current_index += token._consumed
 		if token == TOKEN_BRACKET_OPEN:
+			in_function = true
 			bracket += 1
-		if token == TOKEN_BRACKET_CLOSE:
-			bracket -= 1
-		if not next_tokens.has(token) and not token.is_variable() :
 			continue
+		# if function has no args or all args has parsed?
+		if token == TOKEN_BRACKET_CLOSE or (in_function and bracket == 0):
+			return args
 		# is function
 		if token == TOKEN_FUNCTION_DECLARATION:
 			token = next_token(input, current_index)
 			current_index += token._consumed
-			next_tokens = [TOKEN_BRACKET_OPEN, TOKEN_BRACKET_CLOSE]
 			continue
 		# is argument
 		if bracket == 1 and token.is_variable():
@@ -521,14 +520,18 @@ func load_source_code(script :GDScript, script_path :PoolStringArray) -> PoolStr
 		source_rows = extract_inner_class(source_rows, inner_clazz)
 	return PoolStringArray(source_rows)
 
-func parse_extends_clazz(rows :PoolStringArray ) -> String:
-	for index in min( 10, rows.size()):
-		var input = clean_up_row(rows[index])
+func get_class_name(script :GDScript) -> String:
+	var source_code := to_unix_format(script.source_code)
+	var source_rows := source_code.split("\n")
+	
+	for index in min(10, source_rows.size()):
+		var input = clean_up_row(source_rows[index])
 		var token := next_token(input, 0)
-		if token == TOKEN_EXTENDS:
+		if token == TOKEN_CLASS_NAME:
 			token = next_token(input, token._consumed)
 			return token.value()
-	return ""
+	# if no class_name found extract from file name
+	return GdObjects.to_pascal_case(script.resource_path.get_basename().get_file())
 
 func parse_func_name(row :String) -> String:
 	var input = clean_up_row(row)
@@ -596,6 +599,23 @@ func is_static_func(func_signature :String) -> bool:
 
 func is_inner_class(clazz_path :PoolStringArray) -> bool:
 	return clazz_path.size() > 1
+
+func is_func_end(row :String) -> bool:
+	var input := clean_up_row(row)
+	var current_index = 0
+	var token :Token = null
+	while current_index < len(input):
+		# function ends without return type definition
+		if TOKEN_FUNCTION_END.match(input, current_index):
+			return true
+		# function ends with return type definition
+		if TOKEN_FUNCTION_RETURN_TYPE.match(input, current_index):
+			return true
+		token = next_token(input, current_index) as Token
+		if token == TOKEN_NOT_MATCH:
+			return false
+		current_index += token._consumed
+	return false
 
 func _patch_inner_class_names(value :String, clazz_name :String) -> String:
 	var patch := value

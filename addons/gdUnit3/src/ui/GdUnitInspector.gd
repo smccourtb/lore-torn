@@ -63,7 +63,7 @@ var _running_debug_mode :bool
 var _current_runner_process_id :int = 0
 
 # holds the current connected gdUnit runner client id
-var _client_id
+var _client_id :int
 
 var _editor_interface :EditorInterface
 
@@ -83,6 +83,18 @@ func _ready():
 		add_script_editor_context_menu()
 	# preload previous test execution
 	_runner_config.load()
+
+func _process(_delta):
+	_check_test_run_stopped_manually()
+	
+# is checking if the user has press the editor stop scene 
+func _check_test_run_stopped_manually():
+	if _is_test_running_but_stop_pressed():
+		push_warning("Test Runner scene was stopped manually, force stopping the current test run!")
+		_gdUnit_stop(_client_id)
+
+func _is_test_running_but_stop_pressed():
+	return _editor_interface and _running_debug_mode and _is_running and not _editor_interface.is_playing_scene()
 
 func set_editor_interface(editor_interface :EditorInterface) -> void:
 	_editor_interface = editor_interface
@@ -180,7 +192,7 @@ func extend_script_editor_popup(tab_container :Control) -> void:
 
 func _on_script_editor_context_menu_show(context_menu :PopupMenu):
 	var current_script := _editor_interface.get_script_editor().get_current_script()
-	if GdObjects.is_testsuite(current_script):
+	if GdObjects.is_test_suite(current_script):
 		context_menu.add_separator()
 		# save menu entry index
 		var current_index := context_menu.get_item_count()
@@ -204,15 +216,11 @@ func _on_fscript_editor_context_menu_pressed(id :int, text_edit :TextEdit):
 	if current_script == null:
 		prints("no script selected")
 		return
-
-	var parser := GdScriptParser.new()
 	var cursor_line := text_edit.cursor_get_line()
 	var current_line := text_edit.get_line(cursor_line)
 	# create new test case?
 	if id == MENU_ID_CREATE_TEST:
-		var func_name := parser.parse_func_name(current_line)
-		if not func_name.empty():
-			add_test_to_test_suite(func_name, current_script.resource_path)
+		add_test_to_test_suite(current_script, cursor_line, current_line)
 		return
 
 	# run test case?
@@ -256,7 +264,7 @@ func _gdUnit_run(debug :bool) -> void:
 	# don't start is already running
 	if _is_running:
 		return
-	_is_running = true
+	
 	grab_focus()
 	show()
 	# save current selected excution config
@@ -269,11 +277,12 @@ func _gdUnit_run(debug :bool) -> void:
 	# before start we have to save all changed test suites
 	save_test_suites_before_run()
 	# wait until all changes are saved
-	yield(get_tree(), "idle_frame")
+	#yield(get_tree(), "idle_frame")
 
 	emit_signal("gdunit_runner_start")
 	if debug:
 		_editor_interface.play_custom_scene("res://addons/gdUnit3/src/core/GdUnitRunner.tscn")
+		_is_running = true
 		return
 
 	var arguments := Array()
@@ -286,7 +295,7 @@ func _gdUnit_run(debug :bool) -> void:
 #	_running_debug_mode = false
 	#prints("execute ", OS.get_executable_path(), arguments)
 	_current_runner_process_id = OS.execute(OS.get_executable_path(), arguments, false, output, false);
-
+	_is_running = true
 
 func _gdUnit_stop(client_id :int) -> void:
 	# don't stop if is already stopped
@@ -310,50 +319,40 @@ func save_test_suites_before_run() -> void:
 	# TODO find a way to detect only modified files to save
 	script_editor._menu_option(EDITOR_ACTIONS.FILE_SAVE_ALL)
 
-func close_script(script_path :String):
-	var script_editor :ScriptEditor = _editor_interface.get_script_editor()
-	# is already opened?
-	var open_file_index = 0
-	for open_script in script_editor.get_open_scripts():
-		if open_script.resource_path == script_path:
-			# select the script in the editor
-			script_editor._script_selected(open_file_index)
-			# needs to be saved first to store current editor changes
-			script_editor._menu_option(EDITOR_ACTIONS.FILE_SAVE)
-			# finally needs to be closed to can modify and reload
-			script_editor._menu_option(EDITOR_ACTIONS.FILE_CLOSE)
-			return
-		open_file_index += 1
-
 func open_script(script_path :String, line_number :int):
 	var file_system := _editor_interface.get_resource_filesystem()
 	file_system.update_file(script_path)
-
+	
+	var script_editor :ScriptEditor = _editor_interface.get_script_editor()
+	var script_is_loaded := false
+	var open_file_index = 0
+	for open_script in script_editor.get_open_scripts():
+		if open_script.resource_path == script_path:
+			script_editor._script_selected(open_file_index)
+			script_editor.goto_line(line_number)
+			script_is_loaded = true
+			break
+		open_file_index += 1
+	
 	var file_system_dock := _editor_interface.get_file_system_dock()
 	file_system_dock.navigate_to_path(script_path)
 	_editor_interface.select_file(script_path)
 
-	var script = load(script_path)
-	_editor_interface.edit_resource(script)
-	var script_editor :ScriptEditor = _editor_interface.get_script_editor()
-	script_editor.goto_line(line_number)
+	if not script_is_loaded:
+		var script = load(script_path)
+		_editor_interface.edit_resource(script)
+		script_editor.goto_line(line_number)
 
-func add_test_to_test_suite(func_name :String, source_path :String):
-	var path := _TestSuiteScanner.build_test_suite_path(source_path)
-	close_script(path)
-	var result := _TestSuiteScanner.create_test_case(source_path, func_name)
+func add_test_to_test_suite(source_script :Script, current_line_number :int, current_line :String) -> void:
+	var result := GdUnitTestSuiteBuilder.new().create(source_script, current_line_number)
 	if result.is_error():
 		# show error dialog
-		prints("add_test_to_test_suite", result.error_message())
-		return
-	if result.is_warn():
-		# show warn dialog
-		prints("add_test_to_test_suite", result.warn_message())
+		push_error("Failed to create test case: %s" % result.error_message())
 		return
 	var info := result.value() as Dictionary
 	var suite_path := info.get("path") as String
 	var line_number := info.get("line") as int
-	open_script(path, line_number)
+	open_script(suite_path, line_number)
 
 ################################################################################
 # Event signal receiver

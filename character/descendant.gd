@@ -1,7 +1,7 @@
 extends Character
 class_name Descendant
 
-# TODO: add parents to relationship dictionary
+# TODO: add parents to relationship dictionary 
 # TODO: check population for anyone in family tree
 # TODO: Create family tree function (linked list? <-NO ... graph?)
 

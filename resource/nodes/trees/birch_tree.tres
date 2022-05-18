@@ -13,5 +13,5 @@ script = ExtResource( 1 )
 type = "tree"
 subtype = "birch"
 texture = SubResource( 1 )
-texture_offset = Vector2( -4, -28 )
+texture_offset = Vector2( -4, -24 )
 drops = [ ExtResource( 3 ) ]

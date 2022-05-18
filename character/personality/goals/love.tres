@@ -1,8 +1,15 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://character/personality/facet_template.gd" type="Script" id=1]
+[sub_resource type="GDScript" id=1]
+script/source = "tends Resource
+class_name FacetTemplate
+
+
+export var name: String
+export var descriptions: Array # Need 7 descriptions
+"
 
 [resource]
-script = ExtResource( 1 )
+script = SubResource( 1 )
 name = "fall in love."
-description = PoolStringArray(  )
+descriptions = null

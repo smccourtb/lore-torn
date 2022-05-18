@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends StaticBody2D
 class_name Item
 
 # Timer to delay pickup to allow them a moment to spawn and the player to see them
@@ -25,7 +25,7 @@ func get_object_subtype():
 func spawn(at : Vector2):
 	self.global_position = at
 	var grid_coord: Vector2 = Global.map_grid.calculate_grid_coordinates(position)
-	Global.items[grid_coord] = id
+	SignalBus.emit_signal("item_on_world_map", grid_coord, id)
 
 func get_class():
 	return "Item"

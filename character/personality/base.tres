@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=14 format=2]
+
+[ext_resource path="res://character/personality/personality_template.gd" type="Script" id=1]
+[ext_resource path="res://character/personality/needs/energy.tres" type="Resource" id=2]
+[ext_resource path="res://character/personality/needs/hunger.tres" type="Resource" id=3]
+[ext_resource path="res://character/personality/needs/bladder.tres" type="Resource" id=4]
+[ext_resource path="res://character/personality/needs/fun.tres" type="Resource" id=5]
+[ext_resource path="res://character/personality/needs/hygiene.tres" type="Resource" id=6]
+[ext_resource path="res://character/personality/needs/social.tres" type="Resource" id=7]
+[ext_resource path="res://character/personality/emotion/uncomfortable.tres" type="Resource" id=8]
+[ext_resource path="res://character/personality/emotion/angry.tres" type="Resource" id=9]
+[ext_resource path="res://character/personality/emotion/sad.tres" type="Resource" id=10]
+[ext_resource path="res://character/personality/emotion/happy.tres" type="Resource" id=11]
+[ext_resource path="res://character/personality/emotion/scared.tres" type="Resource" id=12]
+[ext_resource path="res://character/personality/emotion/asleep.tres" type="Resource" id=13]
+
+[resource]
+script = ExtResource( 1 )
+needs = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ) ]
+emotions = [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 12 ) ]
+feelings = [  ]
+personality_traits = [  ]

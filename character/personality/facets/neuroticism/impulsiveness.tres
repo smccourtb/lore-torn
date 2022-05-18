@@ -1,8 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=2]
-
-[ext_resource path="res://character/personality/facet_template.gd" type="Script" id=1]
-
-[resource]
-script = ExtResource( 1 )
-name = "impulsiveness"
-descriptions = PoolStringArray( "never deliberates before acting, to the point of being considered thoughtless", "doesn\'t generally think before acting", "can sometimes act without deliberation", "", "tends to think before acting", "can get caught up in internal deliberations when action is necessary", "never acts without prolonged deliberation, even to [his/her] own detriment and the harm of those around [him/her]" )

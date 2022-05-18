@@ -14,7 +14,11 @@ func _ready() -> void:
 	for i in Global.jobs.size():
 		var checkbox = CheckBox.new()
 		checkbox.pressed = check_assigned(Global.jobs[i], ref)
+		
 		$HBoxContainer.add_child(checkbox)
+		checkbox.rect_scale = Vector2(.5,.5)
+		
+		
 		checkbox.connect("pressed", self, "_on_Pressed", [i, checkbox, ref])
 
 func _on_Pressed(yo, boop, beep):

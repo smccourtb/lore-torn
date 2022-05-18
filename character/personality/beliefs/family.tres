@@ -1,8 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=2]
-
-[ext_resource path="res://character/personality/facet_template.gd" type="Script" id=1]
-
-[resource]
-script = ExtResource( 1 )
-name = "family"
-description = PoolStringArray( "finds the idea of family loathsome.", "lacks any respect for family.", "is put off by family.", "does not care about family one way or the other.", "values family.", "values family greatly.", "sees family as one of the most important things in life." )

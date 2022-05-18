@@ -21,17 +21,14 @@ func generate_descendant() -> Descendant:
 		child = Descendant.new({"mother": mother,"father": father})
 	return child
 
-func generate_new_tribe():
-	pass
 
-
-func check_compatibility(mother_data, father_data) -> bool:
+func check_compatibility(mother_data: Ancestor, father_data: Ancestor) -> bool:
 	# TODO: add min and max birthing age to race_data template and replace the 16 with that variable.
 	#	check for matching race
-		assert(father_data.race == mother_data.race, "Parents are not compatible, they cannot procreate.")
+	assert(father_data.race == mother_data.race, "Parents are not compatible, they cannot procreate.")
 	#	check for opposite sex
-		assert(father_data.gender == "male" && mother_data.gender == "female", "Parents are same sex, they cannot procreate.")
+	assert(father_data.gender == "male" && mother_data.gender == "female", "Parents are same sex, they cannot procreate.")
 	#	check for birth age
-		assert(mother_data.age >= 16, "The mother is too young to concieve")
+	assert(mother_data.age >= 16, "The mother is too young to concieve")
 	# max(10,min(age_1,age_2)/2) <- age difference
-		return true
+	return true

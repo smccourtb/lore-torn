@@ -1,32 +1,28 @@
 tool
 extends MarginContainer
 
-
 onready var _template_editor :TextEdit = $ScrollContainer/VBoxContainer/Editor
 onready var _tags_editor :TextEdit = $Tags/MarginContainer/TextEdit
+onready var _title_bar :Panel = $ScrollContainer/VBoxContainer/sub_category
 onready var _save_button :Button = $ScrollContainer/VBoxContainer/Panel/HBoxContainer/Save
+onready var _tag_container :Container = $ScrollContainer/VBoxContainer/Editor/MarginContainer
 onready var _selected_type :OptionButton = $ScrollContainer/VBoxContainer/Editor/MarginContainer/HBoxContainer/SelectType
 onready var _show_tags :Popup = $Tags
 
-const supported_tags = """
-Tags are replaced when the test-suite is created.
-
-# The test suite class name based on source which the file was generated.
-${class_name}
-
-# The resource path of the source from which the file was generated.
-${source_path}
-"""
-
 var gd_key_words := ["extends", "class_name", "const", "var", "onready", "func", "void", "pass"]
 var gdunit_key_words := ["GdUnitTestSuite", "before", "after", "before_test", "after_test"]
+var _selected_template :int
 
-	
 func _ready():
 	setup_editor_colors()
+	setup_fonts()
 	setup_supported_types()
+	load_template(GdUnitTestSuiteTemplate.TEMPLATE_ID_GD)
 	setup_tags_help()
-	load_template()
+
+func _notification(what):
+	if what == EditorSettings.NOTIFICATION_EDITOR_SETTINGS_CHANGED:
+		setup_fonts()
 
 func setup_editor_colors() -> void:
 	if not Engine.is_editor_hint():
@@ -55,25 +51,33 @@ func setup_editor_colors() -> void:
 		for word in gdunit_key_words:
 			editor.add_keyword_color(word, base_type_color)
 
+func setup_fonts() -> void:
+	if _template_editor:
+		Fonts.init_fonts(_template_editor)
+		var font_size = Fonts.init_fonts(_tags_editor)
+		_title_bar.rect_size.y = font_size + 16
+		_title_bar.rect_min_size.y = font_size + 16
+		_tag_container.rect_position.y = 400-font_size*2
+
 func setup_supported_types() -> void:
 	_selected_type.clear()
-	_selected_type.add_item("GD - GDScript")
-	_selected_type.add_item("C# - CSharpScript")
-	_selected_type.set_item_disabled(1, true)
+	_selected_type.add_item("GD - GDScript", GdUnitTestSuiteTemplate.TEMPLATE_ID_GD)
+	_selected_type.add_item("C# - CSharpScript", GdUnitTestSuiteTemplate.TEMPLATE_ID_CS)
 
 func setup_tags_help() -> void:
-	_tags_editor.set_text(supported_tags)
+	_tags_editor.set_text(GdUnitTestSuiteTemplate.load_tags(_selected_template))
 
-func load_template() -> void:
-	_template_editor.set_text(GdUnitSettings.get_setting(GdUnitSettings.TEMPLATE_TS_GD, GdUnitSettings.DEFAULT_TEMP_TS_GD))
+func load_template(template_id :int) -> void:
+	_selected_template = template_id
+	_template_editor.set_text(GdUnitTestSuiteTemplate.load_template(template_id))
 
 func _on_Restore_pressed():
-	_template_editor.set_text(GdUnitSettings.DEFAULT_TEMP_TS_GD)
-	GdUnitSettings.save_property(GdUnitSettings.TEMPLATE_TS_GD, GdUnitSettings.DEFAULT_TEMP_TS_GD)
+	_template_editor.set_text(GdUnitTestSuiteTemplate.default_template(_selected_template))
+	GdUnitTestSuiteTemplate.reset_to_default(_selected_template)
 	_save_button.disabled = true
 
 func _on_Save_pressed():
-	GdUnitSettings.save_property(GdUnitSettings.TEMPLATE_TS_GD, _template_editor.get_text())
+	GdUnitTestSuiteTemplate.save_template(_selected_template, _template_editor.get_text())
 	_save_button.disabled = true
 
 func _on_Tags_pressed():
@@ -81,3 +85,7 @@ func _on_Tags_pressed():
 
 func _on_Editor_text_changed():
 	_save_button.disabled = false
+
+func _on_SelectType_item_selected(index):
+	load_template(_selected_type.get_item_id(index))
+	setup_tags_help()

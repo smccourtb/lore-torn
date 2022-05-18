@@ -168,13 +168,13 @@ static func equals(obj_a, obj_b, case_sensitive :bool = false, deep_check :bool 
 		return false
 	if obj_b == null and obj_a != null:
 		return false
-	
+
 	match type_a:
 		TYPE_OBJECT:
 			if deep_check:
-				var a := var2str(obj_a)
-				var b := var2str(obj_b)
-				return a == b
+				var a = var2str(obj_a) if obj_a.get_script() == null else inst2dict(obj_a)
+				var b = var2str(obj_b) if obj_b.get_script() == null else inst2dict(obj_b)
+				return str(a) == str(b)
 			return obj_a == obj_b
 		TYPE_ARRAY:
 			var arr_a:= obj_a as Array
@@ -211,6 +211,32 @@ static func string_to_type(value :String) -> int:
 		if TYPE_AS_STRING_MAPPINGS.get(type) == value:
 			return type
 	return TYPE_NIL
+
+static func to_camel_case(value :String) -> String:
+	var p := to_pascal_case(value)
+	if not p.empty():
+		p[0] = p[0].to_lower()
+	return p
+
+static func to_pascal_case(value :String) -> String:
+	return value.capitalize().replace(" ", "")
+
+static func to_snake_case(value :String) -> String:
+	var result = PoolStringArray()
+	for ch in value:
+		var lower_ch = ch.to_lower()
+		if ch != lower_ch and result.size() > 1:
+			result.append('_')
+		result.append(lower_ch)
+	return result.join('')
+
+static func is_snake_case(value :String) -> bool:
+	for ch in value:
+		if ch == '_':
+			continue
+		if ch == ch.to_upper():
+			return false
+	return true
 
 static func type_as_string(type :int) -> String:
 	return TYPE_AS_STRING_MAPPINGS.get(type, "Unknown type")
@@ -300,18 +326,8 @@ static func is_object(value) -> bool:
 static func is_script(value) -> bool:
 	return is_object(value) and value is Script
 
-static func is_testsuite(script :GDScript) -> bool:
-	if not script:
-		return false
-	var stack := [script]
-	while not stack.empty():
-		var current := stack.pop_front() as Script
-		var base := current.get_base_script() as Script
-		if base != null:
-			if base.resource_path.find("GdUnitTestSuite") != -1:
-				return true
-			stack.push_back(base)
-	return false
+static func is_test_suite(script :Script) -> bool:
+	return is_gd_testsuite(script) or is_cs_testsuite(script)
 
 static func is_native_class(value) -> bool:
 	return is_object(value) and value.to_string() != null and value.to_string().find("GDScriptNativeClass") != -1
@@ -321,6 +337,40 @@ static func is_scene(value) -> bool:
 
 static func is_scene_resource_path(value) -> bool:
 	return value is String and value.ends_with(".tscn")
+
+static func is_cs_script(script :Script) -> bool:
+	# we need to check by stringify name because on non mono Godot the class CSharpScript is not available
+	return str(script).find("CSharpScript") != -1
+
+static func is_vs_script(script :Script) -> bool:
+	return script is VisualScript
+
+static func is_gd_script(script :Script) -> bool:
+	return script is GDScript
+
+static func is_native_script(script :Script) -> bool:
+	return script is NativeScript
+
+static func is_cs_test_suite(instance :Node) -> bool:
+	return instance.has_meta("CS_TESTSUITE")
+
+static func is_cs_testsuite(script :Script) -> bool:
+	if GdUnitTools.is_mono_supported():
+		var csTools = load("res://addons/gdUnit3/src/core/CsTools.cs").new()
+		return not script.resource_path.empty() and csTools.IsTestSuite(script.resource_path)
+	return false;
+
+static func is_gd_testsuite(script :Script) -> bool:
+	if is_gd_script(script):
+		var stack := [script]
+		while not stack.empty():
+			var current := stack.pop_front() as Script
+			var base := current.get_base_script() as Script
+			if base != null:
+				if base.resource_path.find("GdUnitTestSuite") != -1:
+					return true
+				stack.push_back(base)
+	return false
 
 static func is_instance(value) -> bool:
 	if not is_object(value) or is_native_class(value):
@@ -409,7 +459,11 @@ static func extract_class_path(clazz) -> PoolStringArray:
 	return clazz_path
 
 static func extract_class_name_from_class_path(clazz_path :PoolStringArray) -> String:
-	var clazz_name := clazz_path[0].get_file().replace(".gd", "")
+	var base_clazz := clazz_path[0]
+	# return original class name if engine class
+	if ClassDB.class_exists(base_clazz):
+		return base_clazz
+	var clazz_name := to_pascal_case(base_clazz.get_basename().get_file())
 	for path_index in range(1, clazz_path.size()):
 		clazz_name += "." + clazz_path[path_index]
 	return  clazz_name
@@ -428,7 +482,9 @@ static func extract_class_name(clazz) -> Result:
 
 	# extract name form full qualified class path
 	if clazz is String:
-		return Result.success(clazz.get_file().replace(".gd", ""))
+		var source_sript :Script = load(clazz)
+		var clazz_name = load("res://addons/gdUnit3/src/core/parse/GdScriptParser.gd").new().get_class_name(source_sript)
+		return Result.success(to_pascal_case(clazz_name))
 
 	if is_primitive_type(clazz):
 		return Result.error("Can't extract class name for an primitive '%s'" % type_as_string(typeof(clazz)))
@@ -515,8 +571,8 @@ static func array_to_string(elements, delimiter := "\n") -> String:
 		if formatted.length() > 0 :
 			formatted += delimiter
 		formatted += str(element)
-		if formatted.length() > 64:
-			return formatted + delimiter + "..."
+		#if formatted.length() > 64:
+		#	return formatted + delimiter + "..."
 	return formatted
 
 # Filters an array by given value
@@ -569,7 +625,7 @@ const DIV_SUB = 245
 static func _diff(lb: PoolByteArray, rb: PoolByteArray, lookup: Array, ldiff: Array, rdiff: Array):
 	var loffset = lb.size()
 	var roffset = rb.size()
-	
+
 	while true:
 		#if last character of X and Y matches
 		if loffset > 0 && roffset > 0 && lb[loffset - 1] == rb[roffset - 1]:
@@ -597,8 +653,8 @@ static func _diff(lb: PoolByteArray, rb: PoolByteArray, lookup: Array, ldiff: Ar
 		break
 
 static func string_diff(left, right) -> Array:
-	var lb := PoolByteArray() if left == null else left.to_ascii()
-	var rb := PoolByteArray() if right == null else right.to_ascii()
+	var lb := PoolByteArray() if left == null else str(left).to_ascii()
+	var rb := PoolByteArray() if right == null else str(right).to_ascii()
 	var ldiff := Array()
 	var rdiff := Array()
 	var lookup =  _buildLookup(lb, rb);
