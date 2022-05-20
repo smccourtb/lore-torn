@@ -40,15 +40,13 @@ func _on_character_entered_proximity(body: KinematicBody2D):
 	pass
 
 
-func _on_object_entered_proximity(body: StaticBody2D):
-	# Scenario: dude loves trees. If hes around them he gets happy
-	# check trait triggers
+func _on_object_entered_proximity(body: StaticBody2D) -> void:
 	var applicable_triggers: Array = get_applicable_object_triggers(body.id)
-	for i in applicable_triggers:
-		execute_trigger(i)
-	pass
+	for trigger in applicable_triggers:
+		execute_trigger(trigger)
 
-func get_applicable_object_triggers(object_id: int):
+
+func get_applicable_object_triggers(object_id: int) -> Array:
 	var object_triggers: Array
 	for i in traits.values():
 		if i.triggers.object_proximity.size():
@@ -56,9 +54,34 @@ func get_applicable_object_triggers(object_id: int):
 				object_triggers.push_back(i.triggers.object_proximity[object_id])
 	return object_triggers
 
-func execute_trigger(trigger: Dictionary):
+
+func execute_trigger(trigger: Dictionary) -> void:
 	if trigger.effect_type == "feeling":
 		SignalBus.emit_signal("create_feeling", trigger.effect.id)
 	if trigger.effect_type == "need_modification":
 		SignalBus.emit_signal("modify_need", trigger.effect, trigger.value)
-	
+
+# if character comes nearby:
+#	- with certain emotion
+#		- character.primary_emotion , effect
+#	- with certain trait(s)
+#	- holding a certain object or type of object <- advanced for now
+#   - if its a certain character (good/bad relationship)
+#   - if character has certain genetic trait
+#   - character has a need level
+#   - character has a certain stat level ( not quite implemented)
+#	- character has good/bad proficiency in a skill
+
+# when interacting with an object
+# if an object is in character's proximity
+# when interacting with another character
+# time
+#	- time since last object interaction
+# random
+
+
+# effects
+#	- feelings
+#	- need modifier
+#	- interactions
+#	- behaviours

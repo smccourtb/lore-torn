@@ -11,8 +11,8 @@ var ref: Character
 func _ready() -> void:
 	$HBoxContainer/Label.text = character_name
 	$HBoxContainer/Label.rect_min_size = Vector2(column_size, 0)
-	for i in Global.jobs.size():
-		var checkbox = CheckBox.new()
+	for i in Global.jobs.size()-1:
+		var checkbox = load("res://ui/CustomCheckbox.tscn").instance()
 		checkbox.pressed = check_assigned(Global.jobs[i], ref)
 		
 		$HBoxContainer.add_child(checkbox)

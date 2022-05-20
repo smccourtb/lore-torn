@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://ui/job_assigner_row.gd" type="Script" id=1]
+[ext_resource path="res://ui/CustomCheckbox.tscn" type="PackedScene" id=2]
 
 [node name="VBoxContainer" type="VBoxContainer"]
 anchor_right = 1.0
 margin_bottom = 25.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+custom_constants/separation = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -15,7 +17,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 320.0
 margin_bottom = 25.0
-custom_constants/separation = -17
+rect_pivot_offset = Vector2( -223.723, -84.6538 )
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 margin_right = 171.0
@@ -23,3 +25,7 @@ margin_bottom = 25.0
 rect_min_size = Vector2( 150, 0 )
 text = "character name"
 valign = 1
+
+[node name="CheckBox" parent="HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 179.0
+margin_right = 195.0

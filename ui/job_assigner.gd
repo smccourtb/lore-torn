@@ -1,8 +1,8 @@
 extends Control
 
-onready var container = get_node("VBoxContainer")
+onready var container = get_node("Panel/MarginContainer/VBoxContainer")
 onready var job_row = preload("res://ui/JobAssignerRow.tscn")
-onready var header = get_node("VBoxContainer/Header/HBoxContainer")
+onready var header = get_node("Panel/MarginContainer/VBoxContainer/Header/HBoxContainer")
 
 var column_size = 100
 

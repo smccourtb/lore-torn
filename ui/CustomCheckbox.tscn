@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://stockpile_checkbox.gd" type="Script" id=1]
+[ext_resource path="res://checkbox_unactive.tres" type="StyleBox" id=2]
+[ext_resource path="res://checkbox_active.tres" type="StyleBox" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="CheckBox" type="Button"]
+margin_left = 154.0
+margin_right = 170.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 16, 16 )
+size_flags_vertical = 5
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/normal = ExtResource( 2 )
+toggle_mode = true
+script = ExtResource( 1 )

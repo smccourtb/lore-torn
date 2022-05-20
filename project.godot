@@ -769,11 +769,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://character/physical_traits/gene_factory.gd"
 }, {
-"base": "PersonalityTrait",
-"class": "Goal",
-"language": "GDScript",
-"path": "res://character/personality/goals/goal.gd"
-}, {
 "base": "GdUnitMonitor",
 "class": "GodotGdErrorMonitor",
 "language": "GDScript",
@@ -1162,7 +1157,6 @@ _global_script_class_icons={
 "GdUnitVector3AssertImpl": "",
 "Gene": "",
 "GeneFactory": "",
-"Goal": "",
 "GodotGdErrorMonitor": "",
 "Grid": "",
 "IntFuzzer": "",

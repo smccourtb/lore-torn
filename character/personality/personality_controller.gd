@@ -10,30 +10,6 @@ class_name PersonalityController
 #   OBJECTS: 6000 - 9999
 
 
-# setup needs
-# generate traits (3)
-# generate inspiration
-# generate inspiration trait
-# setup emotions
-# determine primary emotion
-# determine possible social interactions
-
-# ORDER OF ACTIONS
-#	- physical needs (if mood level below a certain threshold)
-#   - player orders ( if emotion permits)
-#	- emotional needs
-#	- whims
-
-# new primary emotion is triggered
-# sets up possible INTERACTONS (things you can talk about with another character)
-# sets up possible ACTIVITIES (what it can and cant do, behavior tree stuff?)
-
-
-
-# TRAITS
-# set trait
-# sets up possible INTERACTONS (things you can talk about with another character)
-# 
 var owner_ref: Resource
 var need_controller: NeedController
 var feeling_controller: FeelingController
@@ -41,8 +17,6 @@ var emotion_controller: EmotionController
 var personality_trait_controller: PersonalityTraitController
 
 const UPDATE_INTERVAL: float = .5
-
-# feelings effect emotions
 
 # fed by traits and emotions
 var object_triggers: Array
