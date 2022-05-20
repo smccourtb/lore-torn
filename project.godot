@@ -857,12 +857,17 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "PersonalityTrait",
 "language": "GDScript",
-"path": "res://character/personality/traits/trait.gd"
+"path": "res://character/personality/traits/personality_trait.gd"
+}, {
+"base": "Resource",
+"class": "PersonalityTraitController",
+"language": "GDScript",
+"path": "res://character/personality/traits/personality_trait_controller.gd"
 }, {
 "base": "Resource",
 "class": "PersonaltyTraitTemplate",
 "language": "GDScript",
-"path": "res://character/personality/personality_trait_template.gd"
+"path": "res://character/personality/traits/personality_trait_template.gd"
 }, {
 "base": "Reference",
 "class": "RPC",
@@ -1175,6 +1180,7 @@ _global_script_class_icons={
 "PersonalityController": "",
 "PersonalityTemplate": "",
 "PersonalityTrait": "",
+"PersonalityTraitController": "",
 "PersonaltyTraitTemplate": "",
 "RPC": "",
 "RPCClientConnect": "",

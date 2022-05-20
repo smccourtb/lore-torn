@@ -14,7 +14,7 @@ func set_resources(profile: Array):
 func generate_profile():
 	for i in needs_resources:
 		var new_need: Need = generate_need(i)
-		new_need.connect("first_threshold", self, "_on_Early_warning")
+		new_need.connect("threshold_triggered", self, "_on_need_threshold_reached")
 		self.needs[new_need.id] = new_need
 	
 func generate_need(resource: NeedTemplate) -> Need:
@@ -22,8 +22,8 @@ func generate_need(resource: NeedTemplate) -> Need:
 
 func cycle():
 	for i in needs.values():
-		i.decrease_level(.05) # .0069 <- even throughut 24h
+		i.decrease_level(3) # .0069 <- even throughout 24h
 
-func _on_Early_warning(need_id):
-	SignalBus.emit_signal("create_feeling", need_id)
+func _on_need_threshold_reached(feeling_id: int):
+	SignalBus.emit_signal("create_feeling", feeling_id)
 

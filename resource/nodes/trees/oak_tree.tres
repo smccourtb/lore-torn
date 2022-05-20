@@ -10,6 +10,7 @@ region = Rect2( 8, 32, 32, 32 )
 
 [resource]
 script = ExtResource( 1 )
+id = 6000
 type = "tree"
 subtype = "oak"
 texture = SubResource( 1 )

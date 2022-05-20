@@ -1,10 +1,9 @@
-tool
-
 extends StaticBody2D
 class_name ResourceNode
 
 # IDEA: If tree or whatever is especially big or special in someway then note it in the history or memorie
 export var data: Resource
+var id: int
 var selected: bool = false setget set_selected
 var type: String
 var subtype: String
@@ -14,11 +13,11 @@ var targeted: bool = false
 
 signal resource_node_created(data)
 
-func _process(delta: float) -> void:
-	if Engine.editor_hint:
-		if data:
-			print('calling setup')
-			setup_node(data)
+#func _process(delta: float) -> void:
+#	if Engine.editor_hint:
+#		if data:
+#			print('calling setup')
+#			setup_node(data)
 func _ready() -> void:
 	setup_node(data)
 
@@ -26,6 +25,7 @@ func _ready() -> void:
 func setup_node(resource_node_data):
 	$Sprite.texture = resource_node_data.texture
 	$Sprite.offset = resource_node_data.texture_offset
+	self.id = resource_node_data.id
 	type = resource_node_data.type
 	subtype = resource_node_data.subtype
 	resource_node_name = type + "_" + subtype
@@ -46,7 +46,6 @@ func action(character):
 	#TODO: route this to a function that removes itself from the map data and resource nodes dictionaries 
 	# instead of doing it in the behavior trees
 	SignalBus.emit_signal("resource_removed", get_object_type(), position)
-	character.data.energy_level -= 1 # just testing #TODO: decrease by (size of tree, strength, skill)
 	drop_items()
 	queue_free()
 	return true

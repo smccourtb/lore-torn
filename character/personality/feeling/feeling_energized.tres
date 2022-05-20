@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://character/personality/feeling/feeling_template.gd" type="Script" id=1]
+[ext_resource path="res://character/personality/emotion/happy.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+id = 102
+title = "Feeling Energized!"
+time = 4
+emotion_granted = ExtResource( 2 )
+emotion_points = 1
+need_modifier = {
+}
+skill_modifier = {
+}

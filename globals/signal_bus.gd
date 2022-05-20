@@ -15,3 +15,9 @@ signal updated(time_hash)
 signal item_on_world_map(item_pos, item_ref)
 # for creating feelings
 signal create_feeling(feeling_id)
+# object enters a characters zone for triggering personality reactions
+signal object_entered_proximity(object)
+# character enters a characters zone for triggering personality reactions
+signal character_entered_proximity(character)
+# modfies a characters need value
+signal modify_need(need_id, amount)

@@ -1,10 +1,14 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://character/personality/feeling/data_container.gd" type="Script" id=1]
 [ext_resource path="res://character/personality/feeling/hungry.tres" type="Resource" id=2]
+[ext_resource path="res://character/personality/feeling/feeling_energized.tres" type="Resource" id=3]
+[ext_resource path="res://character/personality/feeling/very_hungry.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
 resources = {
-100: ExtResource( 2 )
+100: ExtResource( 2 ),
+101: ExtResource( 4 ),
+102: ExtResource( 3 )
 }

@@ -121,9 +121,14 @@ func set_target_position(pos: Vector2) -> void:
 func _on_ProximityDetector_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
 		objects_near_me.push_back(body)
+		SignalBus.emit_signal("object_entered_proximity", body)
+		
 		return
 	if body != self and body is KinematicBody2D:
 		characters_near_me.push_back(body)
+		SignalBus.emit_signal("character_entered_proximity", body)
+		
+
 	# Check a master list if i care about anything about this object
 
 

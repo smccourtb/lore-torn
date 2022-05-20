@@ -1,15 +1,21 @@
 extends Resource
-class_name PersonaltyTraitTemplate
+class_name PersonalityTrait
 
+var title: String
+var description: String
+# holds trait ids
+var conflicting_traits: Array
+var random_feelings: Array
+var owner_ref: Node
+var triggers: Dictionary
 
-export var title: String
-export var conflicting_traits: Array
-export var grants_random_feeling: bool
-export var grants_conditional_feeling: bool
-export var random_feelings: Array
-export var conditional_feelings: Array
-export var grants_passive_need_modifier: bool
-export var grants_conditional_need_modifier: bool
+func _init(resource: PersonaltyTraitTemplate, owner: Node) -> void:
+	owner_ref = owner
+	self.title = resource.title
+	self.description = resource.description
+	self.conflicting_traits = resource.conflicting_traits
+	self.triggers = resource.triggers
+
 
 # can modify need values
 # can create positive/negative feelings - self and others
@@ -22,6 +28,7 @@ export var grants_conditional_need_modifier: bool
 # different reactions to recieving interactions
 
 func trigger_random_feeling():
+	######## {"feeling",  "chance"}
 	# returns a feeling
 	# grabs from random_feeling array
 	# returns it
@@ -35,5 +42,5 @@ func trigger_random_feeling():
 #			send "create_feeling" signal with feeling as a parameter
 	return
 
-func trigger_feeling_on():
-	return
+	
+

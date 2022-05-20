@@ -50,43 +50,10 @@ func _ready() -> void:
 	personality = character.data.personality
 	emotions = personality.emotion_controller.emotions.values()
 	feelings = personality.feeling_controller.active_feelings
-	
-	
-func _process(delta: float) -> void:
-	yield(get_tree().create_timer(.01), "timeout")
-	
-	# Emotions
-	e1.text = String(emotions[0].title)
-	e1_value.text = String(emotions[0].level)
-	e2.text = String(emotions[1].title)
-	e2_value.text = String(emotions[1].level)
-	e3.text = String(emotions[2].title)
-	e3_value.text = String(emotions[2].level)
-	e4.text = String(emotions[3].title)
-	e4_value.text = String(emotions[3].level)
-	e5.text = String(emotions[4].title)
-	e5_value.text = String(emotions[4].level)
-	e6.text = String(emotions[5].title)
-	e6_value.text = String(emotions[5].level)
-	
-	# Feelings
-	
-	
-	feelings = personality.feeling_controller.active_feelings
-	# Needs
-	n1.text = personality.need_controller.needs[0].title
-	n1_value.text = String(personality.need_controller.needs[0].level)
-	n2.text = personality.need_controller.needs[1].title
-	n2_value.text = String(personality.need_controller.needs[1].level)
-	n3.text = personality.need_controller.needs[2].title
-	n3_value.text = String(personality.need_controller.needs[2].level)
-	n4.text = personality.need_controller.needs[3].title
-	n4_value.text = String(personality.need_controller.needs[3].level)
-	n5.text = personality.need_controller.needs[4].title
-	n5_value.text = String(personality.need_controller.needs[4].level)
-	n6.text = personality.need_controller.needs[5].title
-	n6_value.text = String(personality.need_controller.needs[5].level)
-	
+		
+		
+		
+		
 
 
 func _on_Timer_timeout() -> void:
@@ -105,3 +72,35 @@ func _on_Timer_timeout() -> void:
 			label_value.text = String(i.time_left)
 			f_header.add_child(label_title)
 			f_value.add_child(label_value)
+	# Emotions
+	e1.text = String(emotions[0].title)
+	e1_value.text = String(emotions[0].level)
+	e2.text = String(emotions[1].title)
+	e2_value.text = String(emotions[1].level)
+	e3.text = String(emotions[2].title)
+	e3_value.text = String(emotions[2].level)
+	e4.text = String(emotions[3].title)
+	e4_value.text = String(emotions[3].level)
+	e5.text = String(emotions[4].title)
+	e5_value.text = String(emotions[4].level)
+	e6.text = String(emotions[5].title)
+	e6_value.text = String(emotions[5].level)
+	
+	# Feelings
+
+
+	feelings = personality.feeling_controller.active_feelings
+	# Needs
+	n1.text = personality.need_controller.needs[0].title
+	n1_value.text = String(personality.need_controller.needs[0].level)
+	n2.text = personality.need_controller.needs[1].title
+	n2_value.text = String(personality.need_controller.needs[1].level)
+	n3.text = personality.need_controller.needs[2].title
+	n3_value.text = String(personality.need_controller.needs[2].level)
+	n4.text = personality.need_controller.needs[3].title
+	n4_value.text = String(personality.need_controller.needs[3].level)
+	n5.text = personality.need_controller.needs[4].title
+	n5_value.text = String(personality.need_controller.needs[4].level)
+	n6.text = personality.need_controller.needs[5].title
+	n6_value.text = String(personality.need_controller.needs[5].level)
+	

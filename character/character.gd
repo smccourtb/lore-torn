@@ -14,13 +14,10 @@ var height: int
 var weight: int
 var genes: Dictionary = {}
 var personality: PersonalityController
-var mood_level: Dictionary
 
 var inventory = Inventory
 var assigned_jobs: = {}
 var current_project: Order
-var energy_level: int = 100
-var hunger_level: int = 100
 # THINGS TO ADD
 # memories
 
@@ -29,7 +26,6 @@ func _init() -> void:
 	self.inventory = Inventory.new(10)
 	self.id = get_instance_id()
 	set_personality()
-	print("Done Generating Character")
 
 func set_race_data(new_race_data: Resource) -> void:
 	self.race_data = new_race_data
@@ -194,4 +190,4 @@ func get_personalty() -> PersonalityController:
 	
 func determine_personality():
 	var resource = load("res://character/personality/base.tres")
-	return PersonalityController.new(resource)
+	return PersonalityController.new(resource, self)

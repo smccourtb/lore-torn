@@ -5,8 +5,9 @@ class_name PersonalityController
 #	NEEDS - 0 - 49
 #	EMOTIONS: 50 - 99
 #	FEELINGS: 100 - 1999
-# 	CHARACTERS: 2000 - 2499
-#   OBJECTS: 2500 - 4999
+#	TRAITS: 2000 - 3999
+# 	CHARACTERS: 4000 - 5999
+#   OBJECTS: 6000 - 9999
 
 
 # setup needs
@@ -33,10 +34,13 @@ class_name PersonalityController
 # set trait
 # sets up possible INTERACTONS (things you can talk about with another character)
 # 
-var traits: Dictionary
+var owner_ref: Resource
 var need_controller: NeedController
 var feeling_controller: FeelingController
 var emotion_controller: EmotionController
+var personality_trait_controller: PersonalityTraitController
+
+const UPDATE_INTERVAL: float = .5
 
 # feelings effect emotions
 
@@ -48,24 +52,27 @@ var unlocked_interactions: Array
 
 var timer: Timer
 
-func _init(profile: PersonalityTemplate) -> void:
+
+func _init(profile: PersonalityTemplate, owner: Resource) -> void:
+	owner_ref = owner
 	generate_personality(profile)
+	print(owner)
 
 func _ready():
+	#  setup interval to update overall personality
 	timer = Timer.new()
 	add_child(timer)
 	timer.connect("timeout", self, "_on_Timer_timeout")
-	timer.start(.5)
-	
+	timer.start(UPDATE_INTERVAL)
+
 
 func generate_personality(profile: PersonalityTemplate):
-	#generate personality_trait_controller()
 	self.need_controller = NeedController.new(profile.needs)
 	self.feeling_controller = FeelingController.new()
 	self.emotion_controller = EmotionController.new(profile.emotions)
+	self.personality_trait_controller = PersonalityTraitController.new(profile.personality_traits, self)
 	feeling_controller.connect("feeling_created", self, "_on_feeling_created")
 	feeling_controller.connect("feeling_removed", self, "_on_feeling_removed")
-	
 
 
 func _on_feeling_created(feeling: Feeling):
