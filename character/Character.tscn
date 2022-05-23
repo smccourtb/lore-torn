@@ -1,6 +1,6 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=34 format=2]
 
-[ext_resource path="res://assets/characters/dwarf/dwarf.png" type="Texture" id=1]
+[ext_resource path="res://assets/characters/Human Base/HumanBaseAttack.png" type="Texture" id=1]
 [ext_resource path="res://character/character_controller.gd" type="Script" id=2]
 [ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=3]
 [ext_resource path="res://addons/behavior_tree/src/blackboard.gd" type="Script" id=4]
@@ -19,9 +19,18 @@
 [ext_resource path="res://assets/magic/Minifanasy_MagicAndSorceryGreenBase.png" type="Texture" id=17]
 [ext_resource path="res://assets/magic/Minifanasy_MagicAndSorceryYellowBase.png" type="Texture" id=18]
 [ext_resource path="res://purple-effect.tres" type="Animation" id=19]
+[ext_resource path="res://assets/characters/Human Base/HumanBase.tscn" type="PackedScene" id=20]
 
-[sub_resource type="Animation" id=1]
-resource_name = "angry"
+[sub_resource type="AnimationNodeStateMachinePlayback" id=19]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=20]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=21]
+
+[sub_resource type="Animation" id=10]
+resource_name = "New Anim"
+
+[sub_resource type="Animation" id=11]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -73,8 +82,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "happy"
+[sub_resource type="Animation" id=12]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -126,8 +134,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "sad"
+[sub_resource type="Animation" id=13]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -179,8 +186,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "scared"
+[sub_resource type="Animation" id=14]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -232,8 +238,143 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "uncomfortable"
+[sub_resource type="Animation" id=18]
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ null ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Shadows:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ null ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Shadows:vframes")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Shadows:hframes")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Shadows:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.05, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.05, 0.1, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 6.17905, -0.139187 ), Vector2( 4.25878, -1.13243 ), Vector2( 1.90809, -1.26487 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Hitbox/CollisionShape2D:rotation_degrees")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0.05, 0.1, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -45.0, -115.0 ]
+}
+
+[sub_resource type="Animation" id=15]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -285,13 +426,13 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=16]
 radius = 48.0
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 2.91607, 2.46188 )
 
-[sub_resource type="CapsuleShape2D" id=8]
+[sub_resource type="CapsuleShape2D" id=9]
 radius = 2.26057
 height = 1.55687
 
@@ -301,42 +442,56 @@ input_pickable = true
 collision_mask = 33
 script = ExtResource( 2 )
 
+[node name="HumanBase" parent="." instance=ExtResource( 20 )]
+
+[node name="CharacterAnimation" parent="HumanBase" index="0"]
+texture = ExtResource( 1 )
+frame = 8
+
+[node name="Shadows" parent="HumanBase/CharacterAnimation" index="0"]
+texture = null
+frame = 8
+
+[node name="AnimationTree" parent="HumanBase/CharacterAnimation" index="2"]
+parameters/playback = SubResource( 19 )
+parameters/MeleeAttack/playback = SubResource( 20 )
+parameters/SpellProjectile/playback = SubResource( 21 )
+
 [node name="Sprite2" type="Sprite" parent="."]
 visible = false
-texture = ExtResource( 17 )
-hframes = 8
+hframes = 4
+vframes = 4
+frame = 8
 
 [node name="AnimatedSprite" type="AnimationPlayer" parent="Sprite2"]
-anims/angry = SubResource( 1 )
+"anims/New Anim" = SubResource( 10 )
+anims/angry = SubResource( 11 )
 anims/asleep = ExtResource( 19 )
-anims/happy = SubResource( 2 )
-anims/sad = SubResource( 3 )
-anims/scared = SubResource( 4 )
-anims/uncomfortable = SubResource( 5 )
-
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
+anims/happy = SubResource( 12 )
+anims/sad = SubResource( 13 )
+anims/scared = SubResource( 14 )
+"anims/testa atafdas" = SubResource( 18 )
+anims/uncomfortable = SubResource( 15 )
 
 [node name="ProximityDetector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ProximityDetector"]
-shape = SubResource( 6 )
+shape = SubResource( 16 )
 
 [node name="Area2D" type="Area2D" parent="."]
 input_pickable = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 7 )
+shape = SubResource( 17 )
 disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="Line2D" type="Line2D" parent="."]
-visible = false
 width = 2.0
 
 [node name="Blackboard" type="Node" parent="."]
@@ -395,6 +550,7 @@ script = ExtResource( 10 )
 [connection signal="body_entered" from="ProximityDetector" to="." method="_on_ProximityDetector_body_entered"]
 [connection signal="body_exited" from="ProximityDetector" to="." method="_on_ProximityDetector_body_exited"]
 
+[editable path="HumanBase"]
 [editable path="BehaviorTree/BTSelector/Any Constructions?"]
 [editable path="BehaviorTree/BTSelector/Assigned Carpenter?"]
 [editable path="BehaviorTree/BTSelector/Assigned Harvest?"]

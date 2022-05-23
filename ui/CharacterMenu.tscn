@@ -17,8 +17,8 @@ font_data = ExtResource( 5 )
 [node name="CharacterMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 107.0
-margin_bottom = 60.0
+margin_right = 106.0
+margin_bottom = 61.0
 grow_horizontal = 0
 grow_vertical = 0
 rect_scale = Vector2( 0.75, 0.75 )
@@ -31,30 +31,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HB" type="HBoxContainer" parent="."]
-anchor_left = 0.02
+[node name="VB" type="VBoxContainer" parent="."]
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -5.76518
-margin_top = -66.3964
-margin_right = -384.225
-margin_bottom = -0.396393
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VB" type="VBoxContainer" parent="HB"]
-margin_top = 24.0
-margin_right = 40.0
-margin_bottom = 66.0
+margin_left = 1.33333
+margin_top = -65.0
+margin_right = 41.3333
+margin_bottom = 1.52588e-05
 size_flags_vertical = 8
 custom_constants/separation = -14
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="NinePatchRect" parent="HB/VB"]
+[node name="TextureRect2" type="NinePatchRect" parent="VB"]
 margin_right = 40.0
 margin_bottom = 16.0
 size_flags_vertical = 0
@@ -64,7 +54,7 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
-[node name="Label" type="Label" parent="HB/VB/TextureRect2"]
+[node name="Label" type="Label" parent="VB/TextureRect2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = SubResource( 2 )
@@ -75,7 +65,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NeedUI" parent="HB/VB" instance=ExtResource( 3 )]
+[node name="NeedUI" parent="VB" instance=ExtResource( 3 )]
 show_behind_parent = true
 anchor_right = 0.0
 anchor_bottom = 0.0

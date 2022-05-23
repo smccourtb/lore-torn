@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="WeaponFrontLayer" type="Sprite"]
+visible = false
+hframes = 4
+vframes = 4
+frame = 3

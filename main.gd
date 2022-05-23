@@ -63,8 +63,8 @@ func _input(event: InputEvent) -> void:
 		if event.get_scancode() == KEY_W:
 			var workstation_generator = load("res://ui/WorkstationMenu.tscn").instance()
 			$CanvasLayer.add_child(workstation_generator)
-		if event.get_scancode() == KEY_ESCAPE:
-			$Cursor2.visible = !$Cursor2.visible
+#		if event.get_scancode() == KEY_ESCAPE:
+#			$Cursor2.visible = !$Cursor2.visible
 		if event.get_scancode() == KEY_SPACE:
 			get_tree().paused = !get_tree().paused
 		if event.get_scancode() == KEY_C:

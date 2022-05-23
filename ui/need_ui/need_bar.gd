@@ -4,7 +4,7 @@ extends VBoxContainer
 onready var icon: TextureRect = $TextureRect
 onready var progress_bar: TextureProgress = $TextureProgress
 var progress_colors: Dictionary = {"red": Rect2(256, 296, 16, 32), "yellow": Rect2(464, 296, 16, 32), "green": Rect2(464, 632, 16, 32)}
-
+onready var pop = $TextureRect/PopupPanel
 
 func setup(need_data):
 	icon.texture = load("res://ui/need_ui/icon/" + need_data.title + ".tres")
@@ -23,3 +23,10 @@ func _on_need_changed(value):
 		progress_bar.texture_progress.region = progress_colors.yellow
 	else:
 		progress_bar.texture_progress.region = progress_colors.red
+
+
+func _on_TextureRect_mouse_entered() -> void:
+	pop.popup()
+	pop.set_global_position(get_global_mouse_position() +Vector2(0, -pop.rect_size.y) )
+	pop.get_node("MarginContainer/Label").text = name
+

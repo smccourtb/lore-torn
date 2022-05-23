@@ -15,6 +15,8 @@ var path: Array # of Vector2s
 var target_direction: Vector2
 var target_position # Vector2 or null
 onready var pathfinding = get_parent().get_node("Pathfinding")
+onready var animation = $HumanBase/CharacterAnimation/AnimationTree
+var character_animation_state
 
 # for when the camera follows and shows stats
 var targeted: bool = false
@@ -29,6 +31,9 @@ var characters_near_me: Array
 	# what traits those characters have
 # tile im on / whats in my area -> for a character that gets in a good mood for standing on grass
 # running controller of interactions I can have and the ones ive had
+func _ready() -> void:
+	character_animation_state = animation.get("parameters/playback")
+
 
 func get_character_data() -> Character:
 	return data
@@ -103,6 +108,13 @@ func find_closest_item(items=Global.items.keys()):
 	return find_closest(position, items)
 
 func move_to(pos: Vector2) -> bool:
+	target_direction = global_position.direction_to(pos)
+	character_animation_state.travel('Move')
+	animation.set("parameters/Move/blend_position", target_direction.normalized())
+	animation.set("parameters/Idle/blend_position", target_direction.normalized())
+	animation.set("parameters/Hurt/blend_position", target_direction.normalized())
+	animation.set("parameters/Jump/blend_position", target_direction.normalized())
+	animation.set("parameters/BaseAttack/blend_position", target_direction.normalized())
 	path = pathfinding.get_new_path(global_position, pos)
 	set_path_line(path)
 	if path.size() > 1:
@@ -113,6 +125,7 @@ func move_to(pos: Vector2) -> bool:
 	if global_position.distance_to(pos) < 1:
 		velocity = Vector2.ZERO
 		set_target_position(velocity)
+		character_animation_state.travel('Idle')
 		return true
 	velocity = move_and_slide(velocity)
 	return false
