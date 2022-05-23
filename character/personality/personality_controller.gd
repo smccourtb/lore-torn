@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 class_name PersonalityController
 
 ## ID STRUCTURE
@@ -20,24 +20,19 @@ const UPDATE_INTERVAL: float = .5
 
 # fed by traits and emotions
 var object_triggers: Array
-
+var time_triggers: Dictionary = {}
 var social_triggers: Array
-var unlocked_interactions: Array
 
-var timer: Timer
 
 
 func _init(profile: PersonalityTemplate, owner: Resource) -> void:
 	owner_ref = owner
+	SignalBus.connect("minute", self, "_on_time_update")
+	SignalBus.connect("add_time_trigger", self, "_on_add_time_trigger")
+	
 	generate_personality(profile)
-	print(owner)
 
-func _ready():
-	#  setup interval to update overall personality
-	timer = Timer.new()
-	add_child(timer)
-	timer.connect("timeout", self, "_on_Timer_timeout")
-	timer.start(UPDATE_INTERVAL)
+
 
 
 func generate_personality(profile: PersonalityTemplate):
@@ -50,13 +45,24 @@ func generate_personality(profile: PersonalityTemplate):
 
 
 func _on_feeling_created(feeling: Feeling):
-	print("Weelllll ehat do you know: ", feeling.title)
 	emotion_controller.modify_emotion_level(feeling.emotion_granted.id, feeling.emotion_points)
 
 func _on_feeling_removed(feeling: Feeling):
 	emotion_controller.modify_emotion_level(feeling.emotion_granted.id, -feeling.emotion_points)
-	
 
-func _on_Timer_timeout() -> void:
+
+func _on_time_update(value: int):
+	if time_triggers.has(value):
+		personality_trait_controller.execute_trigger(time_triggers[value])
+		if time_triggers[value].repeatable:
+			personality_trait_controller.setup_time_triggers([time_triggers[value]])
+		time_triggers.erase(value)
+
 	self.need_controller.cycle()
 	self.emotion_controller.cycle()
+
+
+func _on_add_time_trigger(trigger: TimeTrigger):
+	print("add time trigger called")
+	var wait_time = Time.value + trigger.delay
+	time_triggers[wait_time] = trigger

@@ -8,7 +8,7 @@ signal feeling_removed(feeling)
 # TODO: implement stage 2 / stage 3
 
 func _init():
-	SignalBus.connect("updated", self, "_on_time_updated")
+	SignalBus.connect("minute", self, "_on_time_updated")
 	SignalBus.connect("create_feeling", self, "create_feeling")
 	
 	

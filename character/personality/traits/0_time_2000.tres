@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://character/personality/trigger/time_trigger.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+delay = 10
+chance = 85
+repeatable = true
+random = false
+effect_type = "feeling"
+effect = 102

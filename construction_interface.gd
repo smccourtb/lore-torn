@@ -18,7 +18,7 @@ func generate_furniture(w_name: String):
 	get_tree().get_root().get_node("Main").add_child(furniture)
 	return furniture
 
-func load_construction_data(w_name):
+func load_construction_data(w_name: String):
 	var data = load("res://resource/furniture/" + w_name + ".tres")
 	return data
 

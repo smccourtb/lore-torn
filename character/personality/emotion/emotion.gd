@@ -8,7 +8,6 @@ var current_stage: int
 var stages: Array
 
 func _init(emotion_template: EmotionTemplate, starting_level: int = 0):
-	print("Generating an Emotion")
 	self.title = emotion_template.title
 	self.stages = emotion_template.stages
 	set_level(starting_level)

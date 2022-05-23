@@ -43,7 +43,7 @@ func set_resource_node(type: String, key: Vector2, value: ResourceNode) -> void:
 	resource_nodes[type][key] = value 
 
 func remove_resource_node(type: String, key: Vector2) -> bool:
-	return resource_nodes[type].erase(key)
+	return resource_nodes[type].erase(Global.map_grid.calculate_grid_coordinates(key))
 	
 
 func _on_resource_Removed(ref, pos) -> void:
@@ -55,7 +55,7 @@ func get_walkable_cells() -> Array:
 	
 func _on_item_SpawnedOnMap(item_pos: Vector2, item_ref: int):
 		items[item_pos] = item_ref
-		walkable_cells.append(item_pos)
+#		walkable_cells.append(item_pos)
 #		print("updating nav map")
 #		main.pathfinder.update_navigation_map(get_walkable_cells())
 		

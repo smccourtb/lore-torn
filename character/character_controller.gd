@@ -16,6 +16,9 @@ var target_direction: Vector2
 var target_position # Vector2 or null
 onready var pathfinding = get_parent().get_node("Pathfinding")
 
+# for when the camera follows and shows stats
+var targeted: bool = false
+
 # Things I need to know - personality stuff
 # what objects are in my proximity
 var objects_near_me: Array
@@ -100,13 +103,16 @@ func find_closest_item(items=Global.items.keys()):
 	return find_closest(position, items)
 
 func move_to(pos: Vector2) -> bool:
-	path = pathfinding.get_new_path(position, pos)
+	path = pathfinding.get_new_path(global_position, pos)
 	set_path_line(path)
 	if path.size() > 1:
-		var desired_velocity: Vector2 = movement.get_pursue_velocity(path[1],0,0)
-		velocity = velocity.linear_interpolate(desired_velocity, .1)
-	if position.distance_to(pos) < 8:
+#		var desired_velocity: Vector2 = movement.get_pursue_velocity(path[1],0,0)
+#		velocity = velocity.linear_interpolate(desired_velocity, .1)
+		velocity = global_position.direction_to(path[1]) * (run_speed * 3)
+		
+	if global_position.distance_to(pos) < 1:
 		velocity = Vector2.ZERO
+		set_target_position(velocity)
 		return true
 	velocity = move_and_slide(velocity)
 	return false
@@ -118,6 +124,17 @@ func set_target_position(pos: Vector2) -> void:
 	self.target_position = pos
 
 
+func get_random_position_from_chunk(chunk_pos):
+	var a = Global.map_data[chunk_pos].cells.keys()
+	a = a[randi() % a.size()]
+	if Global.map_data[chunk_pos].cells[a].walkable:
+		# map_position coord
+		return a
+	else:
+		print("PICKING ANOTHER")
+		return get_random_position_from_chunk(chunk_pos)
+	
+	
 func _on_ProximityDetector_body_entered(body: Node) -> void:
 	if body is StaticBody2D:
 		objects_near_me.push_back(body)
@@ -127,9 +144,6 @@ func _on_ProximityDetector_body_entered(body: Node) -> void:
 	if body != self and body is KinematicBody2D:
 		characters_near_me.push_back(body)
 		SignalBus.emit_signal("character_entered_proximity", body)
-		
-
-	# Check a master list if i care about anything about this object
 
 
 func _on_ProximityDetector_body_exited(body: Node) -> void:
@@ -141,3 +155,26 @@ func _on_ProximityDetector_body_exited(body: Node) -> void:
 	var character_index: int = characters_near_me.find(body)
 	if character_index >= 0:
 		characters_near_me.remove(character_index)
+
+
+func _on_Character_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if not targeted:
+		if event is InputEventMouseButton && event.is_pressed():
+			var stat_screen: Control = preload("res://ui/CharacterMenu.tscn").instance()
+			stat_screen.personality_data = data.personality
+			SignalBus.emit_signal("anchor_detected", {"global_position": self, "zoom_level": 0.5, "ui": stat_screen})
+			targeted = true
+			$Sprite2/AnimatedSprite.play(data.personality.emotion_controller.primary_emotion.title.to_lower())
+			$Sprite2.visible = true
+	if event is InputEventMouseButton && event.is_pressed():
+		print(true)
+
+
+func _input(event: InputEvent) -> void:
+	if targeted:
+		if event is InputEventKey and event.is_pressed():
+			if event.get_scancode() == KEY_ESCAPE:
+				SignalBus.emit_signal("anchor_detached")
+				$Sprite2/AnimatedSprite.stop()
+				$Sprite2.visible = false
+				targeted = false

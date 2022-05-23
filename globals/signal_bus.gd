@@ -21,3 +21,16 @@ signal object_entered_proximity(object)
 signal character_entered_proximity(character)
 # modfies a characters need value
 signal modify_need(need_id, amount)
+#
+signal add_time_trigger(trigger)
+
+# Time updated
+signal minute(time_hash)
+signal hour(time_hash)
+signal day(time_hash)
+signal month(time_hash)
+signal year(time_hash)
+
+
+signal anchor_detected(area)
+signal anchor_detached

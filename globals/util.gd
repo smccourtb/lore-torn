@@ -15,8 +15,8 @@ func chance(num):
 	else:                     return false
 
 # returns random int between low and high
-func randi_range(low, high):
-	return floor(rand_range(low, high))
+func randi_range(low, high) -> int:
+	return int(floor(rand_range(low, high)))
 
 # shuffle the order of an array
 func shuffle(array):

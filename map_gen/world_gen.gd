@@ -4,7 +4,8 @@ extends TileMap
 const width = 16
 const height = 16
 # the new stuff. keep here until it works
-const MAP_SIZE = Vector2(12,12)
+const MAP_SIZE = Vector2(16,16)
+
 
 
 # Declares tile types
@@ -220,8 +221,8 @@ class Chunk:
 	var nodes := {"tree": {}, "mineral": {}, "plant": {}}
 	var chunk_data: Dictionary
 
-	func _init(world_pos, world_map):
-		self.pos = world_pos
+	func _init(chunk_pos, world_map):
+		self.pos = chunk_pos
 		self.map = world_map
 		generate_data()
 		return chunk_data
@@ -241,7 +242,9 @@ class Chunk:
 		#Place the tiles of the chunk
 		for y in range(height):
 			for x in range(width):
-				var tilepos = pos * 16 + Vector2(x, y) # returns the tile coord of the grid. first one is (0,0)
+				# tile pos is essentially calculate_grid_coordinates_already
+				var tilepos = pos * Global.chunk_grid.size + Vector2(x, y) # returns the tile coord of the grid. first one is (0,0)
+				var map_position = Global.map_grid.calculate_map_position(tilepos)
 				# Get noise values from ChunkMap(Elevation) and ChunkMap(Moisture)
 				var chunk_height = map.chunkElevationMap.get_noise_2d(tilepos.x,tilepos.y)
 #				var chunk_moisture = map.chunkMoistureMap.get_noise_2d(tilepos.x,tilepos.y)
@@ -271,7 +274,8 @@ class Chunk:
 							node_present = true
 							
 							node = map.resource_generator.generate_node(node_choice[0], node_choice[1])
-							node.position = Global.map_grid.calculate_map_position(tilepos) 
+							# map position because we are putting the node on the map in the middle of the cell
+							node.position = map_position
 							map.get_parent().call_deferred('add_child', node)
 					if chunk_height > 0.01 and chunk_height < 0.04:
 						map.set_cell(tilepos.x, tilepos.y, tiles.ForgottenPlains_Dirt)
@@ -280,14 +284,17 @@ class Chunk:
 					map.set_cellv(tilepos, id)
 					map.update_bitmask_area(tilepos)
 				
-				cells[tilepos] = {"id":id}
-				
+				cells[map_position] = {"id":id}
+				cells[map_position]["walkable"] = true
 				if node_present:
 					# add resource node to map_data node dictionary
-					nodes[node_choice[0]][Global.map_grid.calculate_map_position(tilepos)] = node
-					cells[tilepos]["walkable"] = false
+					# grid coordinates because we are storing the data and we want to use grid_coords
+					nodes[node_choice[0]][map_position] = node
+					cells[map_position]["walkable"] = false
 					# TODO: change to unwalkable_cells or something. Opposite of walkable
-					Global.walkable_cells.append(Global.map_grid.calculate_map_position(tilepos))
+					Global.walkable_cells.append(map_position)
+				
+# cells: { (0, 2) : {walkable:
 
 # Used if loading/unloading chunks
 #	func RemoveTiles():

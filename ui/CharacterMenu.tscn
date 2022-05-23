@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://character/personality_debug.gd" type="Script" id=1]
+[ext_resource path="res://assets/font/fontheme.tres" type="Theme" id=2]
+[ext_resource path="res://ui/need_ui/NeedUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/ui/labels/labels.png" type="Texture" id=4]
+[ext_resource path="res://assets/font/m5x7.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 384, 48, 16 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+font_data = ExtResource( 5 )
+
+[node name="CharacterMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 107.0
+margin_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_scale = Vector2( 0.75, 0.75 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HB" type="HBoxContainer" parent="."]
+anchor_left = 0.02
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -5.76518
+margin_top = -66.3964
+margin_right = -384.225
+margin_bottom = -0.396393
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VB" type="VBoxContainer" parent="HB"]
+margin_top = 24.0
+margin_right = 40.0
+margin_bottom = 66.0
+size_flags_vertical = 8
+custom_constants/separation = -14
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="NinePatchRect" parent="HB/VB"]
+margin_right = 40.0
+margin_bottom = 16.0
+size_flags_vertical = 0
+texture = SubResource( 1 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Label" type="Label" parent="HB/VB/TextureRect2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "Needs"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NeedUI" parent="HB/VB" instance=ExtResource( 3 )]
+show_behind_parent = true
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 2.0
+margin_right = 40.0
+margin_bottom = 42.0

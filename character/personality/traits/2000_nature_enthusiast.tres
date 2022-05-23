@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://character/personality/traits/personality_trait_template.gd" type="Script" id=1]
-[ext_resource path="res://character/personality/feeling/feeling_energized.tres" type="Resource" id=2]
+[ext_resource path="res://character/personality/trigger/6000_objprox_0.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
@@ -10,14 +10,12 @@ title = "Nature Enthusiast"
 description = "This character loves trees!"
 conflicting_traits = [  ]
 triggers = {
-"object_proximity": {
-6000: {
-"effect": ExtResource( 2 ),
-"effect_type": "feeling"
-}
-}
-}
-unlocked_interactions = {
-}
-behaviors_unlocked = {
+"complex": [  ],
+"object_interaction": [  ],
+"object_proximity": [ {
+6000: ExtResource( 3 )
+} ],
+"social_interaction": [  ],
+"social_proximity": [  ],
+"time": [  ]
 }

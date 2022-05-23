@@ -13,6 +13,7 @@ var first_effect_was_triggered: bool = false
 var current_decay_rate: float
 
 signal threshold_triggered(feeling_id)
+signal need_changed(value)
 
 
 func _init(need_template: NeedTemplate):
@@ -22,6 +23,7 @@ func _init(need_template: NeedTemplate):
 	set_level(100)
 	self.feeling_effects = need_resource.feeling_effects
 	self.id = need_resource.id
+	current_decay_rate = need_resource.base_decay_rate
 
 
 func get_title() -> String:
@@ -43,6 +45,7 @@ func set_level(new_level: float) -> void:
 	if new_level <= 0:
 		new_level = 0
 	self.level = new_level
+	emit_signal("need_changed", get_level())
 	check_for_threshold_triggers()
 
 func decrease_level(amount: float) -> void:

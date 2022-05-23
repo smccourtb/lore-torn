@@ -37,8 +37,8 @@ func connect_traversable_tiles(tiles: PoolVector2Array):
 				
 # these are world coordinates
 func get_new_path(start: Vector2, end: Vector2) -> Array:
-	var start_tile = tilemap.world_to_map(start)
-	var end_tile = tilemap.world_to_map(end)
+	var start_tile = Global.map_grid.calculate_grid_coordinates(start)
+	var end_tile = Global.map_grid.calculate_grid_coordinates(end)
 	var start_id = get_id_for_point(start_tile)
 	var end_id = get_id_for_point(end_tile)
 	
@@ -49,7 +49,7 @@ func get_new_path(start: Vector2, end: Vector2) -> Array:
 	
 	var path_world = []
 	for point in path_map:
-		var point_world = tilemap.map_to_world(point) + half_cell_size
+		var point_world = Global.map_grid.calculate_map_position(point)
 		path_world.append(point_world)
 		
 	return path_world

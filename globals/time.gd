@@ -29,8 +29,8 @@ const TIME_MULTIPLIERS = {
 }
 
 #var time_scale = TIME_MULTIPLIERS["month"] / 60.0 # 1 irl min == TIME_MULTIPLIERS["segment of time"]
-#var time_scale = TIME_MULTIPLIERS["hour"] / 60.0 # 1 irl sec == TIME_MULTIPLIERS["segment of time"]
-var time_scale = TIME_MULTIPLIERS["hour"] / 30.0 # 1 irl sec == TIME_MULTIPLIERS["segment of time"]
+var time_scale = TIME_MULTIPLIERS["hour"] / 60.0 # 1 irl sec == TIME_MULTIPLIERS["segment of time"]
+#var time_scale = TIME_MULTIPLIERS["hour"] / 30.0 # 1 irl sec == TIME_MULTIPLIERS["segment of time"]
 var value = 0 # stores the actual time, represents minutes in game
 var tick = 0 # time delta, will roll over into minutes
 
@@ -48,7 +48,8 @@ func advance(delta):
 	value += int(tick)
 	tick -= int(tick)
 	if value != prev_value:
-		SignalBus.emit_signal("updated", value)
+		signals(value)
+#		SignalBus.emit_signal("updated", value)
 
 # Accepts dictionary values to set the time values. This will only adjust time
 # for which values are passed in. Will need modifying if this behavior is desired.
@@ -124,3 +125,14 @@ static func clamp(min_time, max_time, time, mask = ALL_MASK):
 	var current_value = clamp(time.get_value_from_mask(mask), \
 			min_value, max_value)
 	return (current_value - min_value) / float(max_value - min_value)
+
+func signals(time: int):
+	SignalBus.emit_signal("minute", time)
+	if not time % TIME_MULTIPLIERS["hour"]:
+		SignalBus.emit_signal("hour", time)
+	if not time % TIME_MULTIPLIERS["day"]:
+		SignalBus.emit_signal("day", time)
+	if not time % TIME_MULTIPLIERS["month"]:
+		SignalBus.emit_signal("month", time)
+	if not time % TIME_MULTIPLIERS["year"]:
+		SignalBus.emit_signal("year", time)

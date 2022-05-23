@@ -8,41 +8,37 @@ onready var job_assigner = preload("res://ui/JobAssigner.tscn")
 
 onready var pathfinder = get_node("Pathfinding")
 onready var world_map = get_node("TileMap")
+onready var debug_map = get_node("TileMap/TileMap")
 onready var cursor1 = get_node("Cursor")
 onready var cursor2 = get_node("Cursor2")
-onready var character_debug = get_node("CanvasLayer/Control")
+#onready var character_debug = get_node("CanvasLayer/Control")
 var stockpile_menu: bool = false
 
 var chunk_cell: Vector2
 
 func _ready() -> void:
-	# IDEA: ideally for character generation you would build parts like this:
-	#			- generate physical body
-	#			- generate personality
-	#				- setup behavior
-	#			- attach to controller
-	#			- send it
-	(pathfinder as PathFinding).create_navigation_path(world_map)
+	pathfinder.create_navigation_path(world_map)
+	for i in Global.get_walkable_cells():
+		debug_map.set_cellv(Global.map_grid.calculate_grid_coordinates(i), 0)
 	for _i in range(1):
 		# Generates character DATA
 		var x: Character = character_generator.generate_ancestor()
 		Global.population.append(x)
 		# Instance new CHARACTER NODE
 		var new_character = character.instance()
+		new_character.data = x
 		# add it to the tree so you can SEE
 		add_child(new_character)
-		x.personality.set_name("PersonalityController")
-		new_character.add_child(x.personality)
 		# set the character name
 		new_character.name = x.get_name()
 		# set the CHARACTER DATA to CHARACTER NODE 	
-		new_character.data = x
+		
 		
 		new_character.pathfinding = pathfinder
 		# and finally set the position
 		new_character.set_position(Vector2(Util.randi_range(0, 300), Util.randi_range(0, 300)))
-		character_debug.character = new_character
-func _process(_delta: float) -> void:
+#		character_debug.character = new_character
+func _physics_process(_delta: float) -> void:
 	Time.advance(_delta) # Start the clock
 #	print(Time.get_time_as_dictionary())
 	pass
@@ -75,8 +71,12 @@ func _input(event: InputEvent) -> void:
 			var construction_generator = load("res://ConstructionInterface.tscn").instance()
 			$CanvasLayer.add_child(construction_generator)
 		if event.get_scancode() == KEY_D:
-			var construction_generator = load("res://ConstructionInterface.tscn").instance()
 			$CanvasLayer.get_node("Control").visible = !$CanvasLayer.get_node("Control").visible
-				
+		if event.get_scancode() == KEY_Q:
+			print("MAP POSITION: ", Global.map_grid.calculate_map_position(Global.map_grid.calculate_grid_coordinates(get_global_mouse_position())))
+			print("GRID POSITION: ", Global.map_grid.calculate_grid_coordinates(get_global_mouse_position()))
+			print("GLOBAL POSITION: ", get_global_mouse_position())
+			
+			
 		
 

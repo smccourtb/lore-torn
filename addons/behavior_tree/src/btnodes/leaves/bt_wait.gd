@@ -11,6 +11,7 @@ export(String) var time_in_bb: String
 
 
 func _tick(agent: CharacterController, blackboard: Blackboard) -> bool:
+	wait_time = rand_range(1,10)
 	if time_in_bb:
 		wait_time = blackboard.get_data(time_in_bb)
 	

@@ -6,4 +6,5 @@ export var description: String
 export var id: int
 # order by severity, feeling templates
 export var feeling_effects: Array
+var base_decay_rate: int = .05
 
